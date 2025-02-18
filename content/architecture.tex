@@ -3,9 +3,28 @@
 
 \section{Hardware}
 
-The Project is realised using a RaspberryPI as the central device, connected to which are an external network card, an ESP32 microcontroller, a display and a rotary encoder as user input. 
+The Project is realized using a RaspberryPI as the central device, connected to which are an external network card, an ESP32 microcontroller, a display and a rotary encoder for user input. 
+
+As the main computer the RaspberryPI 4B with 8GB of RAM was chosen due to its ease of use, linux based operating system and widely available documentation. 
 
 
 \includegraphics[width=\linewidth]{figures/Devices.png}
 
 \subsection{Software}
+
+The software of the project is mostly modular, it consists of a central program, which runs the user interface and then executes various shell scripts, with which the functions are implemented.
+When executing the setup script, the main program, which is written in C++, gets compiled and the executable gets called by the start.sh script.
+The program then displays the user interface, which is a simple interface, printed into the console. 
+Each page of the UI is a "Menu" object, each menu has a title, options of the type "MenuOptions", a variable to track the currently selected option, a method to add options to a menu and methods for navigation, input capture and displaying.
+MenuOption objects have a name, as well as an action of the std::function type, which can be executed by calling the execute() method.
+In the main of the program, the constructors for menues and the addOption() methods are beeing used, to create the different menues and their submenues.
+The program starts by calling the navigate() function of the main menu, which then displays all available submenues and menu options.
+All submenues work in the same way as the main menu, getting their respective navigate() called upon selection.
+During navigation the UI peridiodically prints the available options, using unicode to highlight the currently selected option as well as to give contrast to the title of the menu.
+
+For input the device uses a rotary encoder with a pushbutton, turning the encoder moves the selection up or down in the menues, the pushbutton executes the selected option.
+The encoder is connected to the RaspberryPIs GPIO interface and the input signals are read and processed by the encoder program.
+The start.sh script starts both programs and pipes the stdout of encoder into the stdin of main.
+When an action of the encoder is detected, the according command gets sent to main, the commands beeing the unicodes for the up/down arrows and the enter key on a keyboard.
+For example, the User turns the the encoder one click clockwise, therefore main receives one downwards error symbol and the selections moves to the next option below.
+Because no special commands are utilized for navigation, the program can be easily tested on any computer, by navigating with the keyboard.
