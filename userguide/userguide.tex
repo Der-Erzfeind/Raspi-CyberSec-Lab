@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage[ngerman]{babel}
+\geometry{margin=1in}
+
+% Title Page
+\title{\textbf{Anleitung zum Raspi-CyberSec-Lab}}
+\author{Jonas Schmitt}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Allgemeine Informationen}
+Das RaspberryPI Cybersecurity Lab ist eine Platform zum Testen verschiedener Cyberangriffe, das Projekt ist Teil meiner Bachelorarbeit in Elektro- und Informationstechnik an der Technischen Hochschule Nürnberg.
+Es hat verschiedene Funktionen um Umgebungen zu schaffen, welche für das Ausprobieren von Angriffen aus den Bereichen Wifi Netzwerke, Webseiten / -applikationen, MQTT Kommunikation und Bluetooth ausgelegt sind.
+
+\section{Voraussetzungen}
+Das Projekt wurde mit folgender Hardware umgesetzt:
+\begin{itemize}
+    \item RaspberryPI 4B mit 8GB RAM
+    \item Fenvi AX1800 USB Netzwerkkarte
+    \item Waveshare ESP32c6 Microcontroller
+    \item Waveshare 4.3 zoll LCD 
+    \item Drehgeber mit Druckknopf
+\end{itemize}
+
+Als Betriebssystem des RaspberryPI dient RaspberryPI OS in der light Version (nur Kommandozeile).
+Zum Kompilieren und Flashen des ESP32 Codes wird das ESP-IDF benötigt, dieses kann in Visual Studio Code als Erweiterung installiert werden.
+
+\section{Installation}
+ Zuerst muss das Github \href{https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git}{Repository} des Projekts auf den RaspberryPI geklont werden, dies kann mit folgendem Kommando erfolgen:
+ \begin{verbatim}
+    git clone https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git
+ \end{verbatim}
+Es wird empfohlen das Repository in das standardmäßige Nutzerverzeichnis zu klonen.
+
+Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh ausgeführt werden.
+
+\section{Benutzeranleitung}
+
+Zum Einschalten des Geräts, schließen Sie das Gerät mit dem zugehörigen Netzteil an den Strom an.
+Das Gerät fährt nun hoch, wobei der Bootvorgangn zu sehen ist. (in der linken oberen Ecke wird das RaspberryPI Logo angezeigt)
+
+Zur Navigation wird das Drehrad genutzt:
+\begin{figure}
+    \item 
+\end{figure}
+
+\subsection{Übersicht Hauptmenü}
+Nach erfolgreichem Bootvorgang wird das Hauptmenü angezeigt, in diesem stehen folgende Optionen zur Verfügung:
+\begin{itemize}
+    \item \textbf{Wifi} - Optionen zu Wifi Netzwerken
+    \item \textbf{Bluetooth} - Optionen zu Bluetooth
+    \item \textbf{Webapp} - Optionen zu Webapplikationen
+    \item \textbf{power off} - Ausschalten des Geräts
+\end{itemize}
+
+\section{Features and Usage}
+\subsection{Feature 1}
+Description and steps to use Feature 1.
+
+\subsection{Feature 2}
+Description and steps to use Feature 2.
+
+\section{Troubleshooting}
+Common issues and their solutions.
+\begin{itemize}
+    \item \textbf{Issue 1:} Description and solution.
+    \item \textbf{Issue 2:} Description and solution.
+\end{itemize}
+
+\section{Support and Contact Information}
+For further support, contact:
+\begin{itemize}
+    \item Email: support@example.com
+    \item Phone: +1-234-567-890
+    \item Website: \url{http://example.com/support}
+\end{itemize}
+
+\end{document}

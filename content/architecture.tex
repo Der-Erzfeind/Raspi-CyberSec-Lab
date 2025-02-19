@@ -10,7 +10,7 @@ As the main computer the RaspberryPI 4B with 8GB of RAM was chosen due to its ea
 
 \includegraphics[width=\linewidth]{figures/Devices.png}
 
-\subsection{Software}
+\section{Software}
 
 The software of the project is mostly modular, it consists of a central program, which runs the user interface and then executes various shell scripts, with which the functions are implemented.
 When executing the setup script, the main program, which is written in C++, gets compiled and the executable gets called by the start.sh script.
@@ -27,4 +27,12 @@ The encoder is connected to the RaspberryPIs GPIO interface and the input signal
 The start.sh script starts both programs and pipes the stdout of encoder into the stdin of main.
 When an action of the encoder is detected, the according command gets sent to main, the commands beeing the unicodes for the up/down arrows and the enter key on a keyboard.
 For example, the User turns the the encoder one click clockwise, therefore main receives one downwards error symbol and the selections moves to the next option below.
-Because no special commands are utilized for navigation, the program can be easily tested on any computer, by navigating with the keyboard.
+Because no special commands are utilized for navigation, the program can be easily tested on any computer by navigating with the keyboard.
+
+When an action is executed, main calls the according shell script with the system() function.
+The wifiActivate.sh script is used to open wifi hotspots, where the user can choose the type of Wifi standard beeing used. 
+It receives an input command and then establishes a WEP, WPA, WPA2 or WPA3 network.
+With the wifiReset.sh script, the user can deactivate the active network.
+Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network.
+The script the pulls a random password out of a password list, which contains popular passwords that have been filtered to work with the specification of each network standard.
+To display the current status of the network, meaning its security standard, SSID and password, the wifiStatus.sh script is used.
