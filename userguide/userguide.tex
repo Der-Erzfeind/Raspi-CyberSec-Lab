@@ -4,6 +4,7 @@
 \usepackage{geometry}
 \usepackage[ngerman]{babel}
 \geometry{margin=1in}
+\setlength{\parindent}{0pt}
 
 % Title Page
 \title{\textbf{Anleitung zum Raspi-CyberSec-Lab}}
@@ -46,12 +47,8 @@ Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh au
 \section{Benutzeranleitung}
 
 Zum Einschalten des Geräts, schließen Sie das Gerät mit dem zugehörigen Netzteil an den Strom an.
-Das Gerät fährt nun hoch, wobei der Bootvorgangn zu sehen ist. (in der linken oberen Ecke wird das RaspberryPI Logo angezeigt)
+Das Gerät fährt nun hoch, wobei der Bootvorgangn zu sehen ist (in der linken oberen Ecke wird das RaspberryPI Logo angezeigt).
 
-Zur Navigation wird das Drehrad genutzt:
-\begin{figure}
-    \item 
-\end{figure}
 
 \subsection{Übersicht Hauptmenü}
 Nach erfolgreichem Bootvorgang wird das Hauptmenü angezeigt, in diesem stehen folgende Optionen zur Verfügung:
@@ -62,26 +59,48 @@ Nach erfolgreichem Bootvorgang wird das Hauptmenü angezeigt, in diesem stehen f
     \item \textbf{power off} - Ausschalten des Geräts
 \end{itemize}
 
-\section{Features and Usage}
-\subsection{Feature 1}
-Description and steps to use Feature 1.
+\subsection{Navigation}
+Zur Navigation wird das Drehrad, wie in folgender Abbildung beschrieben, genutzt:
 
-\subsection{Feature 2}
-Description and steps to use Feature 2.
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.6\linewidth]{../figures/navigation.png}
+    \label{fig:navigation}
+\end{figure}
 
-\section{Troubleshooting}
-Common issues and their solutions.
+
+Die farbige Hinterlegung zeigt an, welcher Menüpunkt aktuell ausgewählt ist. 
+Mit dem Drücken des Knopfes wird die Auswahl bestätigt und das Untermenü geöffnet, bzw die Aktion ausgeführt.
+
+\subsection{Menü Übersicht}
+
+Dem Nutzer steht der folgende Menübaum zu Verfügung:
+
 \begin{itemize}
-    \item \textbf{Issue 1:} Description and solution.
-    \item \textbf{Issue 2:} Description and solution.
-\end{itemize}
-
-\section{Support and Contact Information}
-For further support, contact:
-\begin{itemize}
-    \item Email: support@example.com
-    \item Phone: +1-234-567-890
-    \item Website: \url{http://example.com/support}
+    \item \textbf{Wifi} - Optionen zu Wifi Netzwerken
+        \begin{itemize}
+            \item \textbf{activate} - Aktivieren eines Hotspots
+                \subitem Auswahl der Netzwerkart
+            \item deactivate - Abschalten des aktiven Hotspots
+            \item status - Anzeigen der aktuellen Netzwerkeinstellungen
+            \item password - Setzen eines neuen Passworts
+                \subitem Auswahl der zu änderenden Netzwerkart
+            \item monitoring - Einschalten und Anzeigen des Netzwerkmonitoring
+                \subitem on - Einschalten
+                \subitem off - Ausschalten
+                \subitem show - Log anzeigen
+        \end{itemize}
+    \item \textbf{Bluetooth} - Optionen zu Bluetooth
+    \item \textbf{Webapp} - Optionen zu Webapplikationen
+        \begin{itemize}
+            \item Juice Shop
+                \subitem on - Server Einschalten
+                \subitem off - Server Ausschalten
+            \item MQTT
+                \subitem on - MQTT Konversation starten
+                \subitem off - MQTT Konversation beenden
+        \end{itemize}
+    \item \textbf{power off} - Ausschalten des Geräts
 \end{itemize}
 
 \end{document}
