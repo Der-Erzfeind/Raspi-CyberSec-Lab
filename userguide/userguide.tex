@@ -41,8 +41,17 @@ Zum Kompilieren und Flashen des ESP32 Codes wird das ESP-IDF benötigt, dieses k
     git clone https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git
  \end{verbatim}
 Es wird empfohlen das Repository in das standardmäßige Nutzerverzeichnis zu klonen.
+Folgende Aktionen müssen im Anschluss ausgeführt werden:
 
-Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh ausgeführt werden.
+\begin{itemize}
+    \item Kompilieren von main.cpp, encoder.cpp und mqtt.cpp
+    \item Alle Skripte ausführbar machen
+    \item Installation und Konfiguration von Mosquitto
+    \item Installation des JuiceShops (und node.js)
+    \item Einrichten des systemd services zum Ausführen von start.sh beim Start des Geräts
+    \item Kompilieren und Flashen des ESP32 Codes
+\end{itemize}
+%Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh ausgeführt werden.
 
 \section{Benutzeranleitung}
 

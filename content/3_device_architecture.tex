@@ -26,12 +26,15 @@ For input the device uses a rotary encoder with a pushbutton, turning the encode
 The encoder is connected to the RaspberryPIs GPIO interface and the input signals are read and processed by the encoder program.
 The start.sh script starts both programs and pipes the stdout of encoder into the stdin of main.
 When an action of the encoder is detected, the according command gets sent to main, the commands beeing the unicodes for the up/down arrows and the enter key on a keyboard.
-For example, the User turns the the encoder one click clockwise, therefore main receives one downwards error symbol and the selections moves to the next option below.
+For example, the User turns the the encoder one click clockwise, therefore main receives one downwards arrow symbol and the selections moves to the next option below.
 Because no special commands are utilized for navigation, the program can be easily tested on any computer by navigating with the keyboard.
 
 When an action is executed, main calls the according shell script with the system() function.
 The wifiActivate.sh script is used to open wifi hotspots, where the user can choose the type of Wifi standard beeing used. 
 It receives an input command and then establishes a WEP, WPA, WPA2 or WPA3 network.
+
+\lstinputlisting[language=bash, caption={extract of wifiActivate.sh}, lastline=10]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
+    
 With the wifiReset.sh script, the user can deactivate the active network.
 Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network.
 The script the pulls a random password out of a password list, which contains popular passwords that have been filtered to work with the specification of each network standard.
@@ -40,12 +43,13 @@ To display the current status of the network, meaning its security standard, SSI
 
 
 
-\begin{lstlisting}[language=Python,caption={This is an example of inline listing},captionpos=b]
-x = 1
-if x == 1:
-    # indented four spaces
-    print("x is 1.")
+\begin{lstlisting}[language=C,caption={This is an example of inline listing},captionpos=b]
+#include <string.h>
+int x = 1;
+if(x == 1){
 
+    printf("x is 1.");
+}
 \end{lstlisting}
 
 You can also include listings from a file directly:

@@ -89,6 +89,7 @@
     linktocpage=true,
 ]{hyperref}
 
+\usepackage{xcolor}
 % configure your listings style
 \usepackage{listings}
 \lstset{
@@ -97,8 +98,12 @@
 	frame=single,
 	showstringspaces=true,
 	numbers=left,
-	numberstyle=\small,
-	breakautoindent=true
+	breakautoindent=trubreaklines=true,                     % Enable line breakinge
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  numberstyle=\tiny\color{gray},
 }
 
 % page setup
@@ -121,9 +126,6 @@
 \newcommand{\wrt}{\mbox{w.\,r.\,t.\ }}
 \newcommand{\etal}{\mbox{\emph{et\,al.\ }}}
 
-
-% TODO remove if not needed...
-\usepackage{blindtext}
 
 % load glossary entries
 \makenoidxglossaries
