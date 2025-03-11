@@ -40,7 +40,7 @@ WiFi has a MAC layer, which is designed to be flexible and can be configured in 
 
 %evtl. Grafik einfügen
 
-BSS describes the most comman and basic configuration, where multiple STAs are connected to one AP, which has wired connection to the internet.
+BSS describes the most common and basic configuration, where multiple STAs are connected to one AP, which has wired connection to the internet.
 IBSS networks dont have any APs, instead the STAs are connected directly to each other.
 WDS can be used, when the reach of an AP needs to be extended, but there is no wired connection available. 
 A secondary AP can be installed which receives backhaul connection from another AP.
@@ -51,7 +51,30 @@ This type of network can improve the signal coverage and resilience and is often
 
 When data is sent over the MAC layer, it gets divided into chunks, which are called MAC Frames.
 MAC Frames have three components: the header, the body and the frame check sequence.
-The header contains information about the source and destination, the frame type or power management
+The header contains information about the source and destination, the sequence and serveral control functions.
+In a BSS network it has the following functions:
+
+\begin{itemize}
+    \item \textbf{Frame Control} contains 16 Bits which serve different control functions
+        \subitem \textbf{protocol version} describes which version of the MAC protocol this frame uses
+        \subitem \textbf{type} describes the type of MAC frame is beeing used: there are data, management, control and acknowledgment frames
+        \subitem \textbf{subtype} describes the subtype of the frame, e.g. association request or beacon frame
+        \subitem \textbf{from/to ds} indicates the direction of travel
+        \subitem \textbf{more fragment} indicates more following fragments
+        \subitem \textbf{retry} indicates that the current frame is a retransmission
+        \subitem \textbf{power management} gives information about the power state of the STA
+        \subitem \textbf{more data} indicates more frames are to be transmitted 
+        \subitem \textbf{protected frame} indicates whether a frame is encrypted
+        \subitem \textbf{order} set to 1 if the order of processing is important
+
+    \item \textbf{duration}
+    \item \textbf{adress 1} contains the receiver address (RA), which can be the MAC address of the destination STA or the BSSID of the AP, depending on the direction, the frame travels
+    \item \textbf{adress 2} contains the transmitter adress (TA), which can be the BSSID or the source address.
+    \item \textbf{adress 3} contains either the source or destination address
+    \item \textbf{sequence control}
+    \item \textbf{adress 4} this field is optional, and does not get used in BSS networks
+        
+\end{itemize} \cite{GeeksforGeeks_2023} \cite[page~10]{Sankaran_Gulasekaran_2021}
 
 \subsection{PHY layer}
 The first generations of WiFi used transmit in the 2.4 Ghz band, but due to it beeing used by many other devices, such as cordless phones, computer peripherals, bluetooth devices or microwave ovens, WiFi 4 started using the 5 Ghz band, in order to improve connectivity.
