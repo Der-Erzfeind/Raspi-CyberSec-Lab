@@ -1,14 +1,4 @@
-\chapter{Basics}\label{ch:basics}
-
-\section{Cybersecurity}
-Through the progression of digitalization, Cybersecurity is of ever increasing relevance to the security of IT-Systems.
-An increasing number of devices are connected to the internet, making them part of the cyberspace and therefore potentially vulnerable to cyberattacks.
-Almost all sectors of our lives are at risk, when our homes, infrastructure, media devices, industries and governments are connected to the internet.
-
-Cybersecurity aims to protect these devices by achieving the well-known CIA triad, which is an acronym for Confidentiality, Integrity, and Availability. \cite[chapter~Attacking Integrity Controls]{Oriyano_2017}
-    
-
-
+\chapter{Wifi Basics}\label{ch:wifi_basics}
 
 \section{WiFi History}
 
@@ -38,7 +28,6 @@ WiFi has a MAC layer, which is designed to be flexible and can be configured in 
     \item \textbf{MBSS}: Mesh BSS
 \end{itemize}
 
-%evtl. Grafik einfügen
 
 BSS describes the most common and basic configuration, where multiple STAs are connected to one AP, which has wired connection to the internet.
 IBSS networks dont have any APs, instead the STAs are connected directly to each other.
@@ -48,6 +37,12 @@ Mesh Networks are complex BSS networks with multiple APs, which the STAs can hop
 This type of network can improve the signal coverage and resilience and is often used in companies or public institutions with many STAs. \cite[page~8-9]{Sankaran_Gulasekaran_2021}
 
 \subsection{MAC Frames}
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.6\linewidth]{figures/MAC_Frame.png}
+    \label{fig:mac_frame}
+\end{figure}
 
 When data is sent over the MAC layer, it gets divided into chunks, which are called MAC Frames.
 MAC Frames have three components: the header, the body and the frame check sequence.
@@ -107,8 +102,59 @@ The APs answer with a probe respose frame, which contains the AP's SSID, BSSID a
 Passive scanning works by the STA listening for beacon frames.
 Beacon frames are periodically sent out by APs and also contain information on SSID, BSSID and capability. \cite[page~18]{Sankaran_Gulasekaran_2021}
 
+Once the desired network is discovered the STA decides which AP to connect to, based on parameters, like the receive signal strength indicator (RSSI) or the APs capacity, performance and security.
+The STA then sends an authentication request, which the AP gives an authentication response to.
+If the credentials of the STA are valid and the authentication is successful, the STA proceeds to send an association request.
+The association response, sent by the AP, then indicates, if the connection was established successfully.
 
-\subsection{PHY layer}
-The first generations of WiFi used transmit in the 2.4 Ghz band, but due to it beeing used by many other devices, such as cordless phones, computer peripherals, bluetooth devices or microwave ovens, WiFi 4 started using the 5 Ghz band, in order to improve connectivity.
+To terminate a connection, either the STA or the AP can send a disassociation or deauthentication frame, "containing a reason code that specifies the reason for termination" \cite[page~20]{Sankaran_Gulasekaran_2021}. \cite[page~19]{Sankaran_Gulasekaran_2021}
 
-\subsection{Security}
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.6\linewidth]{figures/Connection_Establishment.png}
+    \label{fig:connection_establishment}
+\end{figure}
+
+\section{PHY layer}
+The WiFi PHY layer is based on radio frequency (RF), therefore WiFi transceivers contain a transmitter and receiver circuit, as well as an antenna.
+When sending data, MAC frames are encoded and modulated onto a RF waveform which is then transmitted via the antenna.
+On arrival of data, the receiver circuit decodes the data, extracts the MAC frame, and provides it to the MAC layer.
+The first generations of WiFi used to transmit in the 2.4 Ghz band, but due to it beeing used by many other devices, such as cordless phones, computer peripherals, bluetooth devices or microwave ovens, WiFi 4 started using the 5 Ghz band, in order to improve connectivity. \cite[page~5,34,35]{Sankaran_Gulasekaran_2021}
+With every generation of WiFi, the PHY layer components are modified to improve performance and efficiency, but due to the PHY layer not beeing majorly significant for cybersecurity, it will not be described further in this thesis.
+
+\section{Security}
+
+Through the widespread adoption of WiFi technology, for example in smart homes, infrastructure, public spaces, industry and goverments, the security of WiFi networks plays an ever increasing role.
+Therefore principles of cybersecurity need to be applied, in order to guarantee that networks are safe, reliable and performant.
+Cybersecurity aims to protect devices and data by achieving the CIA triad, which is an acronym for Confidentiality, Integrity, and Availability \cite[chapter~Attacking Integrity Controls]{Oriyano_2017} .
+Because of its wireless nature, "[i]t is difficult to confine the data-carrying radio waves to be within the physical security perimeter of [an] organizsation" \cite[page~103]{Sankaran_Gulasekaran_2021}, so anyone in the vicinity of a WiFi network could just intercept and manipulate network traffic.
+To ensure integrity and confidentiality, WiFi two main security mechanisms, which are encryption and authentication. \cite[page~103]{Sankaran_Gulasekaran_2021}
+    
+\subsection{Encryption}
+Encryption is a cryptographic \footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the recipient.
+The encrypted text is called ciphertext and can be made readable again, by decrypting it.
+To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
+
+The first "secure" WiFi standard, called wired equivalent privacy (WEP) uses a shared key, with a RC4 stream cipher algorithm for message encryption and a 32-Bit CRC as a integrity check (IC).
+Due to serveral vulnerabilities of WEP, including the RC4 algorithm, a lack of authentication and no key management, the second standard, wireless protected access (WPA), was developed.
+WPA still used RC4 for compatibility reasons, but the encryption is based on a pairwise master key, which is generated for each STA after it has authenticated successfully.
+
+
+\begin{table}[h]
+    \centering
+    \caption{Evolution of Wi-Fi Security \cite[page~123]{Sankaran_Gulasekaran_2021}}
+    \label{tab:wifi_security}
+    \ra{1.5}
+    \begin{tabular}{@{}lcrrrr@{}}
+        \toprule
+        & \phantom{a} & {WEP} & {WPA} & {WPA2} & {WPA3} \\
+        \midrule
+        \textit{Certification start} && - & 2003 & 2004 & 2018 \\
+        \textit{Mandatory since} && - & 2006 & 2006 & 2019 \\
+        \textit{Information element} && None & WPA IE & RSN IE & RSN IE \\
+        \textit{Encryption} && RC4 & TKIP & TKIP, AES-CCMP & AES-CCMP, AES-GCMP \\
+        \textit{Authentication} && None & PSK, 802.1X & PSK, 802.1X & SAE, 802.1X \\
+        \textit{Open Wi-Fi security} && None & None & None & OWE \\
+        \bottomrule
+    \end{tabular}
+\end{table}
