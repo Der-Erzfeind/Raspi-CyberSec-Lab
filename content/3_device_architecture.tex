@@ -24,6 +24,16 @@ The program starts by calling the navigate() function of the main menu, which th
 All submenues work in the same way as the main menu, getting their respective navigate() called upon selection.
 During navigation the UI peridiodically prints the available options, using unicode to highlight the currently selected option as well as to give contrast to the title of the menu.
 
+\begin{figure}[h]
+    \includegraphics[width=0.3\linewidth]{figures/hackerypi/menu_main.png}
+    \includegraphics[width=0.3\linewidth]{figures/hackerypi/menu_wifi.png}
+    \includegraphics[width=0.3\linewidth]{figures/hackerypi/menu_webapp.png}
+    \centering
+    \caption{Device Menues}
+    \label{fig:menues}
+\end{figure}
+
+    
 For input the device uses a rotary encoder with a pushbutton, turning the encoder moves the selection up or down in the menues, the pushbutton executes the selected option.
 The encoder is connected to the RaspberryPIs GPIO interface and the input signals are read and processed by the encoder program.
 The start.sh script starts both programs and pipes the stdout of encoder into the stdin of main.
@@ -35,7 +45,14 @@ When an action is executed, main calls the according shell script with the syste
 The wifiActivate.sh script is used to open wifi hotspots, where the user can choose the type of Wifi standard beeing used. 
 It receives an input command and then establishes a WEP, WPA, WPA2 or WPA3 network.
 
-\lstinputlisting[language=bash, caption={extract of wifiActivate.sh}, lastline=10]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
+\lstinputlisting[
+    language=bash,
+    caption={extract of wifiActivate.sh},
+    lastline=16,
+    breaklines=true,
+    basicstyle=\ttfamily\fontsize{8}{9}\selectfont
+]
+    {listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
     
 With the wifiReset.sh script, the user can deactivate the active network.
 Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network.
@@ -43,7 +60,25 @@ The script the pulls a random password out of a password list, which contains po
 To display the current status of the network, meaning its security standard, SSID and password, the wifiStatus.sh script is used.
 
 
+\begin{figure}[h]
+    \includegraphics[width=0.3\linewidth]{figures/hackerypi/status_wifi.png}
+    \includegraphics[width=0.3\linewidth]{figures/hackerypi/activate_monitor.png}
+    \centering
+    \caption{WiFi Status and Monitor}
+    \label{fig:status_monitor}
+\end{figure}
 
+After a WiFi hotspot has been activated, a command with the connection details is sent to the ESP32 over uart.
+The ESP32 will connect to the provided network, after uartSendNI.sh has provided the according information.
+
+
+\lstinputlisting[
+    language=bash,
+    caption={extract of wifiActivate.sh},
+    breaklines=true,
+    basicstyle=\ttfamily\fontsize{8}{9}\selectfont
+]
+    {listings/Raspi-CyberSec-Lab-Project/Skripte/uartSendNI.sh}
 
 \begin{lstlisting}[language=C,caption={This is an example of inline listing},captionpos=b]
 #include <string.h>
@@ -56,5 +91,4 @@ if(x == 1){
 
 You can also include listings from a file directly:
 
-\lstinputlisting[language=Python,caption={This is an example of included listing},captionpos=b]{listings/example.py}
 
