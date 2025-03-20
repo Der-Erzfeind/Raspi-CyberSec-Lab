@@ -90,7 +90,7 @@ WiFi instead uses a medium access control referred to as carrier sense multiple 
 When using this technique, the medium gets blocked during transmission and is freed by an acknowledgment frame, sent by the receiving device.
 All STAs start off in the random backoff state, where they listen for traffic.
 After the random backoff counter has expired and no traffic is present, the STA will start transmission.
-CSMA-CA can be described by the way "humans converse in a group, where every individual would first listen to check if someone else is talking, wait for the person talking to finish, and then start talking after a brief random pause" \cite[page~12]{Sankaran_Gulasekaran_2021}. \cite[chapter~Attacking Integrity Controls]{Oriyano_2017} \cite[page~12-17]{Sankaran_Gulasekaran_2021}
+CSMA-CA can be described by the way "humans converse in a group, where every individual would first listen to check if someone else is talking, wait for the person talking to finish, and then start talking after a brief random pause" \cite[page~12]{Sankaran_Gulasekaran_2021}. \cite{Oriyano_2017} \cite[page~12-17]{Sankaran_Gulasekaran_2021}
 
 \subsection{Connection Establishment and Termination}
 Before a connection can be established, the STA first needs to discover the AP it wants to connect to.
@@ -126,7 +126,7 @@ With every generation of WiFi, the PHY layer components are modified to improve 
 
 Through the widespread adoption of WiFi technology, for example in smart homes, infrastructure, public spaces, industry and goverments, the security of WiFi networks plays an ever increasing role.
 Therefore principles of cybersecurity need to be applied, in order to guarantee that networks are safe, reliable and performant.
-Cybersecurity aims to protect devices and data by achieving the CIA triad, which is an acronym for Confidentiality, Integrity, and Availability \cite[chapter~Attacking Integrity Controls]{Oriyano_2017} .
+Cybersecurity aims to protect devices and data by achieving the CIA triad, which is an acronym for Confidentiality, Integrity, and Availability \cite{Oriyano_2017} .
 Because of its wireless nature, "[i]t is difficult to confine the data-carrying radio waves to be within the physical security perimeter of [an] organizsation" \cite[page~103]{Sankaran_Gulasekaran_2021}, so anyone in the vicinity of a WiFi network could just intercept and manipulate network traffic.
 To ensure integrity and confidentiality, WiFi two main security mechanisms, which are encryption and authentication. \cite[page~103]{Sankaran_Gulasekaran_2021}
 
@@ -140,8 +140,8 @@ To en- and decrypt a message, the sender and recipient have knowledge of a secre
 The first "secure" WiFi standard, called wired equivalent privacy (WEP) uses a shared key, with a RC4 stream cipher algorithm for message encryption and a 32-Bit CRC as a integrity check (IC).
 Due to serveral vulnerabilities of WEP, including the RC4 algorithm, a lack of authentication and no key management, the second standard, wireless protected access (WPA), was developed.
 
-WPA still uses RC4 for compatibility reasons, but the encryption is based on a pairwise master key, which is generated for each STA after it has authenticated successfully.
-As well as using a longer 128-Bit preshared key (PSK), the TKIP encryption dynamically changes the encryption key for each packet.
+WPA still uses the RC4 cipher for compatibility reasons, but the encryption mechnism was updated, now called Temporal Key Integrity Protocol (TKIP), it uses a pairwise master key, which is generated for each STA after it has authenticated successfully.
+TKIP also dynamically changes the encryption key for each packet, which in combination with a longer 128-Bit preshared key (PSK) fixed some of the weaknesses of WEP. \cite{Oriyano_2017}
 
 WPA2 could be considered as the first proper WiFi security standard, since it replaced the weak RC4 algorithm with AES-CCMP\footnote{Advanced Encryption Security - Counter mode CBC MAC Protocol} encryption.
 AES-CCMP encrypts data blockwise and uses a compbination of substitution and transposition algorithms to acheive high security.
@@ -153,8 +153,8 @@ Most changes for WPA3 have been made in authentication mechanisms, WPA3 added th
 
 \subsection{Authentication}
 
-Authentication is the act of a user proving, that he is authorised to access something.
-This is oftentimes done by asking for a secret, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
+Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
+This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
 
 WEP authentication is only one-sided, where STA has to encrypt a package with the correct key, in order to complete association with the AP. 
 The same key is used for encryption, making the whole system vulnerable, when ether the authentication or the encryption is exploited. 
@@ -163,7 +163,7 @@ WPA and WPA2 networks use an authentication mechanism, that is two sided, where 
 After entering the correct passphrase a password-based key derivation function then generates the PSK for encryption. 
 
 WPA3 replaces the PSK by simultaneous authentication of equals (SAE)
-
+\cite{Oriyano_2017}, \cite[page~??]{Sankaran_Gulasekaran_2021}
 
 \begin{table}[h]
     \centering

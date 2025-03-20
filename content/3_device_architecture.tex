@@ -9,12 +9,23 @@ The Project is realized using a RaspberryPI as the central device, connected to 
 
 As the main computer the RaspberryPI 4B with 8GB of RAM was chosen due to its ease of use, linux based operating system and widely available documentation. 
 
+To be able to also test on WPA3 networks, an external network card is needed, due to the internal network card of the RPI not supporting the ciphers used by WPA3.
+The Fenvi AX1800 USB WiFi card was chosen for its compatibility with the linux kernel, according to the USB-Wifi github by user morrownr \cite{morrownr_USB_WiFi}.
+Another factor for this card was the low pricepoint as well as its smaller formfactor, which lets it fit inside case for the device.
+
+Selecting from the large offer of ESP32 MCUs, again size was taken into account and the ESP32-C6 Mini by Waveshare was chosen for its small size and good feature set.
+It connects to the RPI's GPIO pins using simple jumper cables, which supplies the ESP32 with power and establishes a UART connection.
+
+Another device connected to the RPI's GPIO header is the rotary encoder.
+On its five pins, it receives 3.3V supply voltage and outputs a gray code, indicating the direction of rotation, on two of its outputs. 
+The fith pin is used for the pushbutton inside the rotary encoder.
+
 
 \includegraphics[width=\linewidth]{figures/Devices.png}
 
 \section{Software}
 
-The software of the project is mostly modular, it consists of a central program, which runs the user interface and then executes various shell scripts, with which the functions are implemented.
+The software of the project is mostly modular and it consists of a central program, which runs the user interface and then executes various shell scripts, with which the functions are implemented.
 When executing the setup script, the main program, which is written in C++, gets compiled and the executable gets called by the start.sh script.
 The program then displays the user interface, which is a simple interface, printed into the console. 
 Each page of the UI is a "Menu" object, each menu has a title, options of the type "MenuOptions", a variable to track the currently selected option, a method to add options to a menu and methods for navigation, input capture and displaying.
@@ -69,8 +80,11 @@ To display the current status of the network, meaning its security standard, SSI
 \end{figure}
 
 After a WiFi hotspot has been activated, a command with the connection details is sent to the ESP32 over uart.
-The ESP32 will connect to the provided network, after uartSendNI.sh has provided the according information.
+This functionality is implemented by the uartSendNI.sh script, which gets called from wifiActivate.sh.
+Receiving the network information, the ESP32 will then connect to the provided network and act as a communication partner for the RPI.
 
+Selecting the "monitor" option, the user is presented with the options of de-/activating the network monitoring as well as viewing or deleting the monitoring log.
+When activating monitoring, wifiMonitor.sh uses the \lstinline[]|iw event -T| command to log devices connecting and disconnecting from the network.
 
 \lstinputlisting[
     language=bash,
@@ -80,15 +94,13 @@ The ESP32 will connect to the provided network, after uartSendNI.sh has provided
 ]
     {listings/Raspi-CyberSec-Lab-Project/Skripte/uartSendNI.sh}
 
-\begin{lstlisting}[language=C,caption={This is an example of inline listing},captionpos=b]
-#include <string.h>
-int x = 1;
-if(x == 1){
+Inside the webapp menu the JuiceShop and MQTT communication can be found.
+When activating the JuiceShop, the juiceShop.sh script will start up the server for the OWASP JuiceShop project and open a hotspot, which can be used to access the simulated webstore.
 
-    printf("x is 1.");
-}
-\end{lstlisting}
+When a WiFi network has already been activated from the WiFi menu, a simulated MQTT communication can be started from the MQTT menu.
+Starting a conversation will again send a command via uart to the ESP32, prompting it to connect to the MQTT broker, running on the RPI.
+Following up uart.sh starts the uart program, which starts an infinite MQTT conversation with the ESP32.
 
-You can also include listings from a file directly:
+The development menu contains options used during development, these can be adjusted on the fly in the development.sh script.
 
-
+When selecting the shutdown option, all running processes are stopped and the shutdown.sh script calls \lstinline[]|shutdown now| to turn off the device.

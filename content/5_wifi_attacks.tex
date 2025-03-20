@@ -9,4 +9,44 @@ Those who engage in this activity will build custom rigs built out of a combinat
 These individuals may just be interested in locating and targeting a specific network for their own ends or, in some cases, they may even share this information to an online database or website where any visitor can search for these access points.
 
 \cite{Oriyano_2017}
-\section{Abc}
+
+\section{Overview}
+WiFi attacks can take many different forms, depending on the type of attack and and which mechanism it tries to break.
+There are attacks aimed at breaking the Access Controls, Integrity Controls, Confidentiality or Availability.
+
+Subsequently the following attacks will be explained and tested on the RPI in chapter 6:
+
+\begin{multicols}{2}
+    \begin{itemize}
+        \item War Driving
+        \item Rogue access point
+        \item Evil Twin
+        \item Cracking WEP
+        \item MAC spoofing
+        \item Deassociation
+        \item Deauthentication
+        \item Man-in-the-middle
+        \item Cracking WPA
+        \item KRACK
+        \item Cracking WPA3
+    \end{itemize}
+\end{multicols}
+
+\section{War Driving}
+War Driving describes the act of gathering information on WiFi networks in larger numbers in order to locate specific or weak targets.
+This is done by traversing areas of interest with data collection equipment, which collects information about every network coming into range.
+After capturing and mapping as many WiFi networks as possible, a more sophisticated attack can be launched on the captured networks or the data can be sold on the black market. \cite{Oriyano_2017}
+
+\section{Rogue Access Point and Evil Twin}
+When using Rogue Access Points, attackers place extra APs onto a network, trying to stay undetected and get STAs to connect to the malicious AP.
+This can for example be done by connecting an AP to an open and unprotected LAN port inside a public or company building.
+Once a STA has connected to the rogue AP it acts as a MITM, allowing the attacker to manipulate or eavesdrop on the traffic.
+
+Evil Twins have some similarity to Rogue Access Points, in that they also pretend to be a legitimate part of an existing network.
+Different to Rogue APs, Evil Twins do not connect to the legitimate network, but instead spoof \footnote{replicate, fake, pretend} wireless networks, providing a stronger signal, to again get STAs to connect to it.
+Some attackers might also use a deauthentication flood to get STA disconnected from their genuine AP and autoconnect to the malicious one.
+
+Because they only have one-way authentication, WEP and OWE networks are vulnerable to these attacks. \cite[page~105,119]{Sankaran_Gulasekaran_2021} 
+
+\section{Cracking WEP}
+Because WEP uses the same key for encrypting every frame, it can be reverse engineered by analyzing captured packets for reoccuring patterns.
