@@ -25,10 +25,36 @@ For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifna
 Unfortunately this command does not work for WEP networks, so I wrote a script, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection} and prints it in the same format as the nmcli utility.
 
 With the WiFi monitor function I wanted to implement a simple logger, which lets the user retrace the events of an attack, such as devices dis-/connecting or changes to the network.
-\lstinline[]|iw event -T| outputs the timestamp and MAC adress, when a device connects to or disconnects from the network.
-\lstinline[]|nmcli monitor| outputs any modifications made to the network status, but unfortunately does not output timestamps.
+\newline\lstinline[]|iw event -T| outputs the timestamp and MAC adress, when a device connects to or disconnects from the network. 
+\newline\lstinline[]|nmcli monitor| outputs any modifications made to the network status, but unfortunately does not output timestamps.
 I was also unsuccessful in printing timestamps with \lstinline[]|awk|or \lstinline[]|ts|, because ncmli monitor needs to be executed in the background to allow the UI to continue operating.
 Another problem, i have not been able to solve yet, is printing the output of both programs into a single logfile.
 
-%display resolution scaling
+In order to later use the device with the build in screen and selector dial, the RPI needs to be configured to run and display the main program on startup.
+Running the program on startup is done by creating a systemd service, which can be done by adding a configuration file for that service to \textit{/etc/systemd/system} and running the \lstinline[]|systemctl enable [service].service| command.
+Instead of a BIOS, the RPI has a configuration file (\textit{/boot/firmware/config.txt}), which is read on startup to initialize the hardware and operating system.
+To this file I added the following lines:
+
+\begin{itemize}[\null]
+    \item dtoverlay=waveshare35a
+    \item framebuffer\_width=200
+    \item framebuffer\_height=120 
+\end{itemize}
+
+The first line is for setting up an overlay to initialize the display, the other two lines are used to set the resolution.
+With the resolution set to the factory specification of 800x480, the UI is very small and not really suitable for the usecase.
+Since the OS only runs in the terminal without a graphic server, there is no easy options for scaling the image.
+Therefore I set a really low resolution of 200x120 to force the terminal to be displayed larger.
+Initially it was planned to use the display in vertical orientation, but the attempts to rotate the terminal by configuration inside the config.txt or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
+
+To use the encoder dial as a scrollwheel, its signals need to processed and translated to instructions for the main program.
+After soldering the encoder to a simple circuit of pull-up resistors and connecting it to the GPIO pins of the RPI, I enabled UART in the config.txt file and wrote the encoder.cpp program to process the inputs.
+Off the shelf rotary encoders have clicks similar to the scrolling wheel of a computer mouse and according to various online tutorials, the encoder switches one state on each click.
+
+\begin{figure}[h]
+   \includegraphics[width=0.7\textwidth]{figures/Abbildungen/encoder.pdf} 
+   \centering
+   \label{fig:encoder_processing}
+   \caption{Encoder Processing}
+\end{figure}
 %encoder processing
