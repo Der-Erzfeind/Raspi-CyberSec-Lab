@@ -49,7 +49,10 @@ Initially it was planned to use the display in vertical orientation, but the att
 
 To use the encoder dial as a scrollwheel, its signals need to processed and translated to instructions for the main program.
 After soldering the encoder to a simple circuit of pull-up resistors and connecting it to the GPIO pins of the RPI, I enabled UART in the config.txt file and wrote the encoder.cpp program to process the inputs.
-Off the shelf rotary encoders have clicks similar to the scrolling wheel of a computer mouse and according to various online tutorials, the encoder switches one state on each click.
+
+Off the shelf rotary encoders have clicks similar to the scrolling wheel of a computer mouse and output two digital signals, which when turned, oscillate with 90 degrees of phase shift, resulting in a grey code with two bits.
+Through saveing the previous state and comparing it to the new state, once the encoder was turned, the direction of rotation can be determined.
+According to various online source, these kind of encoders switch one state on each click like the dotted arrow in Figure \ref{fig:encoder_processing} depicts.
 
 \begin{figure}[h]
    \includegraphics[width=0.7\textwidth]{figures/Abbildungen/encoder.pdf} 
@@ -57,4 +60,10 @@ Off the shelf rotary encoders have clicks similar to the scrolling wheel of a co
    \label{fig:encoder_processing}
    \caption{Encoder Processing}
 \end{figure}
-%encoder processing
+
+It turned out that the encoder I am using switches through states 0 to 3 between clicks, as depicted by the red arrow in Figure \ref{fig:encoder_processing}.
+This had to be discovered through experimentation, because the first attempts at input processing in the common way lead to unexpected behavior.
+It turned out, that this signal pattern made the processing even easier and the direction of rotation can be determined by installing a interrupt service routine (ISR) for a falling edge on DT and subsequently reading the state of CLK.
+When the ISR is triggered and CLK is low, the encoder is in state 2, meaning it was turned right.
+Turning left, leads to the encoder beeing read in position 3, therefore a left turn was executed.
+

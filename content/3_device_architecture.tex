@@ -23,9 +23,9 @@ On its five pins, it receives 3.3V supply voltage and outputs a gray code, indic
 The fith pin is used for the pushbutton inside the rotary encoder.
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{figures/Abbildungen/Devices.png}
+    \includegraphics[width=0.9\linewidth]{figures/Abbildungen/Devices.png}
     \label{fig:devices}
     \caption{Hardware Devices}
 \end{figure}
@@ -44,16 +44,31 @@ During navigation the UI peridiodically prints the available options, using unic
 
 \begin{figure}[h]
     \includegraphics[width=0.3\linewidth]{figures/Abbildungen/hackerypi/menu_main.png}
-    \includegraphics[width=0.3\linewidth]{figures/Abbildungen/hackerypi/menu_wifi.png}
+    \centering
+    \caption{Main Menu}
+    \label{fig:menues}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=0.25\linewidth]{figures/Abbildungen/hackerypi/menu_wifi.png}
     \includegraphics[width=0.3\linewidth]{figures/Abbildungen/hackerypi/menu_webapp.png}
+    \includegraphics[width=0.35\linewidth]{figures/Abbildungen/hackerypi/menu_dev.png}
     \centering
     \caption{Device Menues}
     \label{fig:menues}
 \end{figure}
-
     
 For input the device uses a rotary encoder with a pushbutton, turning the encoder moves the selection up or down in the menues, the pushbutton executes the selected option.
 The encoder is connected to the RaspberryPIs GPIO interface and the input signals are read and processed by the encoder program.
+
+\lstinputlisting[
+    firstline=13,
+    lastline=24,
+    language=C,
+    caption={Rotation handling ISR}
+]
+    {listings/Raspi-CyberSec-Lab-Project/Program/encoder.h}
+
 The start.sh script starts both programs and pipes the stdout of encoder into the stdin of main.
 When an action of the encoder is detected, the according command gets sent to main, the commands beeing the unicodes for the up/down arrows and the enter key on a keyboard.
 For example, the User turns the the encoder one click clockwise, therefore main receives one downwards arrow symbol and the selections moves to the next option below.
@@ -79,8 +94,10 @@ To display the current status of the network, meaning its security standard, SSI
 
 
 \begin{figure}[h]
-    \includegraphics[width=0.3\linewidth]{figures/Abbildungen/hackerypi/status_wifi.png}
-    \includegraphics[width=0.3\linewidth]{figures/Abbildungen/hackerypi/activate_monitor.png}
+    \includegraphics[width=0.24\linewidth]{figures/Abbildungen/hackerypi/activate_wifi.png}
+    \includegraphics[width=0.24\linewidth]{figures/Abbildungen/hackerypi/status_wifi.png}
+    \includegraphics[width=0.24\linewidth]{figures/Abbildungen/hackerypi/activate_monitor.png}
+    \includegraphics[width=0.24\linewidth]{figures/Abbildungen/hackerypi/menu_password.png}
     \centering
     \caption{WiFi Status and Monitor}
     \label{fig:status_monitor}
@@ -111,3 +128,7 @@ Following up uart.sh starts the uart program, which starts an infinite MQTT conv
 The development menu contains options used during development, these can be adjusted on the fly in the development.sh script.
 
 When selecting the shutdown option, all running processes are stopped and the shutdown.sh script calls \lstinline[]|shutdown now| to turn off the device.
+
+
+
+
