@@ -164,8 +164,9 @@ The same key is used for encryption, making the whole system vulnerable, when et
 
 WPA and WPA2 networks use an authentication mechanism, that is two sided, where STA and AP exchange identity and capability.
 After entering the correct passphrase a password-based key derivation function then generates the PSK for encryption. 
+This works by deriving the PSK "as a function of the Wi-Fi password, SSID, and SSID length using a password-based key derivation function" \cite[page~106]{Sankaran_Gulasekaran_2021}.
 
-Because the prerequisites for PSK derivation are transmitted during the handshake on connection establishment, PSK is vulnerable to offline and dictionary attacks, therefore WPA3 replaces it with Simultaneous Authentication of Equals (SAE).
+Because the PSK is transmitted during the handshake on connection establishment, PSK is vulnerable to offline and dictionary attacks, therefore WPA3 replaces it with Simultaneous Authentication of Equals (SAE).
 SAE works by choosing an element from a finite cyclic group (e.g. point on an elliptic curve) based on the password and performing a Diffie Hellman exchange to generate a pairwise master key.
 This mechanism allows authentication without the transmission of any information related to the password and is performed for every session to ensure forward security.
 \cite{Oriyano_2017}, \cite[page~115-116]{Sankaran_Gulasekaran_2021}, \cite{SAE}

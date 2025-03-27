@@ -49,14 +49,67 @@ Some attackers might also use a deauthentication flood to get STA disconnected f
 Because they only have one-way authentication, WEP and OWE networks are vulnerable to these attacks. \cite[page~105,119]{Sankaran_Gulasekaran_2021} 
 
 \section{Cracking WEP}
-After the release of the WEP protocol, security researchers quickly uncovered various flaws in the protocol, that lead to it beeing vulnerable to serveral exploits.
-Some of the most notable vulnerabilites are:
+WEP has serveral vulnerabilities, most notable the encryption algorithm, which works by exclusive "by exclusive-ORing the data stream with a pseudorandom stream of bits generated based on the WEP key" \cite[page~104]{Sankaran_Gulasekaran_2021} and a 24-bit initialization vector (IV).
+With 24 bits, there are only about 16.5 million combinations, which can be exhausted in a few hours of network traffic.
+Once the encryption key repeats, the password can be reverse engineered by analysing the packets and creating a decryption table.
+The MIC with CRC32 is not sufficient and allows the modification and injection of packets by an attacker. \cite{Oriyano_2017}
+These vulnerabilities lead to WEP beeing easily crackable with software like the aircrack-ng suite, that comes with Kali Linux.
 
-\begin{itemize}
-    \item One-way authentication
-    \item Same key for authentication and encryption
-    \item 
-\end{itemize}
+To crack a WEP network, we start off, by putting the network card into monitor mode, which allows it to receive all packets transmitted in the vacinity, not only the ones adressed to it.
+
+\lstinline[]|airmon-ng start wlan1| 
+ 
+creates a new network interface, called "wlan1mon" and puts the card into monitor mode.
+
+With the card able to receive all traffic, the target network can be searched, by using the airodump-ng utility.
+
+\begin{figure}[h]
+    \centering
+    \label{fig:airodump-ng}
+    \caption{Screenshot of airodump-ng}
+\end{figure}
+
+As seen in Figure \ref{fig:airodump-ng}, all available networks are listed with information like the BSSID, current channel, RSSI,
+In the second table, all STAs in reach are listed and to which AP they are associated.
+If a STA is actively scanning for networks, it is also listed with the network name it is probing for.
+
+\lstinline[]|airodump-ng --channel 9 --bssid 00:28:6C:E4:40:80 --write output wlan0|
+
+is used to capture all traffic related to the AP and write it into the output file, in order to collect as many IVs as possible.
+Now we can simlutaniously try to crack the password with the aircrack-ng, which takes the output of airodump-ng and tries to crack the password for every 5000 IVs collected.
+
+%aircrack-ng screenhot
+
+Using these tools, the number of collected IVs went up very slowly for the test WEP network, since there is nearly no network traffic, so cracking would take very long.
+Therefore we need to create traffic by injecting ARP frames, because "the AP will re-broadcast them and as a result generate [new IVs]" \cite{Oriyano_2017}.
+Sending ARP frames without beeing authenticated to the AP will lead to them beeing rejected, so we can inject fake authentication packets, using airreplay-ng
+
+%fake auth screenshot
+
+Subsequently ARP requests can be injected with:
+
+\lstinline[]|aireplay-ng --arpreplay -b 00:14:6C:7E:40:80 -h 00:0F:B5:88:AC:82 wlan0|
 
 
-Because WEP uses the same key for encrypting every frame, it can be reverse engineered by analyzing captured packets for reoccuring patterns.
+\section{WPA Cracking}
+To crack a WPA network, it is common to attack the authentication mechanism because like described in Chapter \ref{ch:wifi_basics}, it is vulnerable to offline attacks.
+An attacker starts off by capturing the handshake between an AP and STA during authentication, from which the PSK is extracted.
+Since the PSK is derived from the password and other information, which is openly available, the password can be bruteforced by generating PSKs and comparing them to the captured one.
+The brute force attack can be accelerated by performing a dictionary attack.
+
+To start off, again the airodump-ng tool is used to scout the target network, capture its traffic and write it to a file.
+
+
+In order to capture a handshake, the attacker would have to wait for a device to authenticate with the netword, which depending on the number of STAs in a network, could take quite some time.
+Thus aireplay-ng can be used to inject deauthentication frames, which force the STAs reconnect to the AP and therefore making the capture of a handshake predictable.
+
+
+With the following command, 10 deauthentication frames are sent to the AP:
+
+\lstinline[]|aireplay-ng -deauth 10 -a [router bssid] interface|
+
+%deauth screenshot
+After capturing the authentication handshake, a dictionary attack is performed to crack the password, which in this case utilizes the "rockyou.txt" password list, built into kali linux, to brute force the password.
+
+\lstinline[]|aircrack-ng -b [bssid of router] -w [path to word list] [path to capture packets]| starts to interate through the password list, computes the PSK for each password and compares it to the captured PSK.
+
