@@ -1,15 +1,4 @@
-\chapter{Wifi Attacks}\label{ch:wifi_attacks}
-%citations
-One of the earliest and most commonly used forms of attack used to target access control is a technique known as war driving.
-This technique, simply put, is to use a wireless enabled device along with specialized software used to detect or probe wireless networks that have come with in range of the wireless device.
-What makes war driving so popular and so effective is the fact that many computer users, both personal and business, have been deploying 802.11 wireless access points for years with little regard for security. 
-The deployment of a wireless network that allows the user to roam has taken precedence over taking measures to secure their access points and devices against potential attack.
-In response to this deployment of wireless networks that are misconfigured or insecure, we have a category of attackers that engage in this practice known as war driving. 
-Those who engage in this activity will build custom rigs built out of a combination of hardware and software, with the intent of cruising public venues to find both wireless access points and devices in some cases. 
-These individuals may just be interested in locating and targeting a specific network for their own ends or, in some cases, they may even share this information to an online database or website where any visitor can search for these access points.
-
-\cite{Oriyano_2017}
-
+\chapter{WiFi Attacks}\label{ch:wifi_attacks}
 \section{Overview}
 WiFi attacks can take many different forms, depending on the type of attack and and which mechanism it tries to break.
 There are attacks aimed at breaking the Access Controls, Integrity Controls, Confidentiality or Availability.
@@ -55,9 +44,9 @@ Once the encryption key repeats, the password can be reverse engineered by analy
 The MIC with CRC32 is not sufficient and allows the modification and injection of packets by an attacker. \cite{Oriyano_2017}
 These vulnerabilities lead to WEP beeing easily crackable with software like the aircrack-ng suite, that comes with Kali Linux.
 
-To crack a WEP network, we start off, by putting the network card into monitor mode, which allows it to receive all packets transmitted in the vacinity, not only the ones adressed to it.
+To crack a WEP network, we start off, by putting the network card into monitor mode, which allows it to receive all packets transmitted in the vacinity, instead of only the ones adressed to it.
 
-\lstinline[]|airmon-ng start wlan1| 
+\lstinline[language=bash]|airmon-ng start wlan1| 
  
 creates a new network interface, called "wlan1mon" and puts the card into monitor mode.
 
