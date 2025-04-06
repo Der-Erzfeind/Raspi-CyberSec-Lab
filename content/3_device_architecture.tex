@@ -25,11 +25,18 @@ The fith pin is used for the pushbutton inside the rotary encoder.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/Abbildungen/Devices.png}
-    \label{fig:devices}
     \caption{Hardware Devices}
+    \label{fig:devices}
 \end{figure}
 
 \section{Software}
+
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{figures/Abbildungen/architecture.pdf}
+    \centering
+    \caption{Software Architecture}
+    \label{fig:architecture}
+\end{figure}
 
 The software of the project is mostly modular and it consists of a central program, which runs the user interface and then executes various shell scripts, with which the functions are implemented.
 When executing the setup script, the main program, which is written in C++, gets compiled and the executable gets called by the start.sh script.

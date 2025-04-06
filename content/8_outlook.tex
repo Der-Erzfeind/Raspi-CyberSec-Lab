@@ -1,13 +1,14 @@
 \chapter{Outlook}\label{ch:outlook}
 \section{UI Program}
-The UI Program is using the navigate() function, explained in \ref{ch:architecture} to periodically reprint the display and read the user input.
+The UI Program is using the navigate() function, explained in \cref{ch:architecture} to periodically reprint the display and read the user input.
 To improve performance, the function could be made to only refresh the output on change, meaning an interrupt on user input could trigger the reprinting of the menu and selection.
+
 A menu manager class could be added, which contains a menu stack and methods to manipulate it.
 Instead of implementing navigate() as a method of the menu class, it could be a method of the menu manager, to display the menu currently on top of the menu stack.
 
 The structure and therefore readability of the code could furthermore be improved by replacing the lambda functions and implementing the functions as methods with the decorator pattern.
 
-As described in \ref{ch:worklog}, the setup without a graphic server does limit the scaling of the UI to adjusting the resolution in the display configuration in config.txt.
+As described in \cref{ch:worklog}, the setup without a graphic server does limit the scaling of the UI to adjusting the resolution in the display configuration in config.txt.
 The UI could be reworked with a graphical interface to allow individual scaling of the menu items and the terminal output to improve the outputs readability.
 
 
