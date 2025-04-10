@@ -102,14 +102,15 @@
 	tabsize=3,
 	extendedchars=true,
 	frame=single,
-	showstringspaces=true,
+	showstringspaces=false,
+  breaklines=true,
 	numbers=left,
 	breakautoindent=trubreaklines=true,                     % Enable line breakinge
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\fontsize{8.5}{9}\selectfont,
   keywordstyle=\color{cyan!75!black}\bfseries,
   commentstyle=\color{green!75!black},
   stringstyle=\color{orange},
-  numberstyle=\tiny\color{gray},
+  numberstyle=\tiny\color{gray}
 }
 
 % page setup
@@ -166,7 +167,6 @@
 % remove if not needed
 \appendix
 \include{content/a1_supplemental}
-\includepdf[pages={1-}]{userguide/userguide.pdf}
 
 \backmatter
 \listoffigures

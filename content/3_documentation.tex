@@ -1,5 +1,5 @@
 \chapter{Documentation}\label{ch:documentation}
-This chapter documents the hard- and software of the RCSL, wherein the hardware section describes the hardware components, which the device is built from and the software section explains the architecture of the software and its functionality.
+This chapter documents the hard- and software of the RaspberryPI Cyber Security Lab (RCSL), wherein the hardware section describes the hardware components, which the device is built from and the software section explains the architecture of the software and its functionality.
 
 \section{Hardware}
 The figure below shows the hardware components, used in the project, are a RaspberryPI (RPI), a USB network card, an ESP32 microcontroller, a display and a rotary encoder.
@@ -73,50 +73,53 @@ During navigation the UI peridiodically prints the available options, using unic
 \end{figure}
 
 \textit{More examples for the UI can be found in the appendix, for example \cref{fig:menues}.}
-    
+
+When an action, like activation of a network, is executed, main calls the according shell script with the system() function (see \ref{lst:main_activateWEP}).
+Scripts, which require an input, are called with a specific function, that pipes the according information into the script (see \ref{lst:main_wifiActivate}).
+
+\lstinputlisting[language=C,linerange={29-32},caption={wifiActivate function in the UI program},label={lst:main_wifiActivate}]{listings/Raspi-CyberSec-Lab-Project/Program/main.cpp}
+
+\lstinputlisting[language=C,linerange={98-98},caption={use of wifiActivate for WEP network},label={lst:main_activateWEP}]{listings/Raspi-CyberSec-Lab-Project/Program/main.cpp}
+
 \subsection{Encoder Program}
-For input the device uses a rotary encoder with a pushbutton, turning the encoder moves the menu selection up or down, the pushbutton executes the selected option.
-The encoder is connected to the RaspberryPIs GPIO interface, its rotation is segmented with clicks, similar to the scroll wheel of a computer mouse
-Rotation of the encoder is segemented with physical clicks outputs a grey code, on the signals DT and CLK (see \cref{fig:encoder_processing}).
-Like shown, rotation between two clicks outputs one complete grey code sequence, which is processed by the encoder program.
-This happens within the rotation handling interrupt service routine (ISR), shown in \cref{lst:ISR_rotation}, which is executed, when DT outputs a high-low transition.
+For input the RCSL uses a rotary encoder with a pushbutton, turning the encoder moves the menu selection up or down, the pushbutton executes the selected option (see \cref{fig:navigation}).
+The encoder is connected to the RaspberryPIs GPIO interface, its rotation is segmented with clicks, similar to the scroll wheel of a computer mouse.
+Like shown in \cref{fig:encoder_processing}, rotation between two clicks outputs one complete grey code sequence on the signals DT and CLK, which is processed by the encoder program.
+This happens within the rotation handling interrupt service routine (ISR), shown in \ref{lst:ISR_rotation}, which is executed, when DT outputs a high-low transition.
 
-\lstinputlisting[
-    firstline=13,
-    lastline=24,
-    language=C,
-    caption={Rotation handling ISR}
-    label={lst:ISR_rotation}
-]
-    {listings/Raspi-CyberSec-Lab-Project/Program/encoder.h}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/Abbildungen/navigation_engl.pdf}
+    \caption{Navigation Scheme}
+    \label{fig:navigation}
+\end{figure}
 
-The ISR checks the state of CLK, which determines the direction, the encoder was turned: CLK=0 means, the encoder has been turned clockwise, CLK=1 means counter-clockwise (see \cref{fig:encoder_processing}).
+The ISR checks the state of CLK, which determines the direction the encoder was turned: CLK=0 means, the encoder has been turned clockwise, CLK=1 means counter-clockwise (see \cref{fig:encoder_processing}).
 Subsequently a command in form of a string, representing an ANSI Escape Code, is printed.
-Escape Codes are used as an output for peripheral buttons, which are not a character, for example \lstinline[]|"\033[A"| describes the pressing of the downwards button on a keyboard.
+Escape Codes are used as an output for peripheral buttons, which are not a character, for example \lstinline[]|"\033[A"| describes the pressing of the downwards button on the keyboard.
+As previously explained, the output of the encoder program is piped into the input of the UI, therefore rotating the encoder leads to the UI recieving the codes for up and down.
+The pushbutton action is processed in a similar way, with an ISR outputting a newline symbol to the UI.
 
+\lstinputlisting[linerange={13-24},language=C,caption={Rotation handling ISR},label={lst:ISR_rotation}]{listings/Raspi-CyberSec-Lab-Project/Program/encoder.h}
 
-For example, the User turns the the encoder one click clockwise, therefore main receives one downwards arrow symbol and the selections moves to the next option below.
-Because the commands used for navigation are ordinary ANSI escape codes, the program can be easily tested on any computer by navigating with the keyboard.
+Because the commands used for navigation are ordinary ANSI escape codes, the program can be easily tested on any computer by navigating the UI with the keyboard.
 
 \subsection{Shell Scripts}
-When an action is executed, main calls the according shell script with the system() function.
+
 The wifiActivate.sh script is used to open wifi hotspots, where the user can choose the type of Wifi standard beeing used. 
 It receives an input command and then establishes a WEP, WPA, WPA2 or WPA3 network.
+On first use, it sets up a network configuration, which just gets activated on repeated use, as seen for WEP networks in the code extract \ref{lst:wifiActivate.sh}.
 
-\lstinputlisting[
-    language=bash,
-    caption={extract of wifiActivate.sh},
-    lastline=16,
-    breaklines=true,
-    basicstyle=\ttfamily\fontsize{8}{9}\selectfont
-]
-    {listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
+\lstinputlisting[language=bash,linerange={1-18},caption={extract of wifiActivate.sh},label={lst:wifiActivate.sh}]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
+
+After a WiFi hotspot has been activated, a command with the connection details is sent to the ESP32 over uart.
+This functionality is implemented by the uartSendNI.sh script, which gets called by wifiActivate.sh (see line 17 of \ref{lst:wifiNewPassword.sh}).
+Receiving the network information, the ESP32 will then connect to the provided network and act as a communication partner for the RPI.
     
-With the wifiReset.sh script, the user can deactivate the active network.
-Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network.
-The script the pulls a random password out of a password list, which contains popular passwords that have been filtered to work with the specification of each network standard.
-To display the current status of the network, meaning its security standard, SSID and password, the wifiStatus.sh script is used.
+With the wifiReset.sh script, the currently active network connection is turned off, which gets called by the deactivate option in the WiFi menu.
 
+To display the current status of the network, meaning its security standard, SSID and password, the wifiStatus.sh script is used.
+It uses the \lstinline[]|nmcli dev wifi show-password| to output to the UI, which then looks like the following:
 
 \begin{figure}[h]
     \centering
@@ -125,32 +128,42 @@ To display the current status of the network, meaning its security standard, SSI
     \label{fig:menu_status}
 \end{figure}
 
-After a WiFi hotspot has been activated, a command with the connection details is sent to the ESP32 over uart.
-This functionality is implemented by the uartSendNI.sh script, which gets called from wifiActivate.sh.
-Receiving the network information, the ESP32 will then connect to the provided network and act as a communication partner for the RPI.
 
-Selecting the "monitor" option, the user is presented with the options of de-/activating the network monitoring as well as viewing or deleting the monitoring log.
 When activating monitoring, wifiMonitor.sh uses the \lstinline[]|iw event -T| command to log devices connecting and disconnecting from the network.
+Selecting the "monitor" option, the user is presented with the options of de-/activating the network monitoring as well as viewing or deleting the monitoring log.
 
-\lstinputlisting[
-    language=bash,
-    caption={extract of wifiActivate.sh},
-    breaklines=true,
-    basicstyle=\ttfamily\fontsize{8}{9}\selectfont
-]
-    {listings/Raspi-CyberSec-Lab-Project/Skripte/uartSendNI.sh}
+Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network inside the change password menu.
+The script then pulls a random password from a password list (see \ref{lst:wifiNewPassword.sh}), containing popular passwords, that have been filtered to work with the specification of each network standard.
+WEP networks use passwords with 5 or 13 characters, while WPA and WPA2 networks need passwords with at least 8 characters and WPA3 networks works with passwords of every length.
 
+\lstinputlisting[language=bash, linerange={8-10}, caption={extract from wifiNewPassword.sh}, label={lst:wifiNewPassword.sh}]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiNewPassword.sh}
+
+\subsection{Bluetooth}
+\textit{Note: the Bluetooth features, originally planned, have not been implemented due to time constraints and may be implemented in the future.}
+
+\subsection{Juice Shop}
 Inside the webapp menu the JuiceShop and MQTT communication can be found.
-When activating the JuiceShop, the juiceShop.sh script will start up the server for the OWASP JuiceShop project and open a hotspot, which can be used to access the simulated webstore.
 
+Juice Shop is a project by the Open Worldwide Application Security Project (OWASP).
+It is "a web application with a vast number of intended security vulnerabilities, [which] is supposed to be the opposite of a best practice or template application for web developers: It is an awareness, training, demonstration and exercise tool for security risks in modern web applications" \cite{PWNING_JuiceShop}.
+When activating the JuiceShop, the juiceShop.sh script will start up the server for the OWASP Juice Shop project and open a hotspot, which can be used to access the simulated webstore.
+
+\textit{Note: futher information about the project can be found in \cite{PWNING_JuiceShop}, which is the official companion to the Juice Shop.}
+
+\subsection{MQTT Communication}
 When a WiFi network has already been activated from the WiFi menu, a simulated MQTT communication can be started from the MQTT menu.
-Starting a conversation will again send a command via uart to the ESP32, prompting it to connect to the MQTT broker, running on the RPI.
-Following up uart.sh starts the uart program, which starts an infinite MQTT conversation with the ESP32.
+Starting a conversation will again send a command via UART to the ESP32, prompting it to connect to the MQTT broker, running on the RPI.
+Following up, uart.sh starts the uart program, which begins an infinite MQTT conversation with the ESP32.
 
-The development menu contains options used during development, these can be adjusted on the fly in the development.sh script.
+\subsection{ESP32}
+The code for the ESP32 is based on the code examples, provided by Espressif Systems on the official ESP-IDF github \cite{espidf}.
+It includes event handling for UART, WiFi and MQTT and a client for MQTT.
+The UART event handler has been modified to process the commands sent by the RPI and passes connection information to the WiFi and MQTT instances.
+
+\subsection{Miscellaneous}
+The development menu contains options used during development, these can be adjusted on the fly inside the development.sh script.
 
 When selecting the shutdown option, all running processes are stopped and the shutdown.sh script calls \lstinline[]|shutdown now| to turn off the device.
-
 
 
 
