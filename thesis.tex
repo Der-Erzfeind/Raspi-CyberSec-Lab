@@ -37,8 +37,8 @@
 \renewcommand*\chaptermarkformat{\chapappifchapterprefix{\ }% 
   \thechapter.\enskip}
 
-\RedeclareSectionCommand[tocindent=0pt]{section}
-\RedeclareSectionCommand[tocindent=0pt]{subsection}
+\RedeclareSectionCommand[tocindent=15pt]{section}
+\RedeclareSectionCommand[tocindent=40pt]{subsection}
 %\RedeclareSectionCommand[tocnumwidth=70pt]{chapter}
 
 \usepackage{scrhack}
@@ -57,7 +57,7 @@
 \usepackage[toc]{glossaries}
 \usepackage{pdfpages}
 \usepackage{multicol}
-%\usepackage{svg}
+\usepackage{microtype}
 
 % table setup
 \usepackage{longtable}
@@ -156,13 +156,14 @@
 
 \mainmatter
 \include{content/1_intro}
-\include{content/2_basics}
-\include{content/3_documentation}
-\include{content/4_development}
-\include{content/5_testing}
-\include{content/6_educational_use}
-\include{content/7_outlook}
-\include{content/8_summary}
+\include{content/2_basics_cybersec}
+\include{content/3_basics_wifi}
+\include{content/4_documentation}
+\include{content/5_development}
+\include{content/6_testing}
+\include{content/7_educational_use}
+\include{content/8_outlook}
+\include{content/9_summary}
 
 % remove if not needed
 \appendix

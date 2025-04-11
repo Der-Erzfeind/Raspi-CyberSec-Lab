@@ -18,8 +18,8 @@ Starting to write the shell scripts for WiFi activation, it was unclear, how to 
 Ater researching the different security mechanisms and reading the nmcli documentation the solution seems to be to manually configure the encryption algorithm, key management and information element for each connection.
 
 Next up the script for changeing the WiFi passwords was developed, which was planned to use a password list and extract a random password from the list to use for the connection.
-Large password lists, like the rockyou list from kali linux proved to be impractical due to the very large size, as well as most of the passwords beeing unsuitable.
-WEP networks for example need a password, that is 5 or 13 characters long, therefore a password list with 100.000 entries was chosen as the data basis and filtered with a simple script, to get password lists, which match the requirements for each standard.
+Large password lists, like the rockyou list , included in kali linux, proved to be impractical due to the very large size, as well as most of the passwords beeing unsuitable.
+The various WiFi standards have different requirements for the password, as described in \cref{ch:documentation}, therefore a password list with 100.000 entries was chosen as the data basis and filtered with a simple script, to get password lists, which match the requirements for each standard.
 
 For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifname [device name]| can be used to display the type of network, its SSID and password.
 Unfortunately this command does not work for WEP networks, so I wrote a script, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection} and prints it in the same format as the nmcli utility.

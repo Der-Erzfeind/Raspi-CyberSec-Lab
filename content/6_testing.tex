@@ -1,4 +1,6 @@
-\chapter{Testing}\label{ch:testing}
+\chapter{Pentesting}\label{ch:testing}
+This chapter describes the testing of the RCSL, which was limited to WiFi attacks, due to the complications encountered during development, as described in \cref{ch:development}.
+
 \section{Overview}
 WiFi attacks can take many different forms, depending on the type of attack and and which mechanism it tries to break.
 There are attacks aimed at breaking the Access Controls, Integrity Controls, Confidentiality or Availability.
@@ -54,6 +56,7 @@ With the card able to receive all traffic, the target network can be searched, b
 
 \begin{figure}[h]
     \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_scan.png}
     \caption{Screenshot of airodump-ng}
     \label{fig:airodump-ng}
 \end{figure}
@@ -64,21 +67,44 @@ If a STA is actively scanning for networks, it is also listed with the network n
 
 \lstinline[]|airodump-ng --channel 9 --bssid 00:28:6C:E4:40:80 --write output wlan0|
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_write_DEPRECATED.png}
+    \caption{Screenshot of airodump-ng filtered for the target network}
+    \label{fig:airodump-ng_target}
+\end{figure}
+
 is used to capture all traffic related to the AP and write it into the output file, in order to collect as many IVs as possible.
 Now we can simlutaniously try to crack the password with the aircrack-ng, which takes the output of airodump-ng and tries to crack the password for every 5000 IVs collected.
 
-%aircrack-ng screenhot
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WEP_success.png}
+    \caption{Screenshot of aircrack-ng}
+    \label{fig:aircrack-ng}
+\end{figure}
 
 Using these tools, the number of collected IVs went up very slowly for the test WEP network, since there is nearly no network traffic, so cracking would take very long.
 Therefore we need to create traffic by injecting ARP frames, because "the AP will re-broadcast them and as a result generate [new IVs]" \cite{Oriyano_2017}.
 Sending ARP frames without beeing authenticated to the AP will lead to them beeing rejected, so we can inject fake authentication packets, using airreplay-ng
 
-%fake auth screenshot
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aireplay_fakeauth.png}
+    \caption{Screenshot of aireplay-ng fake authentication}
+    \label{fig:aireplay-ng_fakeauth}
+\end{figure}
 
 Subsequently ARP requests can be injected with:
 
 \lstinline[]|aireplay-ng --arpreplay -b 00:14:6C:7E:40:80 -h 00:0F:B5:88:AC:82 wlan0|
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aireplay_arpreplay.png}
+    \caption{Screenshot of aireplay-ng ARP replay attack}
+    \label{fig:aireplay-ng_arpreplay}
+\end{figure}
 
 \section{WPA Cracking}
 To crack a WPA network, it is common to attack the authentication mechanism because like described in Chapter \cref{ch:wifi_basics}, it is vulnerable to offline attacks.

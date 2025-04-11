@@ -1,6 +1,8 @@
-\chapter{Basics}\label{ch:basics}
+\chapter{Basics of WiFi}\label{ch:basics_wifi}
 
-\section{WiFi}
+This chapter explains the basics needed to understand the following chapters, including some basics of cybersecurity, WiFi technology and cyberattacks in the (WiFi-) network domain.
+
+\section{History}
 
 In 1985 the american Federal Communications Commission ruled serveral bands in the 2.4 GHz radio band to be unlicensed, meaning everyone can broadcast radiosignals in these frequencies.
 At the beginning of the 90's, this lead to the development of different wireless communication protocols by multiple companies.
@@ -12,10 +14,13 @@ Improvments in speed, efficiency and security have lead to the technology becomi
 WiFi connects billions of devices, like computers, smartphones, game consoles or IoT devices to the internet, generating a value of around 4.9 trillion USD worldwide \cite[page~1]{Sankaran_Gulasekaran_2021}.
 
 WiFi operates at the physical (PHY) and the medium access control (MAC) layer of the OSI model, sending ethernet frames over radio waves in the 2.4 and 5 Ghz frequency band. 
-The Mac layer is responsible for seting rules on tranmission and reception of data, connection management and power management.
+The MAC layer is responsible for seting rules on tranmission and reception of data, connection management and power management.
 Data sent on the MAC layer then gets converted to radio waveforms by the PHY layer, which is also responsible for converting received data back to the MAC protocol. \cite[page~4-7]{Sankaran_Gulasekaran_2021}
 
 \section{MAC layer}
+Devices in the MAC layer are adressed with a MAC adress, which consists of 12 hexdecimal characters and is unique for every network interface controller (NIC).
+
+A MAC adress could look like this: \lstinline[basicstyle=\ttfamily\small]|61:A3:E2:73:9A:F3|.
 
 \subsection{Architecture}
 
@@ -32,9 +37,9 @@ WiFi has a MAC layer, which is designed to be flexible and can be configured in 
 BSS describes the most common and basic configuration, where multiple STAs are connected to one AP, which has wired connection to the internet.
 IBSS networks dont have any APs, instead the STAs are connected directly to each other.
 WDS can be used, when the reach of an AP needs to be extended, but there is no wired connection available. 
-A secondary AP can be installed which receives backhaul connection from another AP.
+A secondary AP can be installed, which receives backhaul connection from the first AP.
 Mesh Networks are complex BSS networks with multiple APs, which the STAs can hop between.
-This type of network can improve the signal coverage and resilience and is often used in companies or public institutions with many STAs. \cite[page~8-9]{Sankaran_Gulasekaran_2021}
+This type of network can improve the signal coverage and resilience and is often used in companies or public institutions. \cite[page~8-9]{Sankaran_Gulasekaran_2021}
 
 \subsection{MAC Frames}
 
@@ -79,13 +84,13 @@ Management frames have a structured payload composed of some fixed length fields
 
 After the frame body comes the frame control sequence (FCS), which ensures the integrity of the frame.
 The FCS is a cyclic redundancy check (CRC), which is number calculated from the frame header and body content.
-When the frame is compromised in traffic, the result of the CRC changes, therefore the error can be identified. \cite{GeeksforGeeks_2023} \cite[page~10-12]{Sankaran_Gulasekaran_2021}
+When the frame is compromised in traffic, the result of the CRC changes, therefore the faulty frame can be identified. \cite{GeeksforGeeks_2023} \cite[page~10-12]{Sankaran_Gulasekaran_2021}
 
 \subsection{Medium Access}
 In LAN and WLAN networks all devices share the same medium, therefore only one device at a time can transmit information.
 Ethernet networks use full-duplex transceivers, meaning a device can transmit and receive data at the same time.
 This allows the transceiver to transmit and simlutaniously listen for collisions with other frames.
-Collision detection is quite effective, but can not be used in WiFi networks, because WiFi transceivers are only capable of half-duplex tranmission.
+Collision detection is quite effective, but can not be used in WiFi networks, because WiFi transceivers are only capable of half-duplex transmission.
 WiFi instead uses a medium access control referred to as carrier sense multiple access collision avoidance (CSMA-CA).
 
 When using this technique, the medium gets blocked during transmission and is freed by an acknowledgment frame, sent by the receiving device.
@@ -128,16 +133,12 @@ With every generation of WiFi, the PHY layer components are modified to improve 
 
 Through the widespread adoption of WiFi technology, for example in smart homes, infrastructure, public spaces, industry and goverments, the security of WiFi networks plays an ever increasing role.
 Therefore principles of cybersecurity need to be applied, in order to guarantee that networks are safe, reliable and performant.
-Cybersecurity aims to protect devices and data by achieving the CIA triad, which is an acronym for Confidentiality, Integrity, and Availability \cite{Oriyano_2017} .
 Because of its wireless nature, "[i]t is difficult to confine the data-carrying radio waves to be within the physical security perimeter of [an] organizsation" \cite[page~103]{Sankaran_Gulasekaran_2021}, so anyone in the vicinity of a WiFi network could just intercept and manipulate network traffic.
 To ensure integrity and confidentiality, WiFi two main security mechanisms, which are encryption and authentication. \cite[page~103]{Sankaran_Gulasekaran_2021}
 
-Since this thesis is focused on private networks, the following summary of WiFi security mechanisms will not include enterprise authentication protocols.
+\textit{Note: Since this thesis is focused on private networks, the following summary of WiFi security mechanisms will not include enterprise authentication protocols.}
     
 \subsection{Encryption}
-Encryption is a cryptographic\footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the legitimate recipient.
-The encrypted text is called ciphertext and can be made readable again, by decrypting it.
-To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
 
 The first "secure" WiFi standard, called Wired Equivalent Privacy (WEP) uses a shared key, with a RC4 stream cipher algorithm for message encryption and a 32-Bit CRC as a integrity check (IC).
 Due to serveral vulnerabilities of WEP, including the RC4 algorithm, a lack of authentication and no key management, the second standard, wireless protected access (WPA), was developed.
@@ -155,9 +156,6 @@ Most changes for WPA3 have been made in authentication mechanisms, WPA3 added th
 
 
 \subsection{Authentication}
-
-Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
-This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
 
 WEP authentication is only one-sided, where STA has to encrypt a package with the correct key, in order to complete association with the AP. 
 The same key is used for encryption, making the whole system vulnerable, when ether the authentication or the encryption is exploited. 
