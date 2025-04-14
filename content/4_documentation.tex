@@ -17,7 +17,7 @@ The RPI has an integrated WiFi and Bluetooth card, as well as onboard ethernet n
 However to support all WiFi standards an external network card is needed, since the internal card of the RPI does not support the ciphers used by WPA3.
 The Fenvi AX1800 USB WiFi card was chosen for its compatibility with the linux kernel, according to \cite{morrownr_USB_WiFi}, and low cost.
 
-For some types of attack, such as KRACK\footnote{see \cref{ch:testing}}, a WiFi station, which is connected to the test network is needed, which in this case is an ESP32 microcontroller unit (MCU).
+For some types of attack, such as cracking WPA/WPA2\footnote{see \cref{ch:testing}}, a WiFi station, which is connected to the test network is needed, which in this case is an ESP32 microcontroller unit (MCU).
 Selecting from the large offer of ESP32 MCUs, again size was taken into account and the ESP32-C6 Mini by Waveshare was chosen for its small size and good feature set.
 It connects to the RPI's GPIO pins using simple jumper cables, which supply the ESP32 with power and establish an UART connection.
 

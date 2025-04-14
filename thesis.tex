@@ -31,9 +31,9 @@
 % custom head and foot
 \usepackage[automark]{scrlayer-scrpage}
 \pagestyle{scrheadings}
-\ihead{\headmark}
+\ohead{\headmark}
 \chead{}
-\ohead{\pagemark}
+%\ohead{\pagemark}
 \renewcommand*\chaptermarkformat{\chapappifchapterprefix{\ }% 
   \thechapter.\enskip}
 
@@ -48,7 +48,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,relsize,textcomp,csquotes}
 \usepackage{amsmath,amsfonts}
-\usepackage[ngerman,english]{babel}  % flip for German thesis
+\usepackage[english]{babel}  % flip for German thesis
 \usepackage[final]{graphicx}
 \usepackage{setspace,geometry,xcolor}
 \usepackage{makeidx}

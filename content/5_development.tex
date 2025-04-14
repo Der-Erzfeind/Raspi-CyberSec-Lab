@@ -1,13 +1,24 @@
 \chapter{Development}\label{ch:development}
 
-\section{}
-The idea for the project started off as a collection of SD-Cards, containing operating systems with different functions.
-To use a function, the user should insert the wanted SD-Card into the RPI and on startup a script would run and configure the OS for a specific scenario.
+\section{Project Inception}
+The initial concept for the project revolved around the use of a collection of SD-Cards, containing operating systems tailored for specific usecases.
+The user would be able insert the wanted SD-Card into the RPI, which then would execute script on startup to configure the operating system for a specific scenario.
 
-With the usability of this system beeing questionable, I instead opted to develop a user interface, which would execute the wanted shellscripts during runtime.
-A simple interface, printed into the shell terminal seemed to be a simple way of implementing the UI and I decided to use a dial and pushbutton combination for intuitive navigation.
+With the usability of this system appearing quite cumbersome, it was instead opted to develop a user interface (UI), which would execute the wanted shellscripts during runtime.
+To implement the UI, it was decided on the use of a simple terminal-based interface, which would be printed directly into the shell. 
+This approach would facilitate straightforward navigation through the use of a dial and pushbutton combination, providing an intuitive means for users to interact with the system. 
 The program should be written in C or C++ due to my familiarity with both languages.
 
+From this concept the following 3D-model was created to visualize the project idea:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Abbildungen/Concept.png}
+    \caption{Concept Model}
+    \label{fig:concept}
+\end{figure}
+
+\section{User Interface}
 I started off to find a way to display the menues in the terminal and landed on a simple loop, that peridiodically clears the screen and prints the options of a menu.
 Subsequently a software architecture needed to be designed, which proved challenging in C++, because nearly every menu is different and needs to execute different actions.
 The menues need to be able to display options, which need to be able to display another menu, trigger a shell script, or return to the previous menu.
