@@ -32,6 +32,28 @@
 \section{User Manual}
 \includepdf[pages={1-}]{userguide/userguide.pdf}
 
+\section{WiFi Basics}
+\begin{table}[h]
+    \centering
+    \caption{Evolution of Wi-Fi Security \cite[page~123]{Sankaran_Gulasekaran_2021}}
+    \label{tab:wifi_security}
+    \ra{1.5}
+    \begin{tabular}{@{}l>{\raggedleft\arraybackslash}p{1.8cm}>{\raggedleft\arraybackslash}p{2.4cm}>{\raggedleft\arraybackslash}p{2.8cm}>{\raggedleft\arraybackslash}p{2.7cm}@{}}
+        \toprule
+        & {WEP} & {WPA} & {WPA2} & {WPA3} \\
+        \midrule
+        \textit{Certification start} & - & 2003 & 2004 & 2018 \\
+        \textit{Mandatory since} & - & 2006 & 2006 & 2019 \\
+        \textit{Underlying standard(s)} & 802.11 & 802.11i(part. compliance) & 802.11i, 802.11w(PMF) & 802.11s(SAE), 802.11w\\
+        \textit{Information element} & None & WPA IE & RSN IE & RSN IE \\
+        \textit{Encryption} & RC4 & TKIP & TKIP, AES-CCMP & AES-CCMP, AES-GCMP \\
+        \textit{Authentication} & None & PSK, 802.1X & PSK, 802.1X & SAE, 802.1X \\
+        \textit{Usability enhancement} & None & None & WPS & DPP \\
+        \textit{Open Wi-Fi security} & None & None & None & OWE \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 \section{Documentation}
 \begin{table}[h]
     \caption{menu and option overview}

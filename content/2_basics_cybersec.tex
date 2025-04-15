@@ -1,5 +1,6 @@
 \chapter{Basics of Cybersecurity}\label{ch:basics_cybersec}
-This chapter briefly explains the terms of IT- and Cybersecurity and gives an overview of the goals, threads and methods. 
+This chapter briefly explains the terms of IT- and Cybersecurity and gives an overview of their goals and methods.
+A summary of common threads in the Cybserspace is given as well.
 
 \section{IT Security}
 IT Security describes the protection of digital data and computer- and communication systems from unauthorized access.
@@ -16,7 +17,15 @@ Confidentiality describes data only beeing accessible by the persons, who are me
 Integrity describes data beeing unchanged after storage or transmission, meaning the data was not corrupted or manipulated.
 Availability describes data and systems beeing accessible with the expected performance, whenever required. 
 
-\subsection{Threads and Risks}
+\subsection{Methods}
+Encryption is a cryptographic\footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the legitimate recipient.
+The encrypted text is called ciphertext and can be made readable again, by decrypting it.
+To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
+
+Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
+This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
+
+\section{Threads and Risks in the Cyberspace}
 There are various types of Cybercriminals with different motives and intentions.
 Some common motives are financial, political, social or military.
 With these motives the intentions of an attack often are:
@@ -53,13 +62,4 @@ An attack vector is the approach, an attacker takes for carrying out an attack.
 
 
 
-\section{Methods of Cybersecurity}
 
-\subsection{Encryption}
-Encryption is a cryptographic\footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the legitimate recipient.
-The encrypted text is called ciphertext and can be made readable again, by decrypting it.
-To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
-
-\subsection{Authentication}
-Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
-This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.

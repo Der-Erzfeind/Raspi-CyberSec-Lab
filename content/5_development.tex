@@ -19,49 +19,67 @@ From this concept the following 3D-model was created to visualize the project id
 \end{figure}
 
 \section{User Interface}
-I started off to find a way to display the menues in the terminal and landed on a simple loop, that peridiodically clears the screen and prints the options of a menu.
-Subsequently a software architecture needed to be designed, which proved challenging in C++, because nearly every menu is different and needs to execute different actions.
-The menues need to be able to display options, which need to be able to display another menu, trigger a shell script, or return to the previous menu.
-Since C++ does not have decorators, it is hard to model the menues with a uniform class, therefore it was decided to use a architecture, which models menues as classes, containing options and the options a class with a title and a std::function as the action.
+To display the UI, the menues need to be printed into the terminal, for which a simple loop, that peridiodically clears the screen and prints the options of a menu, was decided on.
+Subsequently a fitting software architecture needed to be designed, which can model the variety of menues and their respective options with individual actions.
+The menues need to display options, which require the capability of executing various actions, including the transition to other menues and the execution of shellscripts and programs.
+Since the command design pattern at this point was unknown to me, the modeling of the menues with a uniform class turned out quite challenging.
+Therefore it was decided to model the menues as classes, containing objects of the MenuOption class, and utilize the std::function for action execution.
 
-For network managment, I decided to use the Network Manager Command Line Interface (nmcli) tool, which is easy to use and offers a sizable set of configuration options and utilities.
-Starting to write the shell scripts for WiFi activation, it was unclear, how to configure a connection in order to get it to use the different WiFi standards.
-Ater researching the different security mechanisms and reading the nmcli documentation the solution seems to be to manually configure the encryption algorithm, key management and information element for each connection.
+In order for the device to be usable with the build in screen and selector dial, the RPI needs to be configured to run and display the UI program on startup.
+Execution of the program on startup is implemented with the help of a systemd service.
+For the setup said service an according configuration file needs to be added to \textit{/etc/systemd/system}, which is activated by running the \lstinline[]|systemctl enable [service].service| command.
 
-Next up the script for changeing the WiFi passwords was developed, which was planned to use a password list and extract a random password from the list to use for the connection.
-Large password lists, like the rockyou list , included in kali linux, proved to be impractical due to the very large size, as well as most of the passwords beeing unsuitable.
-The various WiFi standards have different requirements for the password, as described in \cref{ch:documentation}, therefore a password list with 100.000 entries was chosen as the data basis and filtered with a simple script, to get password lists, which match the requirements for each standard.
+Instead of a BIOS\footnote{Binary Input Output System: boots before the OS}, the RPI employs a configuration file (\textit{/boot/firmware/config.txt}), which is read on startup to initialize the hardware and operating system.
+To this file the following lines were added:
 
-For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifname [device name]| can be used to display the type of network, its SSID and password.
-Unfortunately this command does not work for WEP networks, so I wrote a script, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection} and prints it in the same format as the nmcli utility.
+\begin{lstlisting}[basicstyle=\ttfamily\small, numbers=none]
+    dtoverlay=waveshare35a
+    framebuffer_width=200
+    framebuffer_height=120 
+\end{lstlisting}
 
-With the WiFi monitor function I wanted to implement a simple logger, which lets the user retrace the events of an attack, such as devices dis-/connecting or changes to the network.
-\newline\lstinline[]|iw event -T| outputs the timestamp and MAC adress, when a device connects to or disconnects from the network. 
-\newline\lstinline[]|nmcli monitor| outputs any modifications made to the network status, but unfortunately does not output timestamps.
-I was also unsuccessful in printing timestamps with \lstinline[]|awk|or \lstinline[]|ts|, because ncmli monitor needs to be executed in the background to allow the UI to continue operating.
-Another problem, i have not been able to solve yet, is printing the output of both programs into a single logfile.
+Line one sets up a hardware overlay to initialize the display, lines two and three set the resolution of the display.
+With the resolution set to the factory specification of 800x480, the UI is displayed quite small, thus poorly suited for the usecase.
+Since the OS runs in terminal without a graphic server, there is no simple option for scalation of the UI.
+The scale problem was fixed with a workaround, which involves the resolution inside the \textit{config.txt} to be set to 200x120, therefore forcing the scalation of the UI.
 
-In order to later use the device with the build in screen and selector dial, the RPI needs to be configured to run and display the main program on startup.
-Running the program on startup is done by creating a systemd service, which can be done by adding a configuration file for that service to \textit{/etc/systemd/system} and running the \lstinline[]|systemctl enable [service].service| command.
-Instead of a BIOS, the RPI has a configuration file (\textit{/boot/firmware/config.txt}), which is read on startup to initialize the hardware and operating system.
-To this file I added the following lines:
+Initially it was planned to use the display in vertical orientation, however, attempts to rotate the terminal by configuration inside \textit{config.txt} or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
 
-\begin{itemize}[\null]
-    \item dtoverlay=waveshare35a
-    \item framebuffer\_width=200
-    \item framebuffer\_height=120 
-\end{itemize}
+\section{Network Management}
+For network managment, it was decided on use of the Network Manager Command Line Interface (nmcli) tool, which is easy to use and offers a sizable set of configuration options and utilities.
+At the start of the development of the shell scripts for WiFi activation, it was unclear, how to configure a connection in line with the specification of the different WiFi standards.
+After research on the different security mechanisms and the nmcli documentation was conducted, the solution appeared to be the manual configuration of the encryption algorithm, key management and information element for each connection.
 
-The first line is for setting up an overlay to initialize the display, the other two lines are used to set the resolution.
-With the resolution set to the factory specification of 800x480, the UI is very small and not really suitable for the usecase.
-Since the OS only runs in the terminal without a graphic server, there is no easy options for scaling the image.
-Therefore I set a really low resolution of 200x120 to force the terminal to be displayed larger.
-Initially it was planned to use the display in vertical orientation, but the attempts to rotate the terminal by configuration inside the config.txt or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
+The script developed for changing WiFi passwords was designed to utilize a password list, from which a random password would be extracted for the connection. 
+However, large password lists, such as the RockYou list included in Kali Linux, proved impractical due to their considerable size complicating handling.
+A password list containing 100,000 entries was selected as the data source. 
+Given the varying requirements for passwords across different WiFi standards, as detailed in \cref{ch:documentation}, the list contained a number of unsuitable entries.
+It was subsequently filtered using a simple script (see listing \ref{lst:passwdExtract}) to generate password lists that conformed to the specific requirements of each standard.
 
-To use the encoder dial as a scrollwheel, its signals need to processed and translated to instructions for the main program.
-After soldering the encoder to a simple circuit of pull-up resistors and connecting it to the GPIO pins of the RPI, I enabled UART in the config.txt file and wrote the encoder.cpp program to process the inputs.
+\lstinputlisting[language=bash, caption={script for password extraction}, label={lst:passwdExtract}]{listings/Raspi-CyberSec-Lab-Project/Passwords/extract.sh}
 
-Off the shelf rotary encoders have clicks similar to the scrolling wheel of a computer mouse and output two digital signals, which when turned, oscillate with 90 degrees of phase shift, resulting in a grey code with two bits.
+For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifname [device name]| command is employed to display the type of network, its SSID and password.
+Unfortunately this command is not functional for WEP networks, therefore a script was created, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection}, formatting to output alike the nmcli utility.
+
+In the implementation of the WiFi monitor function, the objective was to create a logger that would enable users to trace the events of an attack, such as the dis-/connection of devices and any changes to the network.
+The command \lstinline[]|iw event -T| provides timestamps and MAC addresses for devices connecting to or disconnecting from the network. 
+Additionally, \lstinline[]|nmcli monitor| reports any modifications made to the network status, but does not include timestamps in its output. 
+Attempts to add timestamps by using \lstinline[]|awk| or \lstinline[]|ts| were unsuccessful, as nmcli monitor must be executed in the background to allow the UI to remain operational. 
+Furthermore, a challenge that remains unresolved is the integration of the outputs from both programs into a single logfile.
+
+As described in \cref{ch:testing}, there were some critical configuration errors discovered along the testing process.
+The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[basicstyle=\ttfamily\small]|airodump-ng|.
+Also the WPA and WPA2 networks were identified by airodump as WPA3 networks, using SAE as the authentication mechanism.
+In the pursuit of fixing the configuration errors, the WPA network was accidentally configured to use enterprise authentication in the form on 801.2X.
+Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADUIS server for enterprise authentication during activation, timing out as a result.
+%insert fix for wifi config
+
+\section{Rotary Encoder}
+To use the encoder dial as a scrollwheel, its signals need to be processed and translated to instructions for the main program to execute.
+After the encoder was soldered to a simple circuit of pull-up resistors and connected to the GPIO pins of the RPI, the encoder program was developed for processing of the encoders outputs.
+
+Off the shelf rotary encoders incorperate clicks into their rotation, similar to the scrolling wheel of a computer mouse, and output two digital signals.
+These signals are called DT and CLK, which when turned, oscillate with 90 degrees of phase shift, resulting in a grey code with two bits.
 Through saveing the previous state and comparing it to the new state, once the encoder was turned, the direction of rotation can be determined.
 According to various online source, these kind of encoders switch one state on each click like the dotted arrow in \cref{fig:encoder_processing} depicts.
 
@@ -72,9 +90,19 @@ According to various online source, these kind of encoders switch one state on e
    \label{fig:encoder_processing}
 \end{figure}
 
-It turned out that the encoder I am using switches through states 0 to 3 between clicks, as depicted by the red arrow in \cref{fig:encoder_processing}.
-This had to be discovered through experimentation, because the first attempts at input processing in the common way lead to unexpected behavior.
-It turned out, that this signal pattern made the processing even easier and the direction of rotation can be determined by installing a interrupt service routine (ISR) for a falling edge on DT and subsequently reading the state of CLK.
-When the ISR is triggered and CLK is low, the encoder is in state 2, meaning it was turned right.
-Turning left, leads to the encoder beeing read in position 3, therefore a left turn was executed.
+During development of the encoder program, the ouput showed unexpected behavior, which was discovered to originate from the encoder switching through states 0 to 3 between clicks, as depicted by the red arrow in \cref{fig:encoder_processing}.
+The discovery of this behavoir helped to simplify the the processing even easier, since this pattern allows a single query of the signal states to determine the direction of rotation.
+As seen in listing \ref{lst:ISR_rotation}, the processing was then applied in a single ISR, comparing the DT and CLK signals.
+
+\section{ESP32}
+To establish communication between the RPI and the ESP32, some of the GPIO Pins needed to be initialized for UART, which again was achieved by adding a hardware overlay to the \textit{config.txt} file.
+The code of the ESP32 in large part consists of code examples provided by the ESP-IDF github (\cite{espidf}).
+From these examples the code was compiled from snippets the WiFi station example, mqtt websocket example and UART events example.
+These snippets were modified to work in conjunction with the scripts present on the RPI.
+
+When closing a network and reopening another, instructing the ESP32 to switch to the new network, lead to it regurlarly crash with the error \lstinline[basicstyle=\ttfamily\small]|itwt_stop_process|.
+After investigation, the error seemed to originate from a WiFi power saving mechanism present in WiFi 6, called Target Wake Time (TWT).
+Various attempts of solving the error by disableing the power saving were attempted, but resulted unsuccessful.
+
+The solution, finally implemented, involed the code beeing restuctured to reset the MCU on a UART command, preceeding the establishment of a network connection.
 

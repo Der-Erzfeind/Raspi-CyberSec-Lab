@@ -1,6 +1,7 @@
 \chapter{Basics of WiFi}\label{ch:basics_wifi}
 
-This chapter explains the basics needed to understand the following chapters, including some basics of cybersecurity, WiFi technology and cyberattacks in the (WiFi-) network domain.
+This chapter explains the basics of WiFi technology.
+Insight into the history and development of WiFi is given and the its functionality and security mechanisms are breifly explained.
 
 \section{History}
 
@@ -170,24 +171,4 @@ SAE works by choosing an element from a finite cyclic group (e.g. point on an el
 This mechanism allows authentication without the transmission of any information related to the password and is performed for every session to ensure forward security.
 \cite{Oriyano_2017}, \cite[page~115-116]{Sankaran_Gulasekaran_2021}, \cite{SAE}
 
-\newpage
-In the table below, the different security specifications of each WiFi generation are summarized, including some information which was intentionally left out and can be read about in \cite{Sankaran_Gulasekaran_2021}.
-
-\begin{table}[h]
-    \centering
-    \caption{Evolution of Wi-Fi Security \cite[page~123]{Sankaran_Gulasekaran_2021}}
-    \label{tab:wifi_security}
-    \ra{1.5}
-    \begin{tabular}{@{}lcrr>{\raggedleft\arraybackslash}p{3cm}>{\raggedleft\arraybackslash}p{3cm}@{}}
-        \toprule
-        & \phantom{abc} & {WEP} & {WPA} & {WPA2} & {WPA3} \\
-        \midrule
-        \textit{Certification start} && - & 2003 & 2004 & 2018 \\
-        \textit{Mandatory since} && - & 2006 & 2006 & 2019 \\
-        \textit{Information element} && None & WPA IE & RSN IE & RSN IE \\
-        \textit{Encryption} && RC4 & TKIP & TKIP, AES-CCMP & AES-CCMP, AES-GCMP \\
-        \textit{Authentication} && None & PSK, 802.1X & PSK, 802.1X & SAE, 802.1X \\
-        \textit{Open Wi-Fi security} && None & None & None & OWE \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+\textit{Note: A full summary of the different security specifications of each WiFi generation, can be found in \cref{tab:wifi_security}.}
