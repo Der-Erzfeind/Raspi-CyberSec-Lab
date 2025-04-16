@@ -18,16 +18,24 @@ Integrity describes data beeing unchanged after storage or transmission, meaning
 Availability describes data and systems beeing accessible with the expected performance, whenever required. 
 
 \subsection{Methods}
-Encryption is a cryptographic\footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the legitimate recipient.
-The encrypted text is called ciphertext and can be made readable again, by decrypting it.
-To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
+Some methods for achieving the goals of Cybersecurity are:
 
-Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
-This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
+\begin{itemize}
+    \item Security Awareness is the knowledge of the threads present in the Cyberspace and methods for protection.
+    "Awareness of the risks and available safeguards is the first line of defence for the security of information systems and networks" \cite[page~26]{IT_Basiswissen}.
+    \item Encryption is a cryptographic\footnote{cryptography = science of secretive writing} method, which takes the readable data, called plaintext, and makes it unreadable for anyone besides the legitimate recipient.
+    The encrypted text is called ciphertext and can be made readable again, by decrypting it.
+    To en- and decrypt a message, the sender and recipient have knowledge of a secret, often a passphrase, which controls en-/decryption and is called key. \cite[page~1]{Watjen_2018}
+    \item Authentication is the act of a user "performing some sort of action which proves that the claim a user is making about who they are is actually valid" \cite{Oriyano_2017}. 
+    This is oftentimes done through the use of a password, in the case of WiFi networks, the knowledge of the password proves, that a user is allowed to access the network.
+    \item Monitoring with anomaly detection can be used to detect the unauthorized access of systems and networks.
+    In the network domain so called Intrusion Detection Systems (IDS) employ predictive models to recognize malicious activity inside a network \cite{geeksforgeeks_ids}.
+    \item Incident Response is performed in case of a system breach in order to limit damage and secure the system.
+\end{itemize}
 
 \section{Threads and Risks in the Cyberspace}
 There are various types of Cybercriminals with different motives and intentions.
-Some common motives are financial, political, social or military.
+Motives of Cybercriminals can vary but commonly are financial, political, social or military.
 With these motives the intentions of an attack often are:
 \begin{multicols}{2}
     \begin{itemize}
@@ -41,25 +49,20 @@ With these motives the intentions of an attack often are:
 \end{multicols}
 
 The successrate and risk of an attack are in large parts determined by a targets attack area, which is the combination of the present vulnerabilities and attack vectors.
-
 The term vulnerability describes a weakspot, which can be exploited by the attacker to break or circumvent security mechanisms.
-%Common vulnerabilities are false requirements, design errors, implementation errors, installation- and adminitration errors.
-
 An attack vector is the approach, an attacker takes for carrying out an attack.
-%Some examples for attack vectors are: 
-%\begin{multicols}{2}
-%    \begin{itemize}
-%        \item Virus
-%        \item Trojan
-%        \item Ransomware
-%        \item Spyware
-%        \item Social Engineering
-%        \item Phishing
-%        \item Denial of Service (DoS)
-%        \item Brute-Force
-%    \end{itemize}
-%\end{multicols}
+With regards to Network Security some common attack vectors are:
 
+\begin{itemize}
+    \item Denial of Service (DoS) attacks availability by preventing or limiting the functional capability of a system.
+    \item Cracking describes the act of breaking or circumventing security mechanisms, e.g. reverse engineering passwords.
+    \item Brute-Force is a technique for reverse engineering passwords by trail-and-error.
+    \item Spoofing refers to fakeing identities, achieved by the obfuscation of the own identity or the replication of another identity.
+    \item Sniffing is the action of collecting all openly available data, e.g. recording unecrypted wifi frames.
+    \item Man-in-the-Middle (MitM) attacks involve injection of a malicious device into a line of communication, which subsequently can manipulate and eavesdrop on the traffic.
+    \item Social Engineering is a form of manipulation which abuses psychological mechanisms like trust, curiosity or shock to exploit victims.
+\end{itemize}
 
+\cite[page~16-20]{IT_Basiswissen}
 
 
