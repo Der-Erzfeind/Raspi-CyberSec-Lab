@@ -1,4 +1,6 @@
 \chapter{Pentesting}\label{ch:testing}
+\lstset{style=inline}
+
 This chapter describes the pentesting of the WiFi enviroments, established with the RCSL.
 It starts of by explaining some common (WiFi-) network attacks, of which the cracking of WEP and WPA/WPA2 are then tested on the RCSL and the results documented.
 
@@ -21,101 +23,136 @@ Evil Twins have some similarity to Rogue Access Points, in that they also preten
 Different to Rogue APs, Evil Twins do not connect to the legitimate network, but instead spoof wireless networks, providing a stronger signal, to again get STAs to connect to it.
 Some attackers might also use a deauthentication flood to get STA disconnected from their genuine AP and autoconnect to the malicious one.
 
-Because they only have one-way authentication, WEP and OWE networks are vulnerable to these attacks. \cite[page~105,119]{Sankaran_Gulasekaran_2021} 
+Because they employ one-way authentication, WEP and OWE networks are vulnerable to these attacks. \cite[page~105,119]{Sankaran_Gulasekaran_2021} 
 
 \subsection{Cracking WEP}
 As touched on in \cref{ch:basics_wifi}, WEP has serveral vulnerabilities, most notable the encryption algorithm, the one sided authentication mechanism and the lackluster MIC.
 
-The encryption is based on the RC4 algorithm and works "by exclusive-ORing the data stream with a pseudorandom stream of bits generated based on the WEP key" \cite[page~104]{Sankaran_Gulasekaran_2021} and a 24-bit initialization vector (IV).
-With 24 bits, there are only about 16.5 million combinations for the IV, which can be exhausted in a few hours of network traffic.
-In fact, the probability of the same key beeing reused is at about 50\% after around 5000 frames have been captured \cite{Oriyano_2017}.
-Because of this weak encryption mechanism, the password can be reverse engineered by analysing the frames and creating a decryption table.
+WEP encryption is based on the RC4 algorithm and works "by exclusive-ORing the data stream with a pseudorandom stream of bits generated based on the WEP key" \cite[page~104]{Sankaran_Gulasekaran_2021} and a 24-bit initialization vector (IV).
+With 24 bits, there are about 16.5 million combinations for the IV, which can be exhausted in a few hours of network traffic.
+The probability of the same key beeing reused is at about 50\% after around 5000 frames have been captured, opening the possibility for reverse engineering by analysis of the frames \cite{Oriyano_2017}.
+%Because of this weak encryption mechanism, the password can be reverse engineered by analysing the frames and creating a decryption table.
 
-The MIC with CRC-32 is not sufficient and allows correctly modified packets to still be recognized as error free, which can be used by an attacker to record, manipulate and inject frames without the recipient noticing. \cite{Oriyano_2017}
-This technique is called a replay attack and is used in the cracking of WEP to inject ARP frames, which "the AP will re-broadcast [...] and as a result generate [new IVs]" \cite{Oriyano_2017}.
+The MIC with CRC-32 is not sufficient in ensuring message integrity, allowing manipulated frames, injected into the network, to be accepted as non-compromised. \cite{Oriyano_2017}
 
-Sending ARP frames without beeing authenticated to the AP will lead to them beeing rejected, therefore a replay attack is used once again to trick the AP into associating with the attackers STA.
+
+Cracking a WEP network involves the reverse engineering of the password, aided by exploiting the authentication mechanism and the MIC.
+The process begins by scouting the target network, commonly conducted by capturing all traffic on all channels from networks in the vicinity.
+In normal operation a NIC only recieves the traffic, adressed to its MAC address.
+To disable this filtering, the network card is put into monitor mode, allowing it to capture all packets transmitted in the vacinity, and discover all APs present.
+After the target network has been determined, its traffic is captured and after enough frames have been transmitted, the password can be reverse engineered.
+
+However the process can be accelerated by injecting spoofed ARP frames, to artificially increase traffic.
+This technique is called a replay attack and involves the capture of serveral authentic ARP frames, subsequently modifying and injecting them, which "the AP will re-broadcast [...] and as a result generate [new IVs]" \cite{Oriyano_2017}.
+
+Sending ARP frames without association to the AP will lead to them beeing rejected, therefore another spoofed frame is injected, to fake authentication and association with the AP.
 
 \subsection{Cracking WPA/WPA2}
 WPA and WPA2 networks come with improved encryption in the form of TKIP and SAE-CCMP, which cannot be cracked in the way, WEP can \cite{Oriyano_2017}.
-To crack a WPA network, it is common to attack the authentication mechanism, because, as described in Chapter \cref{ch:basics_wifi}, it is vulnerable to offline attacks.
+To crack a WPA network, it is common to attack the authentication mechanism, because, as described in \cref{ch:basics_wifi}, it can be vulnerable to offline attacks.
 
 An attacker starts off by capturing the handshake between an AP and STA during authentication, from which the PSK is extracted.
 In order to capture a handshake, the attacker would have to wait for a device to authenticate with the network, which depending on the number of STAs, could take quite some time.
-Thus packet injection can be used to inject deauthentication frames, which force the STAs reconnect to the AP and therefore making the capture of a handshake predictable.
+Thus a Deauthentication Attack is performed, injecting deauthentication frames, which force the STAs reconnect to the AP and therefore making the capture of a handshake predictable.
 
 Since the PSK is derived from the password and other information, which is openly available, the password can be bruteforced by generating PSKs and comparing them to the captured one.
 The brute force attack can be accelerated by performing a dictionary attack.
 However if the network uses a strong password, which is not contained in the password dictionary, the attack will be unsuccessful in the way that it takes too long to brute force the passphrase.
+Furthermore APs with PMF enabled can not be attacked with this method, since encrypted deauthentication frames cannot be spoofed.
 
 \subsection{Man-in-the-Middle}
 
-\subsection{Cracking WPA3}
-
 \section{Methods}
-\subsection{Cracking WEP}{\label{ssec:method_WEP}}
-To crack a WEP network, we start off, by putting the network card into monitor mode, which allows it to receive all packets transmitted in the vacinity, instead of only the ones adressed to it.
-\lstinline[basicstyle=\ttfamily\small]|airmon-ng start wlan1| creates a new network interface, called "wlan1mon" and puts the card into monitor mode.
+The Pentests were conducted using the Aircrack-ng suite with Kali Linux.
+Kali Linux is a Linux distribution, which comes with a vast collection of tools for Pentesting, security auditing and computer forensics.
+The Aircrack-ng suite is taylored towards network security assessment and is included with Kali Linux.
 
-With the card able to receive all traffic, the target network can be searched, by using \lstinline[basicstyle=\ttfamily\small]|airodump-ng wlan1mon|.
+\textit{Note: For more information consult the Kali and Aircrack-ng documentation \cite{aircrack_ng}\cite{kali_docs}.}
+
+\subsection{Cracking WEP}{\label{ssec:method_WEP}}
+
+Starting the target scouting, \lstinline[]|airmon-ng start wlan1| is used, which puts the card into monitor mode and creates a new network interface, called "wlan1mon".
+With the card beeing able to receive all traffic, the target network can be searched, by using \lstinline[]|airodump-ng wlan1mon|.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_scan.png}
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_WEP.png}
     \caption{Screenshot of airodump-ng}
     \label{fig:airodump-ng}
 \end{figure}
 
-As seen in \cref{fig:airodump-ng}, the program scans on all channel for networks within reach, which are listed in the top table.
-Our target network, marked with the read border, is listed with its respective BSSID, RSSI, recorded Beacon Frames, encryption standard and cipher.
+As seen in \cref{fig:airodump-ng}, the program scans on all channel for networks within reach and lists them in the table on top.
+The target network, marked with the red border, is listed with its respective BSSID, RSSI, recorded Beacon Frames, encryption standard and cipher.
+
 In the second table, all STAs in reach are listed and to which AP they are associated.
 If a STA is actively scanning for networks, it is also listed with the network name it is probing for.
 
-After the target network has been identified, airodump-ng is set up with filters to capture all traffic related to the AP and write it into a file with:
-\\\lstinline[basicstyle=\ttfamily\small]|airodump-ng --channel 9 --bssid 00:28:6C:E4:40:80 --write CrackWEP wlan1mon|
+%After the target network has been identified, airodump-ng is set up with filters to capture all traffic related to the AP and write it into a file with:
+%\lstinline[]|airodump-ng --channel 9 --bssid 00:28:6C:E4:40:80 --write CrackWEP wlan1mon|
+After the target network has been identified, airodump-ng is set up with filters to capture all traffic related to the AP and write it into an output file as seen in \cref{fig:airodump-ng_target}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_write_DEPRECATED.png}
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/airodump_WEPcrack.png}
     \caption{Screenshot of airodump-ng filtered for the target network}
     \label{fig:airodump-ng_target}
 \end{figure}
 
-This filters the captured packets, to only collect frames on channel 9, related to the BSSID of the target and write it the the output file "CrackWEP.cap".
-All devices associated with the network can be seen in the lower table, which at that time is only the ESP32 with the address \lstinline[basicstyle=\ttfamily\small]|XX:xx|.
+\lstinline[]|--channel| filters the captured frames to only collect frames on the APs channel 
+\\\lstinline[]|--bssid| filters the frames related to the BSSID of the target 
+\\\lstinline[]|--write| specifies the output file
+\\All devices associated with the network can be seen in the lower table, which at that time is only the ESP32 with the address \lstinline[]|40:4C:CA:5C:F9:CC|.
 
-For the replay attack, a fake association with the AP is established, using \lstinline[basicstyle=\ttfamily\small]|aireplay-ng --fakeauth 0 -e WEPnetwork -a 00:14:6C:7E:40:80 -h 00:0F:B5:88:AC:82 wlan1mon|.
-\lstinline[basicstyle=\ttfamily\small]|--fakeauth 0| defines the authentication to be performed infinitely, until a connection is established. 
-\lstinline[basicstyle=\ttfamily\small]|-e| sets the name of the network to be attacked.
-\lstinline[basicstyle=\ttfamily\small]|-a| sets the BSSID of the network to be attacked.
-\lstinline[basicstyle=\ttfamily\small]|-h| sets the MAC of the device to be associated with the target network.
-
-Subsequently ARP requests can be injected with \lstinline[basicstyle=\ttfamily\small]|aireplay-ng --arpreplay -b 00:14:6C:7E:40:80 -h 00:0F:B5:88:AC:82 wlan0|.
+For the replay attack, a fake association with the AP is established, using \lstinline[]|aireplay-ng| as seen in \cref{fig:aireplay-ng}. 
+\\\lstinline[]|--fakeauth 0| defines the authentication to be performed infinitely, until a connection is established. 
+\\\lstinline[]|-e| sets the name of the target network
+\\\lstinline[]|-a| sets the BSSID of the target network
+\\\lstinline[]|-h| sets the MAC of the device to be associated with the target network
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aireplay_arpreplay.png}
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aireplay.png}
     \caption{Screenshot of aireplay-ng fake authentication and ARP replay attack}
-    \label{fig:aireplay-ng_arpreplay}
+    \label{fig:aireplay-ng}
 \end{figure}
 
-Now we can simlutaniously try to crack the password with \lstinline[basicstyle=\ttfamily\small]|aircrack-ng CrackWEP.cap|, which takes the output of airodump-ng and tries to crack the password for every 5000 IVs collected.
+Upon successful association, to be seen in \cref{fig:aireplay-ng}, ARP requests can be injected.
+\\\lstinline[]|--arpreplay| selects the replay attack for ARP frames
+\\\lstinline[]|-b| sets the BSSID of the target network
+\\\lstinline[]|-h| sets the MAC address of the attacker
 
+Creating and capturing traffic, IVs are collected and the cracking of the password can be started simlutaniously. 
+As seen in \cref{fig:aircrack-ng_WEP_process}, \lstinline[]|aircrack-ng| is executed and reads the output of airodump-ng, attempting to crack the password for every 5000 IVs collected.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WEP_03_01.png}
+    \caption{Screenshot of the cracking process with aircrack-ng}
+    \label{fig:aircrack-ng_WEP_process}
+\end{figure}
+
+\newpage
 \subsection{Cracking WPA/WPA2}
-This attack starts off again by scouting the target network with airodump-ng, like shown in \cref{ssec:method_WEP}.
+This attack starts off by scouting the target network with \lstinline[]|airodump-ng| as well, in this case it is called "WPAnetwork".
 
+Once the desired AP has been discovered, similar to Cracking WEP, \lstinline[]|airodump-ng| is used to capture the (re-)authentication handshake.
+The Deauthentication Attack is performed with \lstinline[]|aireplay-ng| to force the re-authentication of connected STAs (see \cref{fig:aireplay_deauth}).
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aireplay_deauth.png}
+    \caption{Screenshot of the Deauthentication Attack}
+    \label{fig:aireplay_deauth}
+\end{figure}
 
+\lstinline[]|--deauth 10| promts the program to transmit 10 deauthentication frames
+\\\lstinline[]|-a| specifies the APs BSSID, leading to the frames beeing broadcasted to all STAs
+\\\lstinline[]|-c| can be used to specify the MAC address of a STA, to send the frames directly to one STA, as recommended by the program
 
-With the following command, 10 deauthentication frames are sent to the AP:
-
-\lstinline[]|aireplay-ng -deauth 10 -a [router bssid] interface|
-
-%deauth screenshot
 After capturing the authentication handshake, a dictionary attack is performed to crack the password, which in this case utilizes the "rockyou.txt" password list, built into kali linux, to brute force the password.
 
 \lstinline[]|aircrack-ng -b [bssid of router] -w [path to word list] [path to capture packets]| starts to interate through the password list, computes the PSK for each password and compares it to the captured PSK.
-
+%aircrack WPA Screenshot
 
 \section{Results}
 \subsection{Cracking WEP}
@@ -124,19 +161,30 @@ After X time and only Y captured IVs, the test was cancelled.
 
 As a workaround for test two, the RPI was connected to the internet and a second STA in form of a Smartphone was put on the network.
 The smartphone streamed a video, which generated sufficient traffic.
-This time the password could be cracked after around 3 minutes and only 214 captured IVs (see \cref{fig:aircrack-ng}).
+This time the password could be cracked after around 3 minutes and only 214 captured IVs.
 
 For control, a third test was conducted, for which the password of the hotspot was changed with the new password function.
 Again the password could be cracked in little time, with around 15000 IVs collected.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WEP_success.png}
-    \caption{Screenshot of aircrack-ng}
-    \label{fig:aircrack-ng}
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WEP_03_03.png}
+    \caption{Screenshot of the fourth cracking attempt}
+    \label{fig:aircrack-ng_WEP_success}
 \end{figure}
+
+An investigation into the first test revealed, that the ARP injection did not function properly, therefore a fourth test without the video stream was conducted.
+With working ARP injection, the IV collection proceeded quicker than in test one, however it still took around 20 minutes of frame capture and six minutes of cracking, as depicted in \cref{fig:aircrack-ng_WEP_success}, to find the password.
+
 
 \subsection{Cracking WPA/WPA2}
 Upon the first test it was discovered, that the configurations for the WPA and WPA2 networks were not correctly set up (see \cref{ch:development}).
 
 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WPA_01_01.png}
+    \caption{Screenshot of the failed handshake capture}
+    \label{fig:aircrack-ng_WPA_handshake}
+\end{figure}

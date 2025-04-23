@@ -19,7 +19,7 @@ The MAC layer is responsible for seting rules on tranmission and reception of da
 Data sent on the MAC layer then gets converted to radio waveforms by the PHY layer, which is also responsible for converting received data back to the MAC protocol. \cite[page~4-7]{Sankaran_Gulasekaran_2021}
 
 \section{MAC layer}
-Devices in the MAC layer are adressed with a MAC adress, which consists of 12 hexdecimal characters and is unique for every network interface controller (NIC).
+Devices in the MAC layer are adressed with a MAC address, which consists of 12 hexdecimal characters and is unique for every network interface controller (NIC).
 
 A MAC adress could look like this: \lstinline[basicstyle=\ttfamily\small]|61:A3:E2:73:9A:F3|.
 
@@ -98,6 +98,9 @@ When using this technique, the medium gets blocked during transmission and is fr
 All STAs start off in the random backoff state, where they listen for traffic.
 After the random backoff counter has expired and no traffic is present, the STA will start transmission.
 CSMA-CA can be described by the way "humans converse in a group, where every individual would first listen to check if someone else is talking, wait for the person talking to finish, and then start talking after a brief random pause" \cite[page~12]{Sankaran_Gulasekaran_2021}. \cite{Oriyano_2017} \cite[page~12-17]{Sankaran_Gulasekaran_2021}
+
+For addressing a STA, its MAC address needs to be known.
+For sharing the MAC address of a STA with all other STAs on the network the Address Resolution Protocol (ARP) is employed, which broadcasts the STAs MAC addresses, allowing all other devices to save it.
 
 \subsection{Connection Establishment and Termination}
 Before a connection can be established, the STA first needs to discover the AP it wants to connect to.

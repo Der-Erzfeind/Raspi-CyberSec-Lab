@@ -1,4 +1,5 @@
 \chapter{Development}\label{ch:development}
+\lstset{style=inline}
 
 \section{Project Inception}
 The initial concept for the project revolved around the use of a collection of SD-Cards, containing operating systems tailored for specific usecases.
@@ -32,7 +33,7 @@ For the setup said service an according configuration file needs to be added to 
 Instead of a BIOS\footnote{Binary Input Output System: boots before the OS}, the RPI employs a configuration file (\textit{/boot/firmware/config.txt}), which is read on startup to initialize the hardware and operating system.
 To this file the following lines were added:
 
-\begin{lstlisting}[basicstyle=\ttfamily\small, numbers=none]
+\begin{lstlisting}[numbers=none, frame=none]
     dtoverlay=waveshare35a
     framebuffer_width=200
     framebuffer_height=120 
@@ -56,7 +57,7 @@ A password list containing 100,000 entries was selected as the data source.
 Given the varying requirements for passwords across different WiFi standards, as detailed in \cref{ch:documentation}, the list contained a number of unsuitable entries.
 It was subsequently filtered using a simple script (see listing \ref{lst:passwdExtract}) to generate password lists that conformed to the specific requirements of each standard.
 
-\lstinputlisting[language=bash, caption={script for password extraction}, label={lst:passwdExtract}]{listings/Raspi-CyberSec-Lab-Project/Passwords/extract.sh}
+\lstinputlisting[style=block, language=bash, caption={script for password extraction}, label={lst:passwdExtract}]{listings/Raspi-CyberSec-Lab-Project/Passwords/extract.sh}
 
 For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifname [device name]| command is employed to display the type of network, its SSID and password.
 Unfortunately this command is not functional for WEP networks, therefore a script was created, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection}, formatting to output alike the nmcli utility.
@@ -68,7 +69,7 @@ Attempts to add timestamps by using \lstinline[]|awk| or \lstinline[]|ts| were u
 Furthermore, a challenge that remains unresolved is the integration of the outputs from both programs into a single logfile.
 
 As described in \cref{ch:testing}, there were some critical configuration errors discovered along the testing process.
-The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[basicstyle=\ttfamily\small]|airodump-ng|.
+The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[]|airodump-ng|.
 Also the WPA and WPA2 networks were identified by airodump as WPA3 networks, using SAE as the authentication mechanism.
 In the pursuit of fixing the configuration errors, the WPA network was accidentally configured to use enterprise authentication in the form on 801.2X.
 Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADUIS server for enterprise authentication during activation, timing out as a result.
@@ -100,7 +101,7 @@ The code of the ESP32 in large part consists of code examples provided by the ES
 From these examples the code was compiled from snippets the WiFi station example, mqtt websocket example and UART events example.
 These snippets were modified to work in conjunction with the scripts present on the RPI.
 
-When closing a network and reopening another, instructing the ESP32 to switch to the new network, lead to it regurlarly crash with the error \lstinline[basicstyle=\ttfamily\small]|itwt_stop_process|.
+When closing a network and reopening another, instructing the ESP32 to switch to the new network, lead to it regurlarly crash with the error \lstinline[]|itwt_stop_process|.
 After investigation, the error seemed to originate from a WiFi power saving mechanism present in WiFi 6, called Target Wake Time (TWT).
 Various attempts of solving the error by disableing the power saving were attempted, but resulted unsuccessful.
 

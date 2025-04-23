@@ -58,6 +58,7 @@
 \usepackage{pdfpages}
 \usepackage{multicol}
 \usepackage{microtype}
+\usepackage{courier}
 
 % table setup
 \usepackage{longtable}
@@ -98,15 +99,24 @@
 \usepackage{inconsolata}
 \usepackage{xcolor}
 \usepackage{listings}
-\lstset{
-	tabsize=3,
-	extendedchars=true,
-	frame=single,
-	showstringspaces=false,
+
+\lstdefinestyle{inline}{
+  basicstyle=\fontfamily{pcr}\small\bfseries,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
   breaklines=true,
-	numbers=left,
-	breakautoindent=trubreaklines=true,                     % Enable line breakinge
-  basicstyle=\ttfamily\fontsize{8.5}{9}\selectfont,
+}
+
+\lstdefinestyle{block}{
+  tabsize=3,
+  extendedchars=true,
+  frame=single,
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  breakautoindent=true,  % Corrected this line
+  basicstyle=\fontfamily{pcr}\fontsize{8.5}{9}\selectfont,
   keywordstyle=\color{cyan!75!black}\bfseries,
   commentstyle=\color{green!75!black},
   stringstyle=\color{orange},
@@ -161,9 +171,9 @@
 \include{content/4_documentation}
 \include{content/5_development}
 \include{content/6_testing}
-\include{content/7_educational_use}
-\include{content/8_outlook}
-\include{content/9_summary}
+\include{content/7_discussion}
+\include{content/8_summary}
+\include{content/9_outlook}
 
 % remove if not needed
 \appendix
