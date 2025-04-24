@@ -98,7 +98,7 @@ This happens within the rotation handling interrupt service routine (ISR), shown
 
 The ISR checks the state of CLK, which determines the direction the encoder was turned: CLK=0 means, the encoder has been turned clockwise, CLK=1 means counter-clockwise (see \cref{fig:encoder_processing}).
 Subsequently a command in form of a string, representing an ANSI Escape Code, is printed.
-Escape Codes are used as an output for peripheral buttons, which are not a character, for example \lstinline[]|"\033[A"| describes the pressing of the downwards button on the keyboard.
+Escape Codes are used as an output for peripheral buttons, which are not a character, for example \lstinline[style=inline]|"\033[A"| describes the pressing of the downwards button on the keyboard.
 As previously explained, the output of the encoder program is piped into the input of the UI, therefore rotating the encoder leads to the UI recieving the codes for up and down.
 The pushbutton action is processed in a similar way, with an ISR outputting a newline symbol to the UI.
 
@@ -121,7 +121,7 @@ Receiving the network information, the ESP32 will then connect to the provided n
 With the wifiReset.sh script, the currently active network connection is turned off, which gets called by the deactivate option in the WiFi menu.
 
 To display the current status of the network, meaning its security standard, SSID and password, the wifiStatus.sh script is used.
-It uses the \lstinline[]|nmcli dev wifi show-password| to output to the UI, which then looks like the following:
+It uses the \lstinline[style=inline]|nmcli dev wifi show-password| to output to the UI, which then looks like the following:
 
 \begin{figure}[h]
     \centering
@@ -131,7 +131,7 @@ It uses the \lstinline[]|nmcli dev wifi show-password| to output to the UI, whic
 \end{figure}
 
 
-When activating monitoring, wifiMonitor.sh uses the \lstinline[]|iw event -T| command to log devices connecting and disconnecting from the network.
+When activating monitoring, wifiMonitor.sh uses the \lstinline[style=inline]|iw event -T| command to log devices connecting and disconnecting from the network.
 Selecting the "monitor" option, the user is presented with the options of de-/activating the network monitoring as well as viewing or deleting the monitoring log.
 
 Once a network has been cracked, the wifiNewPassword.sh script can be used to give a new random password to the selected network inside the change password menu.
@@ -165,7 +165,7 @@ The UART event handler has been modified to process the commands sent by the RPI
 \subsection{Miscellaneous}
 The development menu contains options used during development, these can be adjusted on the fly inside the development.sh script.
 
-When selecting the shutdown option, all running processes are stopped and the shutdown.sh script calls \lstinline[]|shutdown now| to turn off the device.
+When selecting the shutdown option, all running processes are stopped and the shutdown.sh script calls \lstinline[style=inline]|shutdown now| to turn off the device.
 
 
 

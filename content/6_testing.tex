@@ -135,7 +135,7 @@ As seen in \cref{fig:aircrack-ng_WEP_process}, \lstinline[]|aircrack-ng| is exec
 \subsection{Cracking WPA/WPA2}
 This attack starts off by scouting the target network with \lstinline[]|airodump-ng| as well, in this case it is called "WPAnetwork".
 
-Once the desired AP has been discovered, similar to Cracking WEP, \lstinline[]|airodump-ng| is used to capture the (re-)authentication handshake.
+Once the desired AP has been discovered \lstinline[]|airodump-ng| is used to capture the (re-)authentication handshake.
 The Deauthentication Attack is performed with \lstinline[]|aireplay-ng| to force the re-authentication of connected STAs (see \cref{fig:aireplay_deauth}).
 
 \begin{figure}[h]
@@ -147,14 +147,30 @@ The Deauthentication Attack is performed with \lstinline[]|aireplay-ng| to force
 
 \lstinline[]|--deauth 10| promts the program to transmit 10 deauthentication frames
 \\\lstinline[]|-a| specifies the APs BSSID, leading to the frames beeing broadcasted to all STAs
-\\\lstinline[]|-c| can be used to specify the MAC address of a STA, to send the frames directly to one STA, as recommended by the program
+\\\lstinline[]|-c| can be used to specify the MAC address of a STA, to send the frames directly to a specific STA, as recommended by the program
 
 After capturing the authentication handshake, a dictionary attack is performed to crack the password, which in this case utilizes the "rockyou.txt" password list, built into kali linux, to brute force the password.
 
-\lstinline[]|aircrack-ng -b [bssid of router] -w [path to word list] [path to capture packets]| starts to interate through the password list, computes the PSK for each password and compares it to the captured PSK.
+Aircrack-ng starts to interate through the password list, computes the PSK for each password and compares it to the captured PSK.
 %aircrack WPA Screenshot
 
-\section{Results}
+\lstinline[]|-b| specifies the AP to be targeted
+\\\lstinline[]|-w| specifies the password file, in this case the rockyou.txt, found in \textit{/usr/share/wordlists}
+
+
+\section{Results}\label{sec:results}
+Navigation of the UI seems intuitive and switching between menues works fluidly.
+Execution of the various scripts is reliable, if implemented correctly.
+However the ESP32 has been observed to crash occasionally during WiFi connection establishment.
+The circumstances and cause for the occurence of these sporadic crashes are unclear at the moment and a fix is not forseen for the scope of this thesis.
+
+Upon conducting the tests it was discovered, that the configurations for the WPA and WPA2 networks were not correctly set up.
+The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[]|airodump-ng|.
+Also the WPA and WPA2 networks were identified by airodump as WPA3 networks, using SAE as the authentication mechanism.
+The \cref{sec:network_management} details the process of resolving the configuration errors and allowing the following tests to be conducted.
+
+The webapp functions, specifially the MQTT communication and Juice Shop server, seem to work without complication, but were not tested thoroughly.
+
 \subsection{Cracking WEP}
 The first attempt at cracking the WEP network was unsuccessful, because only the ESP32 beeing connected to the network, ARP request injection cannot generate significant traffic, therefore the collection of IVs proceeds very slowly.
 After X time and only Y captured IVs, the test was cancelled.
@@ -164,7 +180,7 @@ The smartphone streamed a video, which generated sufficient traffic.
 This time the password could be cracked after around 3 minutes and only 214 captured IVs.
 
 For control, a third test was conducted, for which the password of the hotspot was changed with the new password function.
-Again the password could be cracked in little time, with around 15000 IVs collected.
+Again the password could be cracked in a few minutes, with around 15000 IVs collected.
 
 \begin{figure}[h]
     \centering
@@ -176,10 +192,8 @@ Again the password could be cracked in little time, with around 15000 IVs collec
 An investigation into the first test revealed, that the ARP injection did not function properly, therefore a fourth test without the video stream was conducted.
 With working ARP injection, the IV collection proceeded quicker than in test one, however it still took around 20 minutes of frame capture and six minutes of cracking, as depicted in \cref{fig:aircrack-ng_WEP_success}, to find the password.
 
-
+\newpage
 \subsection{Cracking WPA/WPA2}
-Upon the first test it was discovered, that the configurations for the WPA and WPA2 networks were not correctly set up (see \cref{ch:development}).
-
 
 
 \begin{figure}[h]

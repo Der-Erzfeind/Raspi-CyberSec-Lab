@@ -46,7 +46,7 @@ The scale problem was fixed with a workaround, which involves the resolution ins
 
 Initially it was planned to use the display in vertical orientation, however, attempts to rotate the terminal by configuration inside \textit{config.txt} or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
 
-\section{Network Management}
+\section{Network Management}\label{sec:network_management}
 For network managment, it was decided on use of the Network Manager Command Line Interface (nmcli) tool, which is easy to use and offers a sizable set of configuration options and utilities.
 At the start of the development of the shell scripts for WiFi activation, it was unclear, how to configure a connection in line with the specification of the different WiFi standards.
 After research on the different security mechanisms and the nmcli documentation was conducted, the solution appeared to be the manual configuration of the encryption algorithm, key management and information element for each connection.
@@ -59,7 +59,7 @@ It was subsequently filtered using a simple script (see listing \ref{lst:passwdE
 
 \lstinputlisting[style=block, language=bash, caption={script for password extraction}, label={lst:passwdExtract}]{listings/Raspi-CyberSec-Lab-Project/Passwords/extract.sh}
 
-For the WiFi status function, the \lstinline[]|nmcli dev wifi show-password ifname [device name]| command is employed to display the type of network, its SSID and password.
+For the WiFi status function, the \lstinline[breaklines=true]|nmcli dev wifi show-password ifname [device name]| command is employed to display the type of network, its SSID and password.
 Unfortunately this command is not functional for WEP networks, therefore a script was created, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection}, formatting to output alike the nmcli utility.
 
 In the implementation of the WiFi monitor function, the objective was to create a logger that would enable users to trace the events of an attack, such as the dis-/connection of devices and any changes to the network.
@@ -68,12 +68,16 @@ Additionally, \lstinline[]|nmcli monitor| reports any modifications made to the 
 Attempts to add timestamps by using \lstinline[]|awk| or \lstinline[]|ts| were unsuccessful, as nmcli monitor must be executed in the background to allow the UI to remain operational. 
 Furthermore, a challenge that remains unresolved is the integration of the outputs from both programs into a single logfile.
 
-As described in \cref{ch:testing}, there were some critical configuration errors discovered along the testing process.
-The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[]|airodump-ng|.
-Also the WPA and WPA2 networks were identified by airodump as WPA3 networks, using SAE as the authentication mechanism.
+As described in \cref{sec:results}, some critical configuration errors were discovered during the testing process.
 In the pursuit of fixing the configuration errors, the WPA network was accidentally configured to use enterprise authentication in the form on 801.2X.
-Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADUIS server for enterprise authentication during activation, timing out as a result.
-%insert fix for wifi config
+Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADIUS server for enterprise authentication during activation, timing out as a result.
+After allocation of significant time and the discovery of more unexpected behavior with \lstinline[]|nmcli|, a result for resolving the problems could not be found.
+It was decided to create a new OS setup on another SD card.
+
+For the correct setup of the WEP network, the following lines were added or modified:
+\lstinputlisting[style=block,language=bash,linerange={13-14, 16-16},numbers=none,tabsize=1,label={lst:fix_WEP}]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
+
+With the renewed OS setup, the connection timeout for the WPA supplicant was resolved and WPA and WPA2 connections are correctly established.
 
 \section{Rotary Encoder}
 To use the encoder dial as a scrollwheel, its signals need to be processed and translated to instructions for the main program to execute.
