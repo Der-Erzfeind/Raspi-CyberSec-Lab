@@ -70,14 +70,26 @@ Furthermore, a challenge that remains unresolved is the integration of the outpu
 
 As described in \cref{sec:results}, some critical configuration errors were discovered during the testing process.
 In the pursuit of fixing the configuration errors, the WPA network was accidentally configured to use enterprise authentication in the form on 801.2X.
-Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADIUS server for enterprise authentication during activation, timing out as a result.
-After allocation of significant time and the discovery of more unexpected behavior with \lstinline[]|nmcli|, a result for resolving the problems could not be found.
-It was decided to create a new OS setup on another SD card.
+Switching the configuration back to WPA-PSK, the WiFi connection continued trying to reach the RADIUS server for enterprise authentication during activation, timing out with the error message:
+
+\begin{lstlisting}[style=block, numbers=none]
+Error: Connection activation failed: 802.1X supplicant took too long to authenticate 
+Hint: use 'journalctl -xe NM_CONNECTION=7fb3feca-d2b4-424a-85ee-e0aa40f1c90a + NM_DEVICE=wlan1' to get more details.
+\end{lstlisting}
+
+After allocation of significant time and the discovery of more unexpected behavior with \lstinline[]|nmcli|, it was decided to create a new OS setup on another SD card.
 
 For the correct setup of the WEP network, the following lines were added or modified:
 \lstinputlisting[style=block,language=bash,linerange={13-14, 16-16},numbers=none,tabsize=1,label={lst:fix_WEP}]{listings/Raspi-CyberSec-Lab-Project/Skripte/wifiActivate.sh}
 
-With the renewed OS setup, the connection timeout for the WPA supplicant was resolved and WPA and WPA2 connections are correctly established.
+With the renewed OS setup, the connection timeout for the WPA supplicant seemed to be resolved and WPA and WPA2 connections were correctly established.
+
+However on the second pentest of the WPA network, the supplicant error appeared once again, even though enterprise authentication was never activated, which leads to the assumption that this error is beeing caused by a software bug.
+
+The final solution found involves the WPA supplicant beeing disabled by executing
+\\\lstinline[]|systemctl disable wpa_supplicant|.
+This allows the activation of the WPA network, although the error still appears occasionally.
+A reliable fix for the problem could not be determined at this point.
 
 \section{Rotary Encoder}
 To use the encoder dial as a scrollwheel, its signals need to be processed and translated to instructions for the main program to execute.

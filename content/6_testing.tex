@@ -136,6 +136,10 @@ As seen in \cref{fig:aircrack-ng_WEP_process}, \lstinline[]|aircrack-ng| is exec
 This attack starts off by scouting the target network with \lstinline[]|airodump-ng| as well, in this case it is called "WPAnetwork".
 
 Once the desired AP has been discovered \lstinline[]|airodump-ng| is used to capture the (re-)authentication handshake.
+To ensure the functionality of frame injection, it was tested with airodump, using the \lstinline[]|--test| flag.
+The output, depicted in \cref{fig:aireplay_test_WPA}, means that normal frames are ignored, due to the STA not beeing authenticated.
+Because PMF is not active, deauthentication frames can still be injected.
+
 The Deauthentication Attack is performed with \lstinline[]|aireplay-ng| to force the re-authentication of connected STAs (see \cref{fig:aireplay_deauth}).
 
 \begin{figure}[h]
@@ -152,7 +156,8 @@ The Deauthentication Attack is performed with \lstinline[]|aireplay-ng| to force
 After capturing the authentication handshake, a dictionary attack is performed to crack the password, which in this case utilizes the "rockyou.txt" password list, built into kali linux, to brute force the password.
 
 Aircrack-ng starts to interate through the password list, computes the PSK for each password and compares it to the captured PSK.
-%aircrack WPA Screenshot
+The brute forcing is started with:
+\\\lstinline[]|aircrack-ng -b [BSSID] -w [passwordlist] WPAcrack-01.cap|
 
 \lstinline[]|-b| specifies the AP to be targeted
 \\\lstinline[]|-w| specifies the password file, in this case the rockyou.txt, found in \textit{/usr/share/wordlists}
@@ -164,7 +169,7 @@ Execution of the various scripts is reliable, if implemented correctly.
 However the ESP32 has been observed to crash occasionally during WiFi connection establishment.
 The circumstances and cause for the occurence of these sporadic crashes are unclear at the moment and a fix is not forseen for the scope of this thesis.
 
-Upon conducting the tests it was discovered, that the configurations for the WPA and WPA2 networks were not correctly set up.
+Upon conducting the tests it was discovered, that the configurations for the WEP, WPA and WPA2 networks were not correctly set up.
 The faulty configuration resulted in the network, supposedly encrypted with the WEP encryption standard, showing up as a WPA network in \lstinline[]|airodump-ng|.
 Also the WPA and WPA2 networks were identified by airodump as WPA3 networks, using SAE as the authentication mechanism.
 The \cref{sec:network_management} details the process of resolving the configuration errors and allowing the following tests to be conducted.
@@ -194,11 +199,29 @@ With working ARP injection, the IV collection proceeded quicker than in test one
 
 \newpage
 \subsection{Cracking WPA/WPA2}
-
+On the first test, cracking the password was unsuccessful, because the handshake was not captured, leading to aircrack-ng exiting with the output depicted in \cref{fig:aircrack-ng_WPA_handshake}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WPA_01_01.png}
     \caption{Screenshot of the failed handshake capture}
     \label{fig:aircrack-ng_WPA_handshake}
+\end{figure}
+
+On the second try, a handshake was captured, by manually reconnecting the EPS32 to the network.
+Capture of a handshake with the use of the deauthentication attack could not be achieved.
+With the password "TestSetup123", created on creation of the connection, the network could not be cracked with the rockyou password list.
+Since this password is not contained in the list, after two hours, the password could not be found, as to be seen in \cref{fig:aircrack-ng_WPA_fail}.
+
+After setting a new random password for the third try, cracking the network, shown in \cref{fig:aircrack-ng_WPA_success} was possible in 22 seconds.
+Multiple follow up tries with other passwords also resulted in the successful cracking of the network, with the limitation of needing to manually (re-)connect the ESP32 to the network.
+
+Cause for the failing deauthentication attacks most likely is PMF beeing used for the network.
+Even though the configuration was double checked, the previous unexpected behavior of Network Manager leads to this suspicion.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/Abbildungen/Screenshots/aircrack_WPA_success.png}
+    \caption{Screenshot of the successful cracking of WPA}
+    \label{fig:aircrack-ng_WPA_success}
 \end{figure}
