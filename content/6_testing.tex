@@ -60,14 +60,12 @@ The brute force attack can be accelerated by performing a dictionary attack.
 However if the network uses a strong password, which is not contained in the password dictionary, the attack will be unsuccessful in the way that it takes too long to brute force the passphrase.
 Furthermore APs with PMF enabled can not be attacked with this method, since encrypted deauthentication frames cannot be spoofed.
 
-\subsection{Man-in-the-Middle}
-
 \section{Methods}
 The Pentests were conducted using the Aircrack-ng suite with Kali Linux.
 Kali Linux is a Linux distribution, which comes with a vast collection of tools for Pentesting, security auditing and computer forensics.
 The Aircrack-ng suite is taylored towards network security assessment and is included with Kali Linux.
-
-\textit{Note: For more information consult the Kali and Aircrack-ng documentation \cite{aircrack_ng}\cite{kali_docs}.}
+\\\textit{Note: For more information consult the Kali and Aircrack-ng documentation \cite{aircrack_ng}\cite{kali_docs}.}
+\\All tests were run on a Dell Vostro 3550 with an Intel Core i3 CPU from 2011 and 8GB of RAM, using the Alfa AWUS036AXM network card.
 
 \subsection{Cracking WEP}{\label{ssec:method_WEP}}
 
@@ -217,7 +215,7 @@ After setting a new random password for the third try, cracking the network, sho
 Multiple follow up tries with other passwords also resulted in the successful cracking of the network, with the limitation of needing to manually (re-)connect the ESP32 to the network.
 
 Cause for the failing deauthentication attacks most likely is PMF beeing used for the network.
-Even though the configuration was double checked, the previous unexpected behavior of Network Manager leads to this suspicion.
+Even though the configuration was double checked, the previous unexpected behavior of Network Manager leads to the suspicion that the configuration is not beeing applied correctly.
 
 \begin{figure}[h]
     \centering

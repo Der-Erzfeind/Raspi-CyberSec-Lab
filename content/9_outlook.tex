@@ -6,21 +6,21 @@ To improve performance, the function could be made to only refresh the output on
 A menu manager class could be added, which contains a menu stack and methods to manipulate it.
 Instead of implementing navigate() as a method of the menu class, it could be a method of the menu manager, to display the menu currently on top of the menu stack.
 
-The structure and therefore readability of the code could furthermore be improved by replacing the lambda functions and implementing the functions as methods with the decorator pattern.
+The structure and therefore readability of the code could furthermore be improved by replacing the lambda functions and implementing the functions as methods with the command design pattern.
 
-As described in \cref{ch:development}, the setup without a graphic server does limit the scaling of the UI to adjusting the resolution in the display configuration in config.txt.
+As described in \cref{sec:ui}, the setup without a graphic server does limit the scaling of the UI to adjusting the resolution in the display configuration in config.txt.
 The UI could be reworked with a graphical interface to allow individual scaling of the menu items and the terminal output to improve the outputs readability.
-
 
 \section{Input Processing}
 The encoder program could be merged into the UI program and run as a seperate thread, which sends the preprocessed inputs to the parent thread.
 This change would allow the parallel input via the rotary encoder and a keyboard, which could be useful, when a developer is connected to the RPI over SSH.
 
 \section{Features}
-There are serveral features, which can be implemented in the future to greatly improve the devices versatility.
-Adding battery power would improve the portability of the device, but would most likely also require a more efficient SBC than the RPI.
-In the field of wireless communication, Bluetooth, NFC and 2.4Ghz RF communication environments could be set up for pentesting.
-Pentesting with SSL/TLS attacks and Malware injection could be implemented as well as the addition of dummy files to test the cracking of different cryptographic techniques.
-The addition of defensive features like an Intrusion Detection and Prevention System would be a great way of teaching the application of cyber security techniques. 
-%Setup for incident response.
-%Rouge Access Point
+There are serveral features, which can be implemented in the future to greatly improve the devices versatility:
+\begin{itemize}
+    \item Adding battery power would improve the portability of the device, but would most likely also require a more efficient SBC than the RPI.
+    \item In the field of wireless communication, Bluetooth, NFC and 2.4Ghz RF communication environments could be set up for pentesting.
+    \item Pentesting with SSL/TLS attacks and Malware injection could be implemented as well as the addition of dummy files to test the cracking of different cryptographic techniques.
+    \item The addition of defensive features like an Intrusion Detection and Prevention System would be a great way of teaching the application of cyber security priciples.
+    \item An environment for practicing incident response would be helpful in teaching security techniques and could allow students to be split up into groups of attackers and defenders, endorcing playful learning.
+\end{itemize}

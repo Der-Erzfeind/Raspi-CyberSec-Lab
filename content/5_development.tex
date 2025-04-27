@@ -19,7 +19,7 @@ From this concept the following 3D-model was created to visualize the project id
     \label{fig:concept}
 \end{figure}
 
-\section{User Interface}
+\section{User Interface}\label{sec:ui}
 To display the UI, the menues need to be printed into the terminal, for which a simple loop, that peridiodically clears the screen and prints the options of a menu, was decided on.
 Subsequently a fitting software architecture needed to be designed, which can model the variety of menues and their respective options with individual actions.
 The menues need to display options, which require the capability of executing various actions, including the transition to other menues and the execution of shellscripts and programs.
@@ -43,8 +43,9 @@ Line one sets up a hardware overlay to initialize the display, lines two and thr
 With the resolution set to the factory specification of 800x480, the UI is displayed quite small, thus poorly suited for the usecase.
 Since the OS runs in terminal without a graphic server, there is no simple option for scalation of the UI.
 The scale problem was fixed with a workaround, which involves the resolution inside the \textit{config.txt} to be set to 200x120, therefore forcing the scalation of the UI.
+The increased scale leads to the menues beeing clearly readable and comfortable to use, but limits the readability of console output.
 
-Initially it was planned to use the display in vertical orientation, however, attempts to rotate the terminal by configuration inside \textit{config.txt} or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
+Initially it was planned to use the display in vertical orientation, however attempts to rotate the terminal by configuration inside \textit{config.txt} or the kernel command line (\textit{/boot/firmware/cmdline.txt}) were unsuccessful.
 
 \section{Network Management}\label{sec:network_management}
 For network managment, it was decided on use of the Network Manager Command Line Interface (nmcli) tool, which is easy to use and offers a sizable set of configuration options and utilities.
@@ -60,7 +61,7 @@ It was subsequently filtered using a simple script (see listing \ref{lst:passwdE
 \lstinputlisting[style=block, language=bash, caption={script for password extraction}, label={lst:passwdExtract}]{listings/Raspi-CyberSec-Lab-Project/Passwords/extract.sh}
 
 For the WiFi status function, the \lstinline[breaklines=true]|nmcli dev wifi show-password ifname [device name]| command is employed to display the type of network, its SSID and password.
-Unfortunately this command is not functional for WEP networks, therefore a script was created, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections/[connection].nmconnection}, formatting to output alike the nmcli utility.
+\\Unfortunately this command is not functional for WEP networks, therefore a script was created, which extracts the SSID and password from \textit{/etc/NetworkManager/system-connections}, formatted to output alike the nmcli utility.
 
 In the implementation of the WiFi monitor function, the objective was to create a logger that would enable users to trace the events of an attack, such as the dis-/connection of devices and any changes to the network.
 The command \lstinline[]|iw event -T| provides timestamps and MAC addresses for devices connecting to or disconnecting from the network. 

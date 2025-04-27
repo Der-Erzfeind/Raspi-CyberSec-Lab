@@ -21,7 +21,7 @@ The Fenvi AX1800 USB WiFi card was chosen for its compatibility with the linux k
 
 For some types of attack, such as cracking WPA/WPA2\footnote{see \cref{ch:testing}}, a WiFi station, which is connected to the test network is needed, which in this case is an ESP32 microcontroller unit (MCU).
 Selecting from the large offer of ESP32 MCUs, again size was taken into account and the ESP32-C6 Mini by Waveshare was chosen for its small size and good feature set.
-It connects to the RPI's GPIO pins using simple jumper cables, which supply the ESP32 with power and establish an UART connection.
+It connects to the RPI's GPIO\footnote{General Purpose Input/Outputs can be configured to read or write data} pins using simple jumper cables, which supply the ESP32 with power and establish an UART\footnote{Universal Asyncronous Receiver/Transmitter is a bus standard for serial communication between embedded devices} connection.
 
 Another device connected to the RPI's GPIO header is the rotary encoder.
 On its five pins, it receives 3.3V supply voltage and outputs a gray code, indicating the direction of rotation, on two of its outputs. 
@@ -41,7 +41,7 @@ The hardware components are mounted in a 3d printed case, like shown in \cref{fi
 The software is written to implement the wanted functionality and should be seen as experimental, since it is neither optimised for performance, nor have proper error handling mechanisms been implemented.}
 
 \subsection{Overview}
-The software of the project is mostly modular and it consists of a central program, which runs the user interface (UI) and then executes various shell scripts, with which the functionality is implemented.
+The software of the project is mostly modular and it consists of a central program, which runs the user interface (UI) and then executes various shell\footnote{Terminal of a Linux/Unix system for entering commands} scripts, with which the functionality is implemented.
 As to be seen in \cref{fig:architecture}, besides the UI program, there are programs for MQTT communication and input processing, also the services of the Network Manager and Juice Shop project are used. 
 
 \begin{figure}[h]
