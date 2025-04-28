@@ -6,7 +6,15 @@
 \usepackage[ngerman]{babel}
 \geometry{margin=1in}
 \setlength{\parindent}{0pt}
+\usepackage{listings}
 
+\lstdefinestyle{inline}{
+  basicstyle=\fontfamily{pcr}\small\bfseries,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  breaklines=true,
+}
 % Title Page
 \title{\textbf{Anleitung zum Raspi-CyberSec-Lab}}
 \author{Jonas Schmitt}
@@ -18,7 +26,7 @@
 \vspace{7cm}
 
 \section{Allgemeine Informationen}
-Das RaspberryPI Cybersecurity Lab ist eine Platform zum Testen verschiedener Cyberangriffe, das Projekt ist Teil meiner Bachelorarbeit in Elektro- und Informationstechnik an der Technischen Hochschule Nürnberg.
+Das RaspberryPI Cybersecurity Lab (RCSL) ist eine Platform zum Testen verschiedener Cyberangriffe, das Projekt ist Teil meiner Bachelorarbeit in Elektro- und Informationstechnik an der Technischen Hochschule Nürnberg.
 Es hat verschiedene Funktionen um Umgebungen zu schaffen, welche für das Ausprobieren von Angriffen aus den Bereichen Wifi Netzwerke, Webseiten / -applikationen, MQTT Kommunikation und Bluetooth ausgelegt sind.
 
 
@@ -111,5 +119,13 @@ Folgende Aktionen müssen im Anschluss ausgeführt werden:
 \end{itemize}
 %Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh ausgeführt werden.
 
+\section{Entwicklung}
+Das RCSL öffnet nach dem Bootvorgang einen Hotspot, der für den Aufbau einer SSH Verbindung, wie folgend, genutzt werden kann:
+\begin{enumerate}
+    \item Mit dem Hotspot verbinden, \\SSID: RPI \\Passwort: CyberSec
+    \item SSH Verbindung aufbauen mit \lstinline[style=inline]|ssh pi@10.40.0.1| \\Passwort: admin
+\end{enumerate}
+Im Nutzerverzeichnich befinden sich die Ordner mit den Daten zum Projekt und dem Juice Shop.
+In der Datei \textit{~/Raspi-CyberSec-Lab-Project/Skripte/devMenu.sh} können die Entwicklungsfunktionen, welche im Menü "development" verfügbar sind, angepasst werden.
 
 \end{document}
