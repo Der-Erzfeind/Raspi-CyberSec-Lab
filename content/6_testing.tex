@@ -17,7 +17,7 @@ After capturing and mapping as many Wi-Fi networks as possible, a more sophistic
 \subsection{Rogue Access Point and Evil Twin}
 When using Rogue Access Points, attackers place extra APs onto a network, trying to stay undetected and get STAs to connect to the malicious AP.
 This can, for example, be done by connecting an AP to an open and unprotected LAN port inside a public or company building.
-Once a STA has connected to the rogue AP, it acts as a MITM, allowing the attacker to manipulate or eavesdrop on the traffic.
+Once a STA has connected to the rogue AP, it acts as a MitM, allowing the attacker to manipulate or eavesdrop on the traffic.
 
 Evil Twins have some similarity to Rogue Access Points in that they also pretend to be a legitimate part of an existing network.
 Different to Rogue APs, Evil Twins do not connect to the legitimate network, but instead spoof wireless networks, providing a stronger signal, to again get STAs to connect to it.
@@ -60,7 +60,7 @@ The brute force attack can be accelerated by performing a dictionary attack.
 However if the network uses a strong password, which is not contained in the password dictionary, the attack will be unsuccessful in the way that it takes too long to brute force the passphrase.
 Furthermore, APs with PMF enabled can not be attacked with this method, since encrypted deauthentication frames cannot be spoofed.
 
-\section{Methods}
+\section{Methods}\label{sec:testing_methods}
 The pentests were conducted using the Aircrack-ng suite with Kali Linux.
 Kali Linux is a Linux distribution, which comes with a vast collection of tools for pentesting, security auditing and computer forensics.
 The Aircrack-ng suite is tailored towards network security assessment and is included with Kali Linux.
@@ -70,7 +70,7 @@ The Aircrack-ng suite is tailored towards network security assessment and is inc
 \subsection{Cracking WEP}{\label{ssec:method_WEP}}
 
 Starting the target scouting, \lstinline[]|airmon-ng start wlan1| is used, which puts the card into monitor mode and creates a new network interface, called "wlan1mon".
-With the card being able to receive all traffic, the target network can be searched by using \lstinline[]|airodump-ng wlan1mon|.
+With the card being able to sniff all traffic in the area, the target network can be searched by using \lstinline[]|airodump-ng wlan1mon|.
 
 \begin{figure}[h]
     \centering
@@ -136,7 +136,7 @@ This attack starts off by scouting the target network with \lstinline[]|airodump
 Once the desired AP has been discovered, \lstinline[]|airodump-ng| is used to capture the (re-)authentication handshake.
 To ensure the functionality of frame injection, it was tested with airodump, using the \lstinline[]|--test| flag.
 The output, depicted in \cref{fig:aireplay_test_WPA}, means that normal frames are ignored, due to the STA not being authenticated.
-Because PMF is not active, deauthentication frames can still be injected.
+If PMF is not active, deauthentication frames can still be injected.
 
 The deauthentication attack is performed with \lstinline[]|aireplay-ng| to force the re-authentication of connected STAs (see \cref{fig:aireplay_deauth}).
 
@@ -175,14 +175,14 @@ The \cref{sec:network_management} details the process of resolving the configura
 The webapp functions, specifically the MQTT communication and Juice Shop server, seem to work without complications, but were not tested thoroughly.
 
 \subsection{Cracking WEP}
-The first attempt at cracking the WEP network was unsuccessful because only the ESP32 being connected to the network, ARP request injection cannot generate significant traffic, therefore the collection of IVs proceeds very slowly.
+The first attempt at cracking the WEP network was unsuccessful because only the ESP32 being connected to the network, ARP request injection seemed unable to generate significant traffic, therefore the collection of IVs proceeds very slowly.
 
 As a workaround for test two, the RPI was connected to the internet and a second STA in form of a Smartphone was put on the network.
 The smartphone streamed a video, which generated sufficient traffic.
-This time, the password could be cracked after around 3 minutes and only 214 captured IVs.
+This time, the password could be cracked after around three minutes and only 214 captured IVs.
 
 For control, a third test was conducted, for which the password of the hotspot was changed with the new password function.
-Again, the password could be cracked in a few minutes, with around 15000 IVs collected.
+Again, the password could be cracked in about two minutes, with around 15000 IVs collected.
 
 \begin{figure}[h]
     \centering
@@ -213,7 +213,7 @@ Since this password is not contained in the list, after two hours, the password 
 After setting a new random password for the third try, cracking the network, shown in \cref{fig:aircrack-ng_WPA_success} was possible in 22 seconds.
 Multiple follow-up tries with other passwords also resulted in the successful cracking of the network, with the limitation of needing to manually (re-)connect the ESP32 to the network.
 
-Cause for the failing deauthentication attacks is most likely PMF being used for the network.
+Cause for the failing deauthentication attacks is most likely PMF being active for the network.
 Even though the configuration was double-checked, the previous unexpected behavior of Network Manager leads to the suspicion that the configuration is not being applied correctly.
 
 \begin{figure}[h]
