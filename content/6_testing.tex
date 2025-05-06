@@ -65,10 +65,18 @@ The pentests were conducted using the Aircrack-ng suite with Kali Linux.
 Kali Linux is a Linux distribution, which comes with a vast collection of tools for pentesting, security auditing and computer forensics.
 The Aircrack-ng suite is tailored towards network security assessment and is included with Kali Linux.
 \\\textit{Note: For more information, consult the Kali and Aircrack-ng documentation \cite{aircrack_ng}\cite{kali_docs}.}
-\\All tests were run on a Dell Vostro 3550 with an Intel Core i3 CPU from 2011 and 8GB of RAM, using the Alfa AWUS036AXM network card.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/Abbildungen/attack_setup.pdf}
+    \caption{illustration of the test setup}
+    \label{fig:test_setup}
+\end{figure}
+
+All tests were run on a Dell Vostro 3550 with an Intel Core i3 CPU from 2011 and 8GB of RAM, using the Alfa AWUS036AXM network card.
 
 \subsection{Cracking WEP}{\label{ssec:method_WEP}}
-
+The RSCL is used to establish a WEP network to be cracked (see \cref{fig:test_setup}).
 Starting the target scouting, \lstinline[]|airmon-ng start wlan1| is used, which puts the card into monitor mode and creates a new network interface, called "wlan1mon".
 With the card being able to sniff all traffic in the area, the target network can be searched by using \lstinline[]|airodump-ng wlan1mon|.
 
