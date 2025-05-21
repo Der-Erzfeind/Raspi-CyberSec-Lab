@@ -1,0 +1,15 @@
+*.aux
+*.lof
+*.log
+*.lot
+*.lol
+*.bcf
+*.toc
+*.bbl
+*.blg
+*.run.xml
+*.out
+*.fdb_latexmk
+*.fls
+listings/Raspi-CyberSec-Lab-Project
+figures/

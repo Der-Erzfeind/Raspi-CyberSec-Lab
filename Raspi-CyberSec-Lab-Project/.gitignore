@@ -1,0 +1,15 @@
+Virtual Machine
+Program/a.out
+.vscode
+Passwords/crackstation-human-only.txt.gz
+Passwords/100kPasswords.txt
+*.swp
+*.swo
+*.out
+Logs/*
+build
+.devcontainer
+components
+esp32/test
+esp32/littlefs
+Skripte/test.sh

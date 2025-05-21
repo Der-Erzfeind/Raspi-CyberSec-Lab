@@ -1,0 +1,89 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{xcolor}
+
+
+\lstdefinestyle{inline}{
+  basicstyle=\fontfamily{pcr}\small\bfseries,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  breaklines=true,
+}
+
+\lstdefinestyle{block}{
+  tabsize=2,
+  extendedchars=true,
+  frame=single,
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  breakautoindent=true,  % Corrected this line
+  basicstyle=\fontfamily{pcr}\fontsize{6}{9}\selectfont,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  numberstyle=\tiny\color{gray},
+  captionpos=b
+}
+
+\setbeamertemplate{section page}{
+    \begin{centering}
+        \begin{beamercolorbox}[rounded=true, shadow=true, sep=8pt, center]{section title}
+            \usebeamerfont{section title}\insertsectionhead\par
+        \end{beamercolorbox}
+    \end{centering}
+}
+
+
+\titlegraphic{\includegraphics[width=2.5cm]{figures/ohm-logo.png}}
+\title[RaspberryPi CyberSec Lab]{RaspberryPi CyberSec Lab: Development of a Penetration Testing Platform}
+\subtitle{Bachelorarbeitsvortrag}
+\author{}
+\institute[]{betreut von}
+\date{14.05.2025}
+
+\begin{document}
+\setbeamertemplate{items}[circle] 
+\setbeamercolor{item}{fg=lightgray} 
+
+% Titelseite
+\include{content/1_intro}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \tableofcontents
+\end{frame}
+
+\include{content/2_project_overview}
+\include{content/4_documentation}
+\include{content/3_basics_cybersec}
+\include{content/5_basics_wifi}
+\include{content/6_testing}
+\include{content/8_summary}
+
+\begin{frame}
+    \Large\textcolor[HTML]{990000}{\textbf{Kontakt}}
+    \small
+    \\J
+    \\s
+    \\\vspace{1cm}
+    \Large
+    \Large\textcolor[HTML]{990000}{\textbf{Weitere Informationen}}
+    \small
+    \\https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git
+
+\end{frame}
+
+\end{document}
+

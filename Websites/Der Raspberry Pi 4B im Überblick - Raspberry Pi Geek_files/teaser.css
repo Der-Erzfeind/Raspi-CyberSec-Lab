@@ -1,0 +1,20 @@
+.jwtpl-hilic-item {
+	padding: 10px 0;	
+}
+
+.jwtpl-hilic-itemWorkarea {
+	display: none;
+}
+
+.jwtpl-hilic-itemLink {
+	color: #d91d52;
+    margin: 5px 0;
+    font-weight: 600;
+}
+
+.jwtpl-ts-jobmarketLinkIcon {
+	background-color: #333;
+    display: inline-block;
+    padding: 10px;
+    color: #fff;
+}

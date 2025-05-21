@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210.80492mm"
+   height="120.53795mm"
+   viewBox="0 0 210.80492 120.53802"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
+   sodipodi:docname="architecture _Menu.svg"
+   inkscape:export-filename="architecture_menu.pdf"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showguides="false"
+     inkscape:zoom="0.62400637"
+     inkscape:cx="164.26114"
+     inkscape:cy="233.97197"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Diamond"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Diamond"
+       markerWidth="2"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="none">
+      <path
+         transform="scale(0.45)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
+         id="path19" />
+    </marker>
+    <rect
+       x="353.57565"
+       y="259.11389"
+       width="186.29961"
+       height="41.983009"
+       id="rect3" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     style="display:none"
+     transform="translate(-100.24145,-10.191905)">
+    <rect
+       style="fill:#bab8ac;fill-opacity:1;stroke:none;stroke-width:0.492403;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1"
+       width="98.757103"
+       height="77.756035"
+       x="133.89841"
+       y="63.375015"
+       inkscape:label="file" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-100.24145,-10.191905)">
+    <g
+       id="g12"
+       inkscape:label="MenuOption"
+       transform="translate(95.04979,-60.363695)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5"
+         width="71.276894"
+         height="14.69513"
+         x="144.51968"
+         y="70.7556" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5-2"
+         width="71.247215"
+         height="19.251577"
+         x="144.53452"
+         y="85.750732" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5-2-7"
+         width="71.247215"
+         height="19.251577"
+         x="144.53452"
+         y="-124.45389"
+         transform="scale(1,-1)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;line-height:0;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Bold';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.319;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="62.829651"
+         y="68.210091"
+         id="text3"
+         transform="translate(0,7.1647749)"><tspan
+           x="166.7343"
+           y="72.025858"
+           id="tspan1">MenuOption</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.02167px;line-height:1.5;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Bold';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5-2);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.159;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="224.64493"
+         y="88.343346"
+         id="text5"
+         transform="translate(2.5047424,3.5027997)"><tspan
+           x="144.53516"
+           y="89.972753"
+           id="tspan3"><tspan
+             style="font-weight:500;-inkscape-font-specification:'CMU Serif Medium';text-align:start"
+             id="tspan2">-name: std::string
+</tspan></tspan><tspan
+           x="144.53516"
+           y="96.005255"
+           id="tspan7"><tspan
+             style="font-weight:500;-inkscape-font-specification:'CMU Serif Medium';text-align:start"
+             id="tspan4">-action: std::function&lt;void()&gt;</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.02167px;line-height:1.5;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Medium';text-align:start;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5-2-7);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.159;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="146.85751"
+         y="112.83801"
+         id="text9"
+         transform="translate(2.3223561,3.6110739)"><tspan
+           x="144.53516"
+           y="109.42588"
+           id="tspan8">+execute(): void
+</tspan><tspan
+           x="144.53516"
+           y="115.45838"
+           id="tspan9">+getName(): std::string</tspan></text>
+    </g>
+    <g
+       id="g11"
+       style="display:inline"
+       inkscape:label="Menu"
+       transform="translate(59.630889,-60.573338)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5-6"
+         width="99.759789"
+         height="14.686075"
+         x="40.810566"
+         y="70.983795" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5-2-0"
+         width="99.673126"
+         height="24.958944"
+         x="40.853893"
+         y="86.019867" />
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2-5-2-7-6"
+         width="99.563637"
+         height="42.588737"
+         x="40.908642"
+         y="111.27881" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;line-height:0;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Bold';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5-6);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.319;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="62.829651"
+         y="68.210091"
+         id="text3-2"
+         transform="translate(0,7.164775)"><tspan
+           x="84.632532"
+           y="72.254374"
+           id="tspan10">Menu</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.02167px;line-height:1.5;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Bold';text-align:center;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5-2-0);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.159;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="224.64493"
+         y="88.343346"
+         id="text5-6"
+         transform="translate(2.50474,3.4859425)"
+         inkscape:label="text5-6"><tspan
+           x="40.853516"
+           y="90.242285"
+           id="tspan12"><tspan
+             style="font-weight:500;-inkscape-font-specification:'CMU Serif Medium';text-align:start"
+             id="tspan11">-title: std::string
+</tspan></tspan><tspan
+           x="40.853516"
+           y="96.274786"
+           id="tspan26"><tspan
+             style="font-weight:500;-inkscape-font-specification:'CMU Serif Medium';text-align:start"
+             id="tspan25">-options: std::vector&lt;MenuOption&gt;
+</tspan></tspan><tspan
+           x="40.853516"
+           y="102.30729"
+           id="tspan28"><tspan
+             style="font-weight:500;-inkscape-font-specification:'CMU Serif Medium';text-align:start"
+             id="tspan27">-selectedOption: size_t</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.02167px;line-height:1.5;font-family:'CMU Serif';-inkscape-font-specification:'CMU Serif Medium';text-align:start;letter-spacing:0px;writing-mode:lr-tb;direction:ltr;white-space:pre-wrap;shape-inside:url(#rect2-5-2-7-6);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.159;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         x="43.187595"
+         y="118.90943"
+         id="text9-7"
+         transform="translate(2.4559119,3.6430534)"><tspan
+           x="40.908203"
+           y="115.50205"
+           id="tspan29">-clearScreen(): void
+</tspan><tspan
+           x="40.908203"
+           y="121.53455"
+           id="tspan30">-getch(): int
+</tspan><tspan
+           x="40.908203"
+           y="127.56705"
+           id="tspan31">+addOption(std::string&amp;, std::function&lt;void()&gt;): void
+</tspan><tspan
+           x="40.908203"
+           y="133.59955"
+           id="tspan32">+display: void
+</tspan><tspan
+           x="40.908203"
+           y="139.63206"
+           id="tspan33">+navigate(): void
+</tspan><tspan
+           x="40.908203"
+           y="145.66456"
+           id="tspan34">+setSelectedOption(int): void</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.159;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 191.20909,17.918182 H 113.64545"
+       id="path40" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.849731;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Diamond)"
+       d="m 205.68166,17.427273 h 33.42236"
+       id="path41"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2"
+       transform="translate(1.4086792,0.6706031)">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.031;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none"
+         d="M 148.91267,93.289105 V 112.3898"
+         id="path1"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1.031;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:1.031, 3.093;stroke-dashoffset:0"
+         d="M 148.91267,129.54375 V 112.9053"
+         id="path2"
+         sodipodi:nodetypes="cc" />
+    </g>
+  </g>
+</svg>

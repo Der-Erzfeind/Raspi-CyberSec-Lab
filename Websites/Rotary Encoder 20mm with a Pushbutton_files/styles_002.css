@@ -1,0 +1,153 @@
+/*** SEARCH SUGGESTIONS ***/
+form[role="search"] {
+    position: relative;
+}
+
+.search-autosuggest-results {
+    position: absolute;
+    top: 100%;
+    padding-top: 10px;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.search-autosuggest-results,
+.search-autosuggest-results:empty {
+    display: none;
+}
+
+.is-hovering .search-autosuggest-results:not(:empty),
+.is-focusing .search-autosuggest-results:not(:empty) {
+    display: block;
+}
+
+.search-autosuggest-results ul {
+    list-style: none;
+    padding: 12px;
+    margin: 0;
+    box-shadow: 0 10px 15px rgba(149, 149, 149, .05);
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+    border-radius: 12px;
+}
+
+.search-autosuggest-results li {
+    padding: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.search-autosuggest-results li:hover,
+.search-autosuggest-results li:hover a {
+    color: #430f77;
+}
+
+.search-autosuggest-results li a {
+    color: inherit;
+}
+
+/*** LANGUAGE POPUP ***/
+html.popup-open,
+html.popup-open body {
+    overflow: hidden;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 2.5rem;
+    border: 1px solid #ccc;
+    z-index: 100000;
+    text-align: center;
+    max-width: 90%;
+    width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.popup-content img {
+    margin-bottom: 1.5rem;
+    width: 128px;
+}
+
+.popup-content p {
+    font-size: 1.5rem;
+}
+
+.popup-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.popup-actions>div {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+@media (max-width:762px) {
+    .popup-actions {
+        display: block;
+    }
+
+    .popup-actions>div {
+        margin-top: 1rem;
+    }
+
+}
+
+.general-btn {
+    min-width: 250px;
+    height: 56px;
+    background: #23b9d6;
+    padding: 0 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: inter medium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #23b9d6;
+    transition: .25s ease-in-out;
+    cursor: pointer;
+    border-radius: 32px;
+    background-color: #5b2379;
+    border-color: #5b2379;
+}
+
+.general-btn:hover {
+    color: #fff;
+    background-color: #430f77;
+    border-color: #430f77;
+}
+
+.general-btn.grey {
+    border-color: #666;
+    background-color: #666;
+}
+
+.general-btn.grey:hover {
+    color: #fff;
+    border-color: #333;
+    background-color: #333;
+}

@@ -1,0 +1,171 @@
+*{
+  margin:0;
+  padding:0;
+ }
+ 
+ /*清浮动---clearfix*/
+ .clearfix {
+  *zoom: 1;
+ }
+ .clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  font-size: 0;
+  visibility: hidden;
+ }
+ .blist li:first-child{
+  border-left: none;
+ }
+ .blist li{
+  list-style: none;
+  width: 33%;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  float: left;
+  /*鼠标样式改变为一个手*/
+  cursor: pointer;
+  /*字体免选中*/
+  -webkit-user-select: none;
+  border-bottom:1px solid #d9d9d9;
+ }
+ #account-message .blist li.active{
+  font-weight: bold;
+  color: #2988c8;
+  border-bottom: 2px solid #2988c8;
+  position: relative;
+  cursor: default;
+ }
+ .dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 170px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+s, i, em {
+    font-style: normal;
+    text-decoration: none;
+}
+#my-availability-table s {
+    position: absolute;
+    top: -9px;
+    margin-left: 5px;
+}
+#my-availability-table i {
+    width: 15px;
+    height: 7px;
+    position: absolute;
+    top: 7px;
+    overflow: hidden;
+}
+.el-dialog {
+    position: relative;
+    margin: 0 auto 50px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    box-sizing: border-box;
+    width: 50%;
+}
+.el-dialog--center {
+    text-align: center;
+}
+.el-dialog__header {
+    padding: 20px 20px 10px;
+}
+.el-dialog__title {
+    line-height: 24px;
+    font-size: 22px;
+    color: #303133;
+}
+.el-dialog__headerbtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+.el-dialog__footer {
+    padding: 10px 20px 20px;
+    text-align: right;
+    box-sizing: border-box;
+}
+.history_line {
+    line-height: 1.4;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #ccc;
+    width: 90%;
+    position: relative;
+    left: 5%;
+}
+
+.product-changelog .toolbar {
+    border-bottom-width: 0px !important;
+}
+.product-changelog .toolbar .submit {
+    background-color: #7bae23;
+    border-color: #7bae23;
+    color: #ffffff;
+}
+.product-changelog .toolbar .submit:hover {
+    color: #ffffff;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+       -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    border-color: #84bb26;
+    background-color: #84bb26;
+}
+
+#product-view .goods-detail-line {
+    line-height: 36px;
+}
+#product-view .goods-detail-line .line-left {
+    float: left;
+    line-height:42px;
+    width: 100%;
+}
+#product-view .goods-detail-line .line-right {
+    float: left;
+    width: 100%;
+}
+#product-view .goods-detail-line .line-right .current_goods {
+    color: #65AE00;
+    border: 1px solid #65AE00;
+    background: url(/skin/frontend/venedor/default/images/style/selected1.svg) right bottom no-repeat;
+}
+#product-view .goods-detail-line .line-right .tag-text {
+    display: inline-block;
+    padding: 0 10px;
+    margin-right: 6px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+#product-view .goods-detail-line .line-right .has_goods {
+    border: 1px solid #DFDFDF;
+    color: #5B5E63;
+}
+#product-view .goods-detail-line .line-right .no_goods {
+    color: #BBBBBB;
+    border: 1px solid #DFDFDF;
+    background-color: #F5F5F5;
+    cursor: default;
+    cursor: not-allowed; 
+}

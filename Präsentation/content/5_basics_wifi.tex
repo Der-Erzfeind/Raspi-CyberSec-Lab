@@ -1,0 +1,255 @@
+%\chapter{Basics of Wi-Fi}\label{ch:basics_wifi}
+%
+%This chapter explains the basics of Wi-Fi technology, needed to understand \cref{ch:testing}.
+%Insight into the history and development of Wi-Fi is given and its functionality and security mechanisms are briefly explained.
+%
+%\section{History}
+%
+%In 1985 the American Federal Communications Commission ruled several bands in the 2.4 GHz radio band to be unlicensed, meaning everyone can broadcast radio signals in these frequencies.
+%At the beginning of the 90s, this led to the development of different wireless communication protocols by multiple companies.
+%To ensure interoperability between these protocols, the IEEE 802.11 standard was created and released, and WLAN was born.
+%In 1999 the Wi-Fi Alliance (WFA) was founded to further improve compatibility, nowadays consisting of over 750 international companies. \cite[page~1-3]{Sankaran_Gulasekaran_2021}, \cite{Wikipedia_2025}
+%
+%Since its inception over 25 years ago, Wi-Fi has gone through constant development, leading to six major generations of the technology.
+%Improvements in speed, efficiency, and security have led to the technology becoming a "fundamental utility [...], that everyone [...] expects to be available everywhere" \cite[page~1]{Sankaran_Gulasekaran_2021}.
+%Wi-Fi connects billions of devices, like computers, smartphones, game consoles, or IoT devices to the internet, generating a value of around 4.9 trillion USD worldwide \cite[page~1]{Sankaran_Gulasekaran_2021}.
+%
+%Wi-Fi operates at the physical (PHY) and the medium access control (MAC) layer of the OSI model\footnote{describes the components of the internet communication protocol}, sending Ethernet frames\footnote{see \cref{ssec:wifi_basics_MAC_frames}} over radio waves in the 2.4 and 5 GHz frequency band. 
+%The MAC layer is responsible for setting rules on transmission and reception of data, connection management and power management.
+%Data sent on the MAC layer then gets converted to radio waveforms by the PHY layer, which is also responsible for converting received data back to the MAC protocol. \cite[page~4-7]{Sankaran_Gulasekaran_2021}
+%
+%\section{MAC layer}
+%Devices in the MAC layer are addressed with a MAC address, which consists of 12 hexadecimal characters and is unique for every network interface controller (NIC).
+%
+%A MAC address could look like this: \lstinline[style=inline]|61:A3:E2:73:9A:F3|.
+%
+%\subsection{Architecture}
+%
+%Commonly, Wi-Fi networks have access points (AP), which are connected to the internet via a wired ethernet connection, and stations (STA), which are provided with internet access over Wi-Fi by the AP.
+%Wi-Fi has a MAC layer, which is designed to be flexible and can be configured in the following topologies:
+%\begin{multicols}{2}
+%\begin{itemize}
+%    \item \textbf{BSS}: Basic Service Set
+%    \item \textbf{IBSS}: Independent BSS / peer-to-peer 
+%    \item \textbf{WDS}: Wireless Distribution System
+%    \item \textbf{MBSS}: Mesh BSS
+%\end{itemize}
+%\end{multicols}
+%
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=0.35\linewidth]{figures/Abbildungen/BSS.pdf}
+%    \caption{BSS Wi-Fi network configuration}
+%    \label{fig:BSS}
+%\end{figure}
+%
+%BSS describes the most common and basic configuration, where multiple STAs are connected to one AP, which has wired connection to the internet, as shown in \cref{fig:BSS}.
+%An AP's address is called the Basic Service Set Identifier (BSSID) and the networks name, visible from the outside, is called the Service Set Identifier (SSID).
+%This configuration is used for the RCSL and therefore all other configurations are less relevant for the project, but additional information can be found in \cref{ssec:A_wifi_architecture}.
+%
+%\subsection{MAC Frames}\label{ssec:wifi_basics_MAC_frames}
+%
+%\begin{figure}[h]
+%    \centering 
+%    \includegraphics[width=\linewidth]{figures/Abbildungen/MAC_Frame.pdf}
+%    \caption{MAC Frame of BSS Wi-Fi networks}
+%    \label{fig:mac_frame}
+%\end{figure}
+%
+%When data is sent over the MAC layer, it gets divided into chunks, which are called MAC Frames (see \cref{fig:mac_frame}).
+%MAC Frames have three components: the header, the body, and the frame check sequence.
+%The header contains information about the source and destination, the sequence and several control functions, which is described in detail in \cref{ssec:A_wifi_mac_frames}.
+%
+%The frame body then contains the payload, meaning the actual information to be sent.
+%Every type of MAC frame is configured a different way to suit their specific function.
+%"While data frames are meant to carry data, management frames are used for connection management and control frames [...] for triggering specific actions.
+%Control frames have a smaller MAC header and no payload data [...].
+%Management frames have a structured payload composed of some fixed length fields and one or more variable length fields called information elements (IEs)" \cite[page~12]{Sankaran_Gulasekaran_2021}
+%
+%After the frame body comes the frame control sequence (FCS), which ensures the integrity of the frame.
+%The FCS is a number calculated from the frame header and body content.
+%When the frame is compromised in traffic, the result of the FCS changes, therefore the faulty frame can be identified. \cite{GeeksforGeeks_2023} \cite[page~10-12]{Sankaran_Gulasekaran_2021}
+%
+%\subsection{Medium Access}
+%In LAN and WLAN networks, all devices share the same medium, therefore only one device at a time can transmit information.
+%Ethernet networks use full-duplex transceivers, meaning a device can transmit and receive data at the same time.
+%This allows the transceiver to transmit and simultaneously listen for collisions with other frames.
+%Collision detection is quite effective, but can not be used in Wi-Fi networks because Wi-Fi transceivers are only capable of half-duplex transmission.
+%Wi-Fi instead uses a medium access control referred to as carrier sense multiple access collision avoidance (CSMA-CA).
+%
+%When using this technique, the medium gets blocked during transmission and is freed by an acknowledgment frame, sent by the receiving device.
+%All STAs start off in the random backoff state, where they listen for traffic.
+%After the random backoff counter has expired and no traffic is present, the STA will start transmission.
+%CSMA-CA can be described by the way "humans converse in a group, where every individual would first listen to check if someone else is talking, wait for the person talking to finish, and then start talking after a brief random pause" \cite[page~12]{Sankaran_Gulasekaran_2021}. \cite{Oriyano_2017} \cite[page~12-17]{Sankaran_Gulasekaran_2021}
+%
+%For addressing a STA, its MAC address needs to be known.
+%For sharing the MAC address of a STA with all other STAs on the network, the Address Resolution Protocol (ARP) is employed, which broadcasts the STAs MAC addresses, allowing all other devices to save it.
+%
+%\subsection{Connection Establishment and Termination}
+%Before a connection can be established, the STA first needs to discover the AP it wants to connect to.
+%This can be done by either active or passive scanning of all available channels.
+%
+%During active scanning, the STA transmits a management frame, called probe requests on all channels to all SSIDs in the vicinity.
+%The APs answer with a probe response frame, which contains the AP's SSID, BSSID and its capabilities.
+%
+%Passive scanning works by the STA listening for beacon frames.
+%Beacon frames are periodically sent out by APs and also contain information on SSID, BSSID and capability. \cite[page~18]{Sankaran_Gulasekaran_2021}
+%
+%Once the desired network is discovered, the STA decides which AP to connect to, based on parameters, like the receive signal strength indicator (RSSI) or the APs capacity, performance and security.
+%The STA then sends an authentication request, which the AP gives an authentication response to.
+%If the credentials of the STA are valid and the authentication is successful, the STA proceeds to send an association request.
+%The association response, sent by the AP, then indicates if the connection was established successfully.
+%
+%To terminate a connection, either the STA or the AP can send a disassociation or deauthentication frame, "containing a reason code that specifies the reason for termination" \cite[page~20]{Sankaran_Gulasekaran_2021}. \cite[page~19]{Sankaran_Gulasekaran_2021}
+%
+%\begin{figure}[h]
+%    \centering 
+%    \includegraphics[width=0.6\textwidth]{figures/Abbildungen/Wifi_Establishment.pdf}
+%    \caption{Connection Establishment}
+%    \label{fig:connection_establishment}
+%\end{figure}
+%
+%\section{PHY layer}
+%The Wi-Fi PHY layer is based on radio frequency (RF), therefore Wi-Fi transceivers contain a transmitter and receiver circuit, as well as an antenna.
+%When sending data, MAC frames are encoded and modulated onto an RF waveform, which is then transmitted via the antenna.
+%On arrival of data, the receiver circuit decodes the data, extracts the MAC frame, and provides it to the MAC layer.
+%The first generations of Wi-Fi used to transmit in the 2.4 GHz band, but due to it being used by many other devices, such as cordless phones, computer peripherals, Bluetooth devices or microwave ovens, Wi-Fi 4 started using the 5 GHz band, in order to improve connectivity. \cite[page~5,34,35]{Sankaran_Gulasekaran_2021}
+%With every generation of Wi-Fi, the PHY layer components are modified to improve performance and efficiency, but due to the PHY layer not being majorly significant for cybersecurity, it will not be described further in this thesis.
+%
+%\section{Security}
+%
+%Through the widespread adoption of Wi-Fi technology, for example in smart homes, infrastructure, public spaces, industry, and governments, the security of Wi-Fi networks plays an ever increasing role.
+%Therefore, principles of cybersecurity need to be applied in order to guarantee that networks are safe, reliable, and performant.
+%Because of its wireless nature, "[i]t is difficult to confine the data-carrying radio waves to be within the physical security perimeter of [an] organizsation" \cite[page~103]{Sankaran_Gulasekaran_2021}, so anyone in the vicinity of a Wi-Fi network could just intercept and manipulate network traffic.
+%To ensure integrity and confidentiality, Wi-Fi two main security mechanisms, which are encryption and authentication. \cite[page~103]{Sankaran_Gulasekaran_2021}
+%
+%\textit{Note: Since this thesis is focused on private networks, the following summary of Wi-Fi security mechanisms will not include enterprise authentication protocols.}
+%    
+%\subsection{Encryption}
+%
+%The first Wi-Fi security standard, called Wired Equivalent Privacy (WEP) uses a shared key, with a RC4 stream cipher algorithm for message encryption and a 32-Bit cyclic redundancy check (CRC) as an integrity check (IC).
+%Due to several vulnerabilities of WEP, including the RC4 algorithm, a lack of authentication and no key management, the second standard, Wireless Protected Access (WPA), was developed.
+%
+%WPA still uses the RC4 cipher for compatibility reasons, but the encryption mechanism was updated, now called Temporal Key Integrity Protocol (TKIP), it uses a pairwise master key, which is generated for each STA after it has authenticated successfully.
+%TKIP also dynamically changes the encryption key for each packet, which in combination with a longer 128-Bit pre-shared key (PSK) fixed some of the weaknesses of WEP. \cite{Oriyano_2017}
+%
+%WPA2 could be considered as the first proper Wi-Fi security standard since it replaced the weak RC4 algorithm with AES-CCMP encryption.
+%AES-CCMP encrypts data blockwise and uses a combination of substitution and transposition algorithms to achieve high security.
+%WPA2 security also added protected management frames, so not only data frames, but also management frames are encrypted.
+%This helps to secure networks against DoS attacks with deassociation or deauthentication frames.
+%
+%The latest Wi-Fi security standard is WPA3, which aims to fix vulnerabilities of WPA2 and future-proof the technology.
+%Most changes for WPA3 have been made in authentication mechanisms, WPA3 added the optional support of AES-GCMP encryption, which is more performant and safer than AES-CCMP. \cite[page~103-117]{Sankaran_Gulasekaran_2021}
+%
+%
+%\subsection{Authentication}
+%
+%WEP authentication is only one-sided, where STA has to encrypt a package with the correct key, in order to complete association with the AP. 
+%The same key is used for encryption, making the whole system vulnerable when either the authentication or the encryption is exploited. 
+%
+%WPA and WPA2 networks use an authentication mechanism that is two-sided, where STA and AP exchange identity and capability.
+%After entering the correct passphrase a password-based key derivation function then generates the PSK for encryption. 
+%This works by deriving the PSK "as a function of the Wi-Fi password, SSID, and SSID length using a password-based key derivation function" \cite[page~106]{Sankaran_Gulasekaran_2021}.
+%
+%Because the PSK is transmitted during the handshake on connection establishment, PSK is potentially vulnerable to offline and dictionary attacks when a weak passphrase is used.
+%To future-proof the technology, WPA3 replaces PSK with Simultaneous Authentication of Equals (SAE).
+%SAE works by choosing an element from a finite cyclic group (e.g., a point on an elliptic curve) based on the password and performing a Diffie-Hellman exchange to generate a pairwise master key.
+%This mechanism allows authentication without the transmission of any information related to the password and is performed for every session to ensure forward security.
+%\cite{Oriyano_2017}, \cite[page~115-116]{Sankaran_Gulasekaran_2021}, \cite{SAE}
+%
+%\textit{Note: A full summary of the different security specifications of each Wi-Fi generation, can be found in \cref{tab:wifi_security}.}
+%
+{
+\section{Einführung Wi-Fi}
+
+\begin{frame}
+    \centering
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Architektur}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\columnwidth]{figures/OSImodel.png}
+            \end{figure}
+                \fontsize{4}{4}\selectfont Quelle: https://www.vrogue.co/post/osi-model-7-layers-of-osi-model-and-how-it-works-lmn-vrogue-co
+        \end{column}
+
+        \begin{column}{0.6\textwidth}
+            \small
+            \textcolor{orange}{\textbf{MAC Layer:}}
+            \\Netztopologie, Adressierung, Verbindungsaufbau, Zugriffssteuerung
+            \vspace{1.5cm}
+            \\\textcolor{red}{\textbf{PHY Layer:}}
+            \\Funkübertragung, Datenkonvertierung
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Architektur}
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+            Basic Service Set \textbf{(BSS)} Topologie
+            \\\vspace{0.5cm}
+            \includegraphics[width=.8\columnwidth]{figures/BSS.pdf}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{MAC Frame}
+            \\\vspace{0.5cm}
+            \includegraphics[width=\columnwidth]{figures/MAC_frame.pdf}
+            \\\vspace{0.5cm}
+            \renewcommand{\arraystretch}{1.6}
+            \begin{tabular}{lp{4.5cm}}
+                \textcolor[HTML]{7f7f7f}{\textbf{Header:}} & Adressierung, Management Funktionen \\
+                \textcolor[HTML]{c05030}{\textbf{Body:}} & Datenträger \\
+                \textcolor[HTML]{70ad47}{\textbf{FCS:}} & Integritätskontrolle \\
+            \end{tabular}
+
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Sicherheit}
+    \small
+    Durch die Funkübertragung werden Verschlüsselung, Authentifizierung und Integritätskontrolle benötigt um CIA zu gewährleisten. \pause
+    \\\vspace{0.5cm}
+    \centering
+    Wired Equivalent Privacy (WEP) verwendet folgende Mechanismen:
+    \\\vspace{0.4cm}
+
+    \begin{columns}
+        \begin{column}{.6\textwidth}
+           \centering
+           \textbf{Verschlüsselung}
+           \\\vspace{0.3cm}
+           \includegraphics[width=.9\columnwidth]{figures/RC4.pdf}
+           \tiny
+           \\RC4 Verschlüsselungsalgorithmus
+        \end{column}
+
+        \begin{column}{.4\textwidth}
+           \centering
+           \textbf{Authentifizierung}
+           \\\vspace{0.6cm}
+           \includegraphics[width=.9\columnwidth]{figures/wep_authentication.jpg}
+           \tiny
+           \\WEP Authentifizierungsmechanismus
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Schwachstellen von WEP}
+\begin{itemize}
+    \setlength{\itemsep}{10pt}
+  \item Schwache Verschlüsselung mit RC4-Streamcipher
+  \item Initialisierungsvektoren (IVs) nur 24 Bit lang
+  \item Verwendung des selben Key für Verschlüsselung und Authentifizierung
+  \item Schwache Integritätskontrolle mit CRC32
+\end{itemize}
+\end{frame}
+
+}

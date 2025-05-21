@@ -1,0 +1,12 @@
+
+ssh:
+
+pi@10.42.0.1
+
+password:admin
+
+
+
+ethernet:
+
+10.42.1.1

@@ -1,0 +1,206 @@
+\documentclass[
+    11pt,
+    a4paper,
+    sfdefaults=false,
+    toc=chapterentrywithdots,
+    twoside,openright,
+    titlepage,
+    parskip=half,
+    headings=normal,  % reduces heading size
+    listof=totoc,
+    bibliography=totoc,
+    index=totoc,
+    captions=tableheading,  % caption below table
+    chapterprefix,
+    listof=flat,
+    final
+]{scrbook}
+
+
+% details about your thesis
+\newcommand{\titel}{RaspberryPi CyberSec Lab: Development of a Penetration Testing Platform}
+\newcommand{\artderarbeit}{Bachelorarbeit}  % {Bachelorarbeit,Masterarbeit}
+\newcommand{\autor}{}
+\newcommand{\studiengang}{Elektro- und Informationstechnik}  %{Informatik,Wirtschaftsinformatik,Medieninformatik}
+\newcommand{\matrikelnr}{}
+\newcommand{\erstgutachter}{}
+\newcommand{\zweitgutachter}{}
+\newcommand{\logo}{figures/TH-Nuernberg-RGB.png}
+\newcommand{\keywords}{Cybersecurity, Pentesting, Embedded Development} 
+
+% custom head and foot
+\usepackage[automark]{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\ohead{\headmark}
+\chead{}
+%\ohead{\pagemark}
+\renewcommand*\chaptermarkformat{\chapappifchapterprefix{\ }% 
+  \thechapter.\enskip}
+
+\RedeclareSectionCommand[tocindent=15pt]{section}
+\RedeclareSectionCommand[tocindent=40pt]{subsection}
+%\RedeclareSectionCommand[tocnumwidth=70pt]{chapter}
+
+\usepackage{scrhack}
+
+% other packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,relsize,textcomp,csquotes}
+\usepackage{amsmath,amsfonts}
+\usepackage[english]{babel}  % flip for German thesis
+\usepackage[final]{graphicx}
+\usepackage{setspace,geometry,xcolor}
+\usepackage{makeidx}
+\usepackage{paralist,ifthen,todonotes}
+\usepackage{url}
+\usepackage[toc]{glossaries}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage{microtype}
+\usepackage{courier}
+
+% table setup
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usepackage{booktabs}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+% pdf hyperref
+\usepackage[
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+    bookmarksopenlevel=1,
+    pdftitle={\titel},
+    pdfauthor={\autor},
+    pdfcreator={\autor},
+    pdfsubject={\titel},
+    pdfkeywords={\keywords},
+    pdfpagelabels=true,
+    colorlinks=true,
+    linkcolor=red,
+    urlcolor=magenta,
+    anchorcolor=black,
+    citecolor=cyan,
+    filecolor=magenta,
+    menucolor=red,
+    plainpages=false,
+    hypertexnames=true,
+    linktocpage=true,
+]{hyperref}
+
+\usepackage{cleveref}
+
+% configure your listings style
+
+\usepackage{inconsolata}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstdefinestyle{inline}{
+  basicstyle=\fontfamily{pcr}\small\bfseries,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  breaklines=true,
+}
+
+\lstdefinestyle{block}{
+  tabsize=2,
+  extendedchars=true,
+  frame=single,
+  showstringspaces=false,
+  breaklines=true,
+  numbers=left,
+  breakautoindent=true,  % Corrected this line
+  basicstyle=\fontfamily{pcr}\fontsize{8.5}{9}\selectfont,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  numberstyle=\tiny\color{gray},
+  captionpos=b
+}
+
+% page setup
+% \setlength{\topskip}{\ht\strutbox}
+\geometry{paper=a4paper,left=2.5cm,top=3.0cm,bindingoffset=.8cm}
+\onehalfspacing
+\frenchspacing
+\clubpenalty = 10000
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+
+% some commands
+\newcommand{\ua}{\mbox{u.\,a.\ }}
+\newcommand{\zB}{\mbox{z.\,B.\ }}
+\newcommand{\dahe}{\mbox{d.\,h.,\ }}
+\newcommand{\bzw}{\mbox{bzw.\ }}
+\newcommand{\bzgl}{\mbox{bzgl.\ }}
+\newcommand{\eg}{\mbox{e.\,g.\ }}
+\newcommand{\ie}{\mbox{i.\,e.\ }}
+\newcommand{\wrt}{\mbox{w.\,r.\,t.\ }}
+\newcommand{\etal}{\mbox{\emph{et\,al.\ }}}
+
+
+% load glossary entries
+%\makenoidxglossaries
+%\loadglsentries{glossary}
+
+\begin{document}
+\thispagestyle{empty}
+\mbox{}  % Empty content for the first blank page
+
+%\newpage
+%\thispagestyle{empty}
+%\mbox{}  % Empty content
+%
+\setcounter{secnumdepth}{3}  % numerate subsections
+\setcounter{tocdepth}{2}  % ...but don't include them in toc
+
+\frontmatter
+\include{cover}\cleardoublepage
+
+% download the following form (requires VPN) and complete it (hit save in your editor)
+% https://intern.ohmportal.de/fileadmin/Public_Docs/SB/SB_0009_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf
+%\includepdf{SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_Jonas_Schmitt.pdf}\cleardoublepage
+
+
+\include{content/0_abstract}\cleardoublepage
+
+\tableofcontents
+
+\mainmatter
+\include{content/1_intro}
+\include{content/2_basics_cybersec}
+\include{content/3_basics_wifi}
+\include{content/4_documentation}
+\include{content/5_development}
+\include{content/6_testing}
+\include{content/7_discussion}
+\include{content/8_summary}
+\include{content/9_outlook}
+
+% remove if not needed
+\appendix
+\include{content/a1_supplemental}
+
+\backmatter
+\listoffigures
+\cleardoublepage
+
+\listoftables
+\cleardoublepage
+
+\renewcommand{\lstlistlistingname}{List of Listings}  % change for German thesis
+\lstlistoflistings
+\cleardoublepage
+
+\bibliographystyle{wmaainf}
+\bibliography{refs}
+
+\printnoidxglossaries
+
+\end{document}

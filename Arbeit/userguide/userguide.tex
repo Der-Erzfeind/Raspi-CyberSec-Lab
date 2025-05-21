@@ -1,0 +1,131 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{pdfpages}
+\usepackage[ngerman]{babel}
+\geometry{margin=1in}
+\setlength{\parindent}{0pt}
+\usepackage{listings}
+
+\lstdefinestyle{inline}{
+  basicstyle=\fontfamily{pcr}\small\bfseries,
+  keywordstyle=\color{cyan!75!black}\bfseries,
+  commentstyle=\color{green!75!black},
+  stringstyle=\color{orange},
+  breaklines=true,
+}
+% Title Page
+\title{\textbf{Anleitung zum Raspi-CyberSec-Lab}}
+\author{Jonas Schmitt}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vspace{7cm}
+
+\section{Allgemeine Informationen}
+Das RaspberryPI Cybersecurity Lab (RCSL) ist eine Platform zum Testen verschiedener Cyberangriffe, das Projekt ist Teil meiner Bachelorarbeit in Elektro- und Informationstechnik an der Technischen Hochschule Nürnberg.
+Es hat verschiedene Funktionen um Umgebungen zu schaffen, welche für das Ausprobieren von Angriffen aus den Bereichen Wifi Netzwerke, Webseiten / -applikationen, MQTT Kommunikation und Bluetooth ausgelegt sind.
+
+
+\section{Benutzeranleitung}
+
+Zum Einschalten des Geräts, schließen Sie das Gerät mit dem zugehörigen Netzteil an den Strom an.
+Das Gerät fährt nun hoch, wobei der Bootvorgang zu sehen ist (das RaspberryPI Logo wird angezeigt).
+Nach erfolgreichem Bootvorgang wird das Hauptmenü angezeigt.
+
+\newpage
+
+\subsection{Navigation}
+Zur Navigation wird das Drehrad, wie in folgender Abbildung beschrieben, genutzt:
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.6\textwidth]{../figures/Abbildungen/navigation.pdf}
+    \label{fig:navigation}
+\end{figure}
+
+
+Die farbige Hinterlegung zeigt an, welcher Menüpunkt aktuell ausgewählt ist. 
+Mit dem Drücken des Knopfes wird die Auswahl bestätigt und das Untermenü geöffnet, bzw die Aktion ausgeführt.
+
+Zum verlassen eines Menüs wird die Option "back" gewählt.
+
+
+\subsection{Menü Übersicht}
+
+Dem Nutzer steht der folgende Menübaum zu Verfügung:
+
+\begin{itemize}
+    \item \textbf{wifi} - Optionen zu Wifi Netzwerken
+        \begin{itemize}
+            \item \textbf{activate} - Aktivieren eines Hotspots
+                \subitem Auswahl der Netzwerkart
+            \item \textbf{deactivate} - Abschalten des aktiven Hotspots
+            \item \textbf{status} - Anzeigen der aktuellen Netzwerkeinstellungen
+            \item \textbf{change password} - Setzen eines neuen Passworts
+                \subitem Auswahl der zu änderenden Netzwerkart
+            \item \textbf{monitoring} - Einschalten und Anzeigen des Netzwerkmonitoring
+                \subitem on - Einschalten
+                \subitem off - Ausschalten
+                \subitem show log - Log anzeigen
+                \subitem delete log - Log löschen
+        \end{itemize}
+    \item \textbf{bluetooth} - Optionen zu Bluetooth
+    \item \textbf{webapp} - Optionen zu Webapplikationen
+        \begin{itemize}
+            \item \textbf{Juice Shop}
+                \subitem on - Server Einschalten
+                \subitem off - Server Ausschalten
+            \item \textbf{MQTT}
+                \subitem on - MQTT Konversation starten
+                \subitem off - MQTT Konversation beenden
+        \end{itemize}
+    \item \textbf{development} - Anpassbare Optionen für Entwickler
+    \item \textbf{power off} - Ausschalten des Geräts
+\end{itemize}
+
+%\newpage
+
+\section{Installation}
+Das Projekt wurde mit folgender Hardware umgesetzt:
+\begin{itemize}
+    \item RaspberryPI 4B mit 8GB RAM
+    \item Fenvi AX1800 USB Netzwerkkarte
+    \item Waveshare ESP32c6 Microcontroller
+    \item Waveshare 4.3 zoll LCD 
+    \item Drehgeber mit Druckknopf
+\end{itemize}
+
+Als Betriebssystem des RaspberryPI dient RaspberryPI OS in der light Version (nur Kommandozeile).
+Zum Kompilieren und Flashen des ESP32 Codes wird das ESP-IDF benötigt, dieses kann in Visual Studio Code als Erweiterung installiert werden.\\
+
+ Zuerst muss das Github \href{https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git}{Repository} des Projekts auf den RaspberryPI geklont werden, dies kann mit folgendem Kommando erfolgen:
+ \begin{verbatim}
+    git clone https://github.com/Der-Erzfeind/Raspi-CyberSec-Lab-Project.git
+ \end{verbatim}
+Es wird empfohlen das Repository in das standardmäßige Nutzerverzeichnis zu klonen.
+Folgende Aktionen müssen im Anschluss ausgeführt werden:
+
+\begin{itemize}
+    \item Kompilieren von main.cpp, encoder.cpp und mqtt.cpp
+    \item Alle Skripte ausführbar machen
+    \item Installation und Konfiguration von Mosquitto
+    \item Installation des JuiceShops (und node.js)
+    \item Einrichten des systemd services zum Ausführen von start.sh beim Start des Geräts
+    \item Kompilieren und Flashen des ESP32 Codes
+\end{itemize}
+%Nach dem Herunterladen der Projektdaten muss das Installationsskript setup.sh ausgeführt werden.
+
+\section{Entwicklung}
+Das RCSL öffnet nach dem Bootvorgang einen Hotspot, der für den Aufbau einer SSH Verbindung, wie folgend, genutzt werden kann:
+\begin{enumerate}
+    \item Mit dem Hotspot verbinden, \\SSID: RPI \\Passwort: CyberSec
+    \item SSH Verbindung aufbauen mit \lstinline[style=inline]|ssh pi@10.40.0.1| \\Passwort: admin
+\end{enumerate}
+Im Nutzerverzeichnich befinden sich die Ordner mit den Daten zum Projekt und dem Juice Shop.
+In der Datei \textit{~/Raspi-CyberSec-Lab-Project/Skripte/devMenu.sh} können die Entwicklungsfunktionen, welche im Menü "development" verfügbar sind, angepasst werden.
+
+\end{document}

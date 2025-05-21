@@ -1,0 +1,700 @@
+.pcImg{
+	margin-top: .6rem;
+}
+.g-main {
+	padding-top: .46rem;
+
+}
+
+.g-aside {
+	width: 2	rem;
+	float: left;
+}
+
+button{
+	padding: .05rem .1rem;
+	background-color: #1C71CF;
+	color: #FFFFFF;
+	border-radius: .04rem;
+	border: none;	
+	margin-left:.05rem;
+}
+.driver-main {
+	width: 9.4rem;
+	float: right;
+}
+
+.page-name {
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #333333;
+	padding-left: .1rem;
+	margin-bottom: .27rem;
+	white-space: nowrap;
+}
+
+.g-aside .list-group-item {
+	position: relative;
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #333333;
+	border: 0;
+	padding-left: .1rem;
+	margin-bottom: .27rem;
+}
+
+.g-aside .list-group-item.active,
+.g-aside .list-group-item.active:focus,
+.g-aside .list-group-item.active:hover,
+.g-aside .list-group-item:hover {
+
+	border: 0;
+	border-radius: 0;
+	font-family: PingFang SC;
+	font-weight: 400;
+	text-decoration: underline !important;
+	color: #1C71CF;
+	background-image: url(../img/driver_jian.png);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.g-aside .list-group-item:after {
+	position: absolute;
+	content: "";
+	width: 0;
+	height: 0;
+	border-left: .08rem solid transparent;
+	border-right:.08rem solid transparent;
+	border-top: .15rem solid #000000;
+	right: .1rem;
+	top: .1rem;
+	display: none;
+}
+
+.carousel-inner>.item>a>img,
+.carousel-inner>.item>img,
+.img-responsive,
+.thumbnail a>img,
+.thumbnail>img {
+	text-align: center;
+	margin: 0 auto;
+	width: auto;
+	height: auto;
+
+}
+
+.col-xs-3 {
+	width: 25%;
+	padding-right: .19rem;
+	padding-left: 0px;
+}
+
+.image-wrap-picItem img {
+	transition: transform 1s;
+	overflow: hidden;
+}
+
+.image-wrap-picItem img:hover {
+	transform: scale(1.1, 1.1);
+}
+
+.g-aside .list-group-item.active:after,
+.g-aside .list-group-item.active:focus:after,
+.g-aside .list-group-item.active:hover:after,
+.g-aside .list-group-item:hover::after {
+	background-image: url(../img/driver_jian.png);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.driver-main .form-title {
+	font-size: .18rem;
+	font-weight: bold;
+}
+
+.driver-item {
+	width: 100%;
+	height:2.88rem;
+	position: relative;
+	padding: 0;
+	cursor: pointer;
+	background: #FFFFFF;
+	border: 1px solid #D1D1D1;
+	text-align: center;
+	margin-bottom: .2rem;
+}
+
+.col-lg-3 {
+	padding-right: .19rem;
+	padding-left: 0px;
+}
+
+.driver-item:hover .picItem-title {
+	text-decoration: underline;
+	color: #1C71CF;
+
+}
+
+.image-wrap-picItem {
+	width: auto;
+	height: auto;
+	padding-top: .12rem;
+	padding-bottom: .4rem ;
+}
+
+.picItem-title {
+	border: 0;
+	position: absolute;
+	bottom: .21rem;
+	text-align: center;
+	display: block;
+	width: 100%;
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #000000;
+}
+
+.driver-list {
+	margin-top:.48rem;
+	margin-bottom: .2rem;
+}
+
+.driver_head {
+	width: 100%;
+	height: .48rem;
+	background: #3C3C3C;
+	line-height: .48rem;
+	display: flex;
+	justify-content: space-between;
+	z-index: 999;
+	padding-left: .17rem;
+	padding-right: .17rem;
+}
+
+.driver_head img {
+	margin-top: .04rem;
+	width: .18rem;
+	height: .18rem;
+	margin-right: .05rem;
+}
+
+.driver-download {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 2.88rem;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 11;
+	color: #ffffff;
+}
+
+.driver-download .close-btn {
+	position: absolute;
+	top: .1rem;
+	right: .1rem;
+	z-index: 99;
+	color: #ffffff;
+}
+
+.driver-download-bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+}
+
+.driver-download-con {
+	height: 100%;
+	background-color: rgba(20, 121, 215, 0.9);
+	z-index: 9;
+}
+
+.driver-download-title {
+
+	font-size: .18rem;
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #FFFFFF;
+	/* padding-left: 10px; */
+	/* padding-right: 10px; */
+
+}
+
+.driver-download-list {
+	width: 100%;
+	position: relative;
+	height: calc(100% - .48rem);
+	background: #FAFAFA;
+	overflow: auto;
+}
+
+.driver-download-list li {
+	width: 100%;
+	padding-left: .17rem;
+	padding-right: .17rem;
+	height: .48rem;
+	line-height: .48rem;
+	margin-bottom: 0;
+	display: block;
+	display: flex;
+	justify-content: space-between;
+	background-image: url(../img/driver_cloud.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	background-position-x: 1.7rem;
+
+}
+
+.driver-download-list li:hover {
+	background-color: #1C71CF;
+	background-image: url(../img/driver_cloud_act.png);
+}
+
+.driver-download-list li:hover a {
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+
+.driver-download-list li img {
+	width: .25rem;
+	height: .18rem;
+	margin-top: .16rem;
+}
+
+.driver-download-list li a {
+	font-size:.18rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #333333;
+}
+
+.driver-download-list a {
+	width: 100%;
+	display: block;
+	color: #ffffff;
+	font-size: .18rem;
+	text-decoration: underline;
+	text-align: left;
+}
+
+/* .driver-item.active .driver-download{
+	display: block;
+} */
+.form-search .form-control {
+	width: 6rem;
+	height: .42rem;
+	background: #FFFFFF;
+	border: 1px solid #D1D1D1;
+	border-radius: .21rem;
+	font-size: .16rem;
+	font-family: PingFang SC;
+	font-weight: 400;
+	color: #333333;
+	background-image: url(../img/driver_search.png);
+	background-size: .18rem .18rem;
+	background-repeat: no-repeat;
+	background-position: .3rem;
+	padding-left: .57rem;
+}
+
+.form-search span {
+	margin-left:.25rem;
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #1C71CF;
+}
+
+.form-search .btn-primary {
+	background-color: #1479d7;
+	border-color: #1479d7;
+	padding-left: .68rem;
+	padding-right: .68rem;
+	border-radius: .34rem;
+	font-size: .18rem;
+	padding-top: .04rem;
+	padding-bottom: .04rem;
+}
+
+#page {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.layui-laypage {
+	margin: 0 auto;
+
+}
+
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+	background-color: #1C71CF;
+	border-radius: .08rem;
+
+
+}
+
+.layui-laypage a,
+.layui-laypage span {
+	width: 0.38rem;
+	height: 0.38rem;
+	line-height: 0.38rem;
+	text-align: center;
+	border-radius: .08rem;
+	padding: 0px;
+	margin: 0px .06rem;
+	font-size: .18rem;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #333333;
+	background: #ECECEC;
+}
+
+.layui-laypage>:first-child {
+	border-radius: .08rem !important;
+}
+
+.layui-laypage>:first-child>img {
+	width: 0.22rem;;
+	height: 0.22rem;
+	color: #333333;
+}
+
+.layui-laypage>:last-child>img {
+	width: 0.22rem;;
+	height: 0.22rem;
+	color: #333333;
+}
+
+.layui-laypage>:last-child {
+	border-radius: .08rem !important;
+}
+
+.driver_active {
+
+	text-decoration: underline !important;
+	color: #1C71CF !important;
+	background-image: url(../img/driver_jian.png);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+a.list-group-item:focus,
+a.list-group-item:hover,
+button.list-group-item:focus,
+button.list-group-item:hover {
+	color: #555;
+	text-decoration: none;
+	background-color: #FFFFFF;
+}
+
+
+@media all and (min-width: 320px) and (max-width: 750px) {
+	.g-aside {
+		width: 100%;
+
+	}
+	button{
+		padding: 3px;
+		max-height: 30px;
+		margin-left: 5px;
+	}
+	.col-lg-3 {
+		padding-right:0px;
+		padding-left: 0px;
+	}
+	.page-name {
+		font-size: 14px;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: #333333;
+		text-align: center;
+		padding-left: 0px;
+		margin-bottom: 25px;
+	}
+
+	.form-inline {
+		width: 100%;
+		display: flex;
+		justify-content: left;
+		position: absolute;
+		top: 286px;
+	}
+
+	.driver-main {
+		width: 100%;
+
+	}
+
+	.form-search .form-control {
+		width: 280px;
+		height: 33px;
+		background: #FFFFFF;
+		border: 1px solid #D1D1D1;
+		border-radius: 21px;
+		font-size: 12px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #333333;
+		background-image: url(../img/driver_search.png);
+		background-size: 12px 12px;
+		background-repeat: no-repeat;
+		background-position: 18px;
+		padding-left: 40px;
+	}
+
+	.list-group {
+		margin-top: 65px;
+		margin-bottom: 10px;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.form-search span {
+		margin-left: 15px;
+		font-size: 14px;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: #1C71CF;
+		margin-top: 5px;
+	}
+
+	.g-main {
+		padding-top: 25px;
+	}
+
+	.g-aside .list-group-item {
+		position: relative;
+		font-size: 14px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #000000;
+		border: 0;
+		padding-left: 10px;
+		margin-bottom: 0px;
+		padding-right: 15px;
+		margin-right: 14px;
+	}
+
+	.driver_active {
+		text-decoration: underline !important;
+		color: #1C71CF !important;
+		background-image: url(../img/move/jian_bottom.png) !important;
+		background-size: 9px 5px;
+		background-repeat: no-repeat;
+
+	}
+
+	.driver-list {
+		margin-top: 0px;
+		margin-bottom: 20px;
+		display: flex;
+	}
+
+	.driver-item {
+		height: 207px;
+		position: relative;
+		padding: 0;
+		cursor: pointer;
+		background: #FFFFFF;
+		border: 1px solid #D1D1D1;
+		text-align: center;
+		margin-bottom: -4px;
+	}
+
+	.driver-list .col-xs-6 {
+		width: 48%;
+		float: left;
+	}
+
+	.driver-list .col-xs-6:nth-child(2n+0) {
+		margin-left: 13px;
+	}
+
+	.carousel-inner>.item>a>img,
+	.carousel-inner>.item>img,
+	.img-responsive,
+	.thumbnail a>img,
+	.thumbnail>img {
+		text-align: center;
+		margin: 0 auto;
+		width: 62px;
+		height: 98px;
+		margin-top: 29px;
+
+	}
+
+	.image-wrap-picItem {
+		width: auto;
+		height: auto;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+
+	.picItem-title {
+		border: 0;
+		position: absolute;
+		bottom: 26px;
+		text-align: center;
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #000000;
+	}
+
+	.driver-download-bg {
+		position: absolute;
+		width: 100%;
+		height: 207px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+	}
+
+	.driver-download-list {
+		width: 100%;
+		position: relative;
+		height: calc(207px - 35px);
+		background: #FAFAFA;
+		border: 1px solid #D1D1D1;
+	}
+
+	.driver_head {
+		width: 100%;
+		height: 35px;
+		background: #3C3C3C;
+		line-height: 35px;
+		display: flex;
+		justify-content: space-between;
+		z-index: 999;
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+
+	.driver-download-title {
+		font-size: 13px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #FFFFFF;
+		/* padding-left: 10px; */
+		/* padding-right: 10px; */
+	}
+
+	.driver_head img {
+		margin-top: -4px;
+		width: 13px;
+		height: 13px;
+
+	}
+
+	.driver-download-list li {
+		width: 100%;
+		padding-left: 12px;
+		padding-right: 12px;
+		height: 35px;
+		line-height: 35px;
+		margin-bottom: 0;
+		display: block;
+		display: flex;
+		justify-content: space-between;
+		background-image: url(../img/driver_cloud.png);
+		background-repeat: no-repeat;
+		background-position: right;
+		background-position-x: 133px;
+		background-size: 18px 13px;
+	}
+
+	.driver-download-list li a {
+		font-size: 13px;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: #333333;
+	}
+
+	.driver-download-con {
+		height: auto;
+		background: none;
+		z-index: 9;
+	}
+
+	#page {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 39px;
+		margin-top: 52px;
+	}
+
+	.layui-laypage>:first-child {
+		border-radius: 4px !important;
+	}
+
+	.layui-laypage a,
+	.layui-laypage span {
+		width: 26px;
+		height: 26px;
+		line-height: 26px;
+		text-align: center;
+		border-radius: 4px;
+		padding: 0px;
+		margin: 0px 7px;
+		font-size: 12px;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: #333333;
+		background: #ECECEC;
+	}
+
+	.layui-laypage>:first-child>img {
+		width: 21px;
+		height: 18px;
+		color: #333333;
+	}
+
+	.layui-laypage>:last-child>img {
+		width: 21px;
+		height: 18px;
+		color: #333333;
+	}
+
+	.driver-download {
+		display: none;
+		position: absolute;
+		width: 100%;
+		height: 207px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 11;
+		color: #ffffff;
+	}
+
+	.driver-download-list li:hover {
+		background: #FAFAFA;
+		background-image: url(../img/driver_cloud.png);
+		background-repeat: no-repeat;
+		background-position: right;
+		background-position-x: 133px;
+		background-size: 18px 13px;
+	}
+}
